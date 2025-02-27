@@ -1,7 +1,7 @@
 <template>
-  <FooterLayout class="FooterLayout">
+  <footer class="footer-layout">
     <p>&copy; 2025 Mi Plataforma de Inversiones. Todos los derechos reservados.</p>
-  </FooterLayout>
+  </footer>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-.FooterLayout {
+.footer-layout {
   background-color: #333;
   color: #fff;
   text-align: center;

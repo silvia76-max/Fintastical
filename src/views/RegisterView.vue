@@ -1,7 +1,6 @@
 <template>
-  <div class="register-view">
-    <h1>Vista de Registro</h1>
-    <!-- Se utiliza el componente de registro reutilizable -->
+  <div>
+    <h1>Registro</h1>
     <RegisterForm />
   </div>
 </template>
@@ -11,13 +10,8 @@ import RegisterForm from '@/components/auth/RegisterForm.vue';
 
 export default {
   name: 'RegisterView',
-  components: { RegisterForm }
+  components: {
+    RegisterForm, // Asegurar que está correctamente importado
+  }
 };
 </script>
-
-<style scoped>
-.register-view {
-  padding: 20px;
-  text-align: center;
-}
-</style>

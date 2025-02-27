@@ -10,6 +10,7 @@ import AlertsView from '@/views/AlertsView.vue';
 import NewsView from '@/views/NewsView.vue';
 import ArticleView from '@/views/ArticleView.vue';
 import ProfileView from '@/views/ProfileView.vue';
+import NotFoundView from '@/views/NotFoundView.vue'; // Componente para la página 404
 
 const routes = [
   {
@@ -34,7 +35,11 @@ const routes = [
       { path: 'login', name: 'login', component: LoginView },
     ]
   },
-  { path: '/:pathMatch(.*)*', name: 'not-found', component: DashboardView },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: NotFoundView  // Página 404 personalizada
+  },
 ];
 
 const router = createRouter({

@@ -1,14 +1,17 @@
 <template>
-  <HeaderLayout class="HeaderLayout">
+  <header class="header-layout">
     <div class="logo">MiPlataforma</div>
-    <nav>
-      <ul>
-        <li><router-link to="/dashboard">Dashboard</router-link></li>
-        <li><router-link to="/investments">Inversiones</router-link></li>
-        <li><router-link to="/blog">Blog</router-link></li>
-      </ul>
-    </nav>
-  </HeaderLayout>
+    <ul>
+      <li><router-link to="/dashboard">Dashboard</router-link></li>
+      <li><router-link to="/investments">Inversiones</router-link></li>
+      <li><router-link to="/charts">Gráficos</router-link></li>
+      <li><router-link to="/alerts">Alertas</router-link></li>
+      <li><router-link to="/blog">Blog</router-link></li>
+      <li><router-link to="/profile">Perfil</router-link></li>
+      <li><router-link to="/auth/login">Login</router-link></li>
+      <li><router-link to="/auth/register">Registro</router-link></li>
+    </ul>
+  </header>
 </template>
 
 <script>
@@ -18,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-.HeaderLayout {
+.header-layout {
   display: flex;
   align-items: center;
   justify-content: space-between;

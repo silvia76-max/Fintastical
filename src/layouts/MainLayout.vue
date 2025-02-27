@@ -1,32 +1,20 @@
 <template>
-  <div class="main-layout">
-    <HeaderLayout />
-    <SidebarLayout />
-    <main>
-      <router-view />
-    </main>
-    <FooterLayout />
+  <div>
+    <HeaderLayout /> <!-- El encabezado -->
+    <router-view />   <!-- Aquí se cargarán las vistas hijas de MainLayout -->
+    <FooterLayout />  <!-- El pie de página -->
   </div>
 </template>
 
 <script>
-import HeaderLayout from '@/components/layout/HeaderLayout.vue'
-import SidebarLayout from '@/components/layout/SidebarLayout.vue'
-import FooterLayout from '@/components/layout/FooterLayout.vue'
+import HeaderLayout from '@/components/layout/HeaderLayout.vue';
+import FooterLayout from '@/components/layout/FooterLayout.vue';
 
 export default {
   name: 'MainLayout',
-  components: { HeaderLayout, SidebarLayout, FooterLayout },
-}
+  components: {
+    HeaderLayout,
+    FooterLayout,
+  },
+};
 </script>
-
-<style scoped>
-.main-layout {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-}
-main {
-  padding: 20px;
-}
-</style>
