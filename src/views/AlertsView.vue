@@ -7,8 +7,8 @@
 
 <script>
 export default {
-  name: 'AlertsView'
-};
+  name: 'AlertsView',
+}
 </script>
 
 <style scoped>

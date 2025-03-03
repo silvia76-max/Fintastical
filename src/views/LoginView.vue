@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import LoginForm from '@/components/auth/LoginForm.vue';
+import LoginForm from '@/components/auth/LoginForm.vue'
 
 export default {
   name: 'LoginView',
-  components: { LoginForm }
-};
+  components: { LoginForm },
+}
 </script>
 
 <style scoped>

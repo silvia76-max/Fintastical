@@ -7,8 +7,8 @@
 
 <script>
 export default {
-  name: 'ChartsView'
-};
+  name: 'ChartsView',
+}
 </script>
 
 <style scoped>

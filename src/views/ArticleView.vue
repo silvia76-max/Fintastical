@@ -7,8 +7,8 @@
 
 <script>
 export default {
-  name: 'ArticleView'
-};
+  name: 'ArticleView',
+}
 </script>
 
 <style scoped>

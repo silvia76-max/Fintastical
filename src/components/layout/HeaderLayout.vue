@@ -1,22 +1,35 @@
 <template>
   <header class="header-layout">
     <div class="logo">MiPlataforma</div>
-    <ul>
-      <li><router-link to="/dashboard">Dashboard</router-link></li>
-      <li><router-link to="/investments">Inversiones</router-link></li>
-      <li><router-link to="/charts">Gráficos</router-link></li>
-      <li><router-link to="/alerts">Alertas</router-link></li>
-      <li><router-link to="/blog">Blog</router-link></li>
-      <li><router-link to="/profile">Perfil</router-link></li>
-      <li><router-link to="/auth/login">Login</router-link></li>
-      <li><router-link to="/auth/register">Registro</router-link></li>
-    </ul>
+    <nav>
+      <ul>
+        <li><router-link to="/dashboard">Dashboard</router-link></li>
+        <li><router-link to="/investments">Inversiones</router-link></li>
+        <li><router-link to="/charts">Gráficos</router-link></li>
+        <li><router-link to="/alerts">Alertas</router-link></li>
+        <li><router-link to="/blog">Blog</router-link></li>
+        <li v-if="isAuthenticated"><router-link to="/auth/profile">Perfil</router-link></li>
+        <li v-if="!isAuthenticated"><router-link to="/auth/login">Login</router-link></li>
+        <li v-if="!isAuthenticated"><router-link to="/auth/register">Registro</router-link></li>
+        <li v-if="isAuthenticated"><a href="#" @click.prevent="logout">Logout</a></li>
+      </ul>
+    </nav>
   </header>
 </template>
 
-<script>
-export default {
-  name: 'HeaderLayout',
+<script setup>
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+import { computed } from "vue";
+
+const auth = useAuthStore()
+const router = useRouter()
+
+const isAuthenticated = computed(() => auth.isAuthenticated)
+
+const logout = () => {
+  auth.logout()
+  router.push('/')
 }
 </script>
 

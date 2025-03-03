@@ -1,0 +1,188 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Juan Pérez Galdós",
+      "email": "juan@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "89b4",
+      "name": "Ana López",
+      "email": "ana@example.com",
+      "password": "securepass"
+    },
+    {
+      "id": "890c",
+      "name": "Ana López",
+      "email": "ana@example.com",
+      "password": "securepass"
+    },
+    {
+      "id": "f663",
+      "name": "Ana López",
+      "email": "ana@example.com",
+      "password": "securepass"
+    },
+    {
+      "id": "6c04",
+      "name": "Ana López",
+      "email": "ana@example.com",
+      "password": "securepass"
+    },
+    {
+      "id": "d04e",
+      "name": "Ana López",
+      "email": "ana@example.com",
+      "password": "securepass"
+    },
+    {
+      "id": "87a0",
+      "name": "maham",
+      "email": "maham@gmail.com",
+      "password": "bilawal12"
+    },
+    {
+      "id": "435c",
+      "name": "pepa flores",
+      "email": "pepaflores@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "17ec",
+      "name": "pepe perez",
+      "email": "pepe@example.com",
+      "password": "123"
+    },
+    {
+      "id": "f02c",
+      "name": "aleeza",
+      "email": "aleeza@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "92bb",
+      "name": "Ana López",
+      "email": "Andres@example.com",
+      "password": "111111"
+    },
+    {
+      "id": "8466",
+      "name": "Ana López",
+      "email": "Andres@example.com",
+      "password": "111111"
+    },
+    {
+      "id": "9504",
+      "name": "Ana López",
+      "email": "aleeza@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "93e9",
+      "name": "Ana López",
+      "email": "aleeza@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "2d03",
+      "name": "Ana López",
+      "email": "maham@gmail.com",
+      "password": "bilawal12"
+    },
+    {
+      "id": "4f91",
+      "name": "Ana López",
+      "email": "anaperez@example.com",
+      "password": "000000"
+    },
+    {
+      "id": "a169",
+      "name": "Ana López",
+      "email": "lucas@example.com",
+      "password": "123321"
+    },
+    {
+      "id": "e149",
+      "name": "Ana López",
+      "email": "Andres@example.com",
+      "password": "111111"
+    },
+    {
+      "id": "6fb9",
+      "name": "Ana López",
+      "email": "test@test",
+      "password": "123456"
+    },
+    {
+      "id": "abd4",
+      "name": "Kuki Kukish",
+      "email": "kuki@kuki.com",
+      "password": "1234"
+    },
+    {
+      "id": "3ec0",
+      "name": "Ana López",
+      "email": "laszlo@gmail.com",
+      "password": "jojojo"
+    }
+  ],
+  "dashboard": [
+    {
+      "id": "1",
+      "userId": 1,
+      "type": "income",
+      "amount": 1500,
+      "description": "Salario",
+      "date": "2025-02-26"
+    },
+    {
+      "id": "2",
+      "userId": 1,
+      "type": "expense",
+      "amount": 200,
+      "description": "Supermercado",
+      "date": "2025-02-25"
+    },
+    {
+      "id": "e43a",
+      "userId": 1,
+      "type": "expense",
+      "amount": 50,
+      "description": "Café",
+      "date": "2025-02-26"
+    },
+    {
+      "id": "1b3f",
+      "userId": 1,
+      "type": "expense",
+      "amount": 50,
+      "description": "Café",
+      "date": "2025-02-26"
+    },
+    {
+      "id": "a00b",
+      "userId": 1,
+      "type": "expense",
+      "amount": 50,
+      "description": "Café",
+      "date": "2025-02-26"
+    },
+    {
+      "id": "da82",
+      "userId": null,
+      "type": "income",
+      "amount": 1e+71,
+      "description": "trabajando mucho",
+      "date": "2025-02-26"
+    },
+    {
+      "id": "1da5",
+      "userId": null,
+      "type": "income",
+      "amount": 52321233,
+      "description": "millonaria",
+      "date": "2025-02-26"
+    }
+  ]
+}
