@@ -8,8 +8,8 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   const isAuthenticated = ref(false)
 
-  // Cargar el estado del usuario desde localStorage
-  const storedUser = localStorage.getItem('user')
+  // Cargar el estado del usuario desde sessionStorage
+  const storedUser = sessionStorage.getItem('user')
   if (storedUser) {
     try {
       const parsedUser = JSON.parse(storedUser)
@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', () => {
       if (userData && userData.password === password) {
         user.value = userData
         isAuthenticated.value = true
-        localStorage.setItem('user', JSON.stringify(userData))
+        sessionStorage.setItem('user', JSON.stringify(userData))
         return true
       }
       return false
@@ -58,7 +58,7 @@ export const useAuthStore = defineStore('auth', () => {
       await postData('http://localhost:3000/users', newUser)
       user.value = newUser
       isAuthenticated.value = true
-      localStorage.setItem('user', JSON.stringify(newUser))
+      sessionStorage.setItem('user', JSON.stringify(newUser))
       return true
     } catch (error) {
       console.error('Error de registro:', error)
@@ -72,7 +72,7 @@ export const useAuthStore = defineStore('auth', () => {
       const { putData } = useApi()
       const response = await putData(`http://localhost:3000/users/${updatedUser.id}`, updatedUser)
       user.value = response.data
-      localStorage.setItem('user', JSON.stringify(response.data))
+      sessionStorage.setItem('user', JSON.stringify(response.data))
       return true
     } catch (error) {
       console.error('Error al actualizar el perfil:', error)
@@ -83,7 +83,7 @@ export const useAuthStore = defineStore('auth', () => {
   function logout() {
     user.value = null
     isAuthenticated.value = false
-    localStorage.removeItem('user')
+    sessionStorage.removeItem('user')
   }
 
   // Exponemos lo que queremos que otros usen
