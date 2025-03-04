@@ -1,20 +1,22 @@
 <template>
   <div>
     <h1>Tu Tablero Personal 📊</h1>
-    <p v-if="loading">Cargando datos importantes...</p>
+    <LoaderComp v-if="loading" />
     <div v-else-if="error">{{ error }}</div>
     <div v-else-if="data">
-      <p>Mensajes: {{ data.messages }}</p>
-      <p>Tareas: {{ data.tasks }}</p>
+      <p>Tipo: {{ data.type }}</p>
+      <p>Cantidad: {{ data.amount }}</p>
     </div>
-    <LoaderComp v-if="loading" />
+    <UserStats />
   </div>
+
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import { useApi } from '@/composables/useApi'
-import LoaderComp from '@/components/LoaderComp.vue'
+import { onMounted } from 'vue';
+import { useApi } from '@/composables/useApi.js';
+import LoaderComp from '@/components/LoaderComp.vue';
+import UserStats from '@/components/dashboard/UserStats.vue';
 
 const { data, loading, error, fetchData } = useApi()
 
