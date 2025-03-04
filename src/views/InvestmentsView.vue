@@ -5,10 +5,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'InvestmentsView',
-}
+<script setup>
+/* import { ref } from 'vue'
+
+ const investments = ref([]) */
+
+// Funciones y lógica del componente
 </script>
 
 <style scoped>
