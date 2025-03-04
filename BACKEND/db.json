@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "1",
-      "name": "Juan Pérez Galdós",
+      "name": "Pepito Pérez",
       "email": "juan@example.com",
       "password": "123456"
     },
@@ -125,6 +125,12 @@
       "name": "Ana López",
       "email": "laszlo@gmail.com",
       "password": "jojojo"
+    },
+    {
+      "id": "6d30",
+      "name": "Tototitifdsa",
+      "email": "erika1@gmail.com",
+      "password": "1234"
     }
   ],
   "dashboard": [

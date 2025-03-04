@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="handleRegister">
-    <input type="text" v-model="name" placeholder="Nombre">
+    <input type="name" v-model="name" placeholder="Nombre">
     <input type="email" v-model="email" placeholder="Email">
     <input type="password" v-model="password" placeholder="Contraseña">
     <button type="submit">Registrarse</button>

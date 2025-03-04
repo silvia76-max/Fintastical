@@ -30,7 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   // Función para registro
-  async function register(email, password) {
+  async function register(name, email, password) {
     try {
       const { fetchData, postData } = useApi()
       const response = await fetchData(`http://localhost:3000/users?email=${email}`)
@@ -38,7 +38,7 @@ export const useAuthStore = defineStore('auth', () => {
         throw new Error('El usuario ya existe')
       }
 
-      const newUser = { email, password }
+      const newUser = { name, email, password }
       await postData('http://localhost:3000/users', newUser)
       user.value = newUser
       isAuthenticated.value = true
