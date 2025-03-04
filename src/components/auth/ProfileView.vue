@@ -51,8 +51,8 @@ watch(user, (newUser) => {
 
 const handleUpdateProfile = async () => {
   error.value = null
-  if (!user.value) {
-    error.value = 'No estás autenticado'
+  if (!user.value || !user.value.id) {
+    error.value = 'No estás autenticado o falta el ID del usuario'
     return
   }
   const updatedUser = {

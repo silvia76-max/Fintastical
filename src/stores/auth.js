@@ -8,6 +8,22 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   const isAuthenticated = ref(false)
 
+  // Cargar el estado del usuario desde localStorage
+  const storedUser = localStorage.getItem('user')
+  if (storedUser) {
+    try {
+      const parsedUser = JSON.parse(storedUser)
+      if (parsedUser && parsedUser.id) {
+        user.value = parsedUser
+        isAuthenticated.value = true
+      } else {
+        console.error('El usuario almacenado no tiene un ID válido:', parsedUser)
+      }
+    } catch (error) {
+      console.error('Error al parsear el usuario almacenado:', error)
+    }
+  }
+
   // Función para login
   async function login(email, password) {
     try {

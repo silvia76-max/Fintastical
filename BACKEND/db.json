@@ -128,9 +128,27 @@
     },
     {
       "id": "6d30",
-      "name": "Tototitifdsa",
+      "name": "Érika",
       "email": "erika1@gmail.com",
       "password": "1234"
+    },
+    {
+      "id": "d810",
+      "name": "Gaizka",
+      "email": "gaizka@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "416d",
+      "name": "HelloWorld",
+      "email": "hola@hola.com",
+      "password": "hola"
+    },
+    {
+      "id": "d5a7",
+      "name": "Gugu",
+      "email": "gugu@gmail.com",
+      "password": "gugu"
     }
   ],
   "dashboard": [
