@@ -17,7 +17,7 @@ import { computed, onMounted } from 'vue';
 import { useApi } from '@/composables/useApi.js';
 import LoaderComp from '@/components/LoaderComp.vue';
 
-const accessKey = 'f242c5c2790962da6e2bf60d46d28616'; // Replace with your actual access key
+const accessKey = '61ec63e127f349babba338d5057eebc2'; // Replace with your actual access key
 const url = `http://api.marketstack.com/v1/exchanges?access_key=${accessKey}`;
 
 // Use the composable
