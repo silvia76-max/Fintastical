@@ -273,7 +273,7 @@ onMounted(fetchData);
 
 /* Formularios */
 .asset-form {
-  background: #f8f9fa;
+  background: #d9f2ff;
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 30px;
@@ -281,7 +281,7 @@ onMounted(fetchData);
 }
 
 .asset-form input {
-  width: 100%;
+  width: calc(100% - 26px);
   padding: 12px;
   margin: 10px 0;
   border: 1px solid #ddd;
@@ -493,7 +493,7 @@ onMounted(fetchData);
 }
 
 .input-field {
-  width: 100%;
+  width: calc(100% - 35px);
   padding: 12px 16px;
   border: 2px solid #e2e8f0;
   border-radius: 10px;
