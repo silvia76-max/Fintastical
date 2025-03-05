@@ -1,28 +1,13 @@
 <template>
   <h1>Perfil del Usuario</h1>
   <div class="profile-view" v-if="isAuthenticated">
-    <p>Información y configuración del perfil.</p>
-
     <div class="profile-data">
       <h1>Hola {{ user.name }}!</h1>
-      <p>Tus datos:</p>
       <ul>
         <li>Email: {{ user.email }}</li>
         <li>ID: {{ user.id }}</li>
       </ul>
     </div>
-
-    <h2>Alertas Recientes</h2>
-    <div class="alert-container" v-if="userAlerts.length > 0">
-      <div class="alert-card" v-for="alert in userAlerts" :key="alert.date">
-        <p class="alert-date">{{ alert.date }}</p>
-        <p class="alert-code">{{ alert.code }}</p>
-        <p class="alert-type" :class="`type-${alert.type_alert}`">
-          {{ capitalizeFirstLetter(alert.type_alert) }} Alert
-        </p>
-      </div>
-    </div>
-    <p v-else class="no-alerts">No hay alertas registradas</p>
 
     <h2>Actualizar Perfil</h2>
     <form @submit.prevent="handleUpdateProfile">
@@ -47,6 +32,10 @@
       <button type="submit" class="update-btn">Actualizar</button>
       <p v-if="error" class="error">{{ error }}</p>
     </form>
+
+    <router-link to="/investments" class="investments-link">
+      Gestionar mis inversiones →
+    </router-link>
   </div>
 
   <div v-else>
@@ -58,139 +47,67 @@
 <script setup>
 import { ref, watch, computed } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { useApi } from '@/composables/useApi';
 
 const auth = useAuthStore();
 const user = computed(() => auth.user);
 const isAuthenticated = computed(() => auth.isAuthenticated);
-
-// Almacena la instancia completa del composable (no solo 'data')
-const dashboardApi = useApi();
-const userAlerts = ref([]);
 
 const name = ref('');
 const email = ref('');
 const password = ref('');
 const error = ref(null);
 
-const fetchUserAlerts = async () => {
-  if (user.value.id) {
-    try {
-      await dashboardApi.fetchData('/dashboard');
-      // Acceder al valor del ref usando .value
-      const dashboardsArray = dashboardApi.data.value.dashboard;
-      // Validar que dashboardsArray exista
-      if (!dashboardsArray) {
-        throw new Error('No se encontró el array de dashboard');
-      }
-      // Buscar el dashboard del usuario
-      const userDashboard = dashboardsArray.find(
-        item => item.id === user.value.id
-      );
-      // Asignar las alertas
-      userAlerts.value = userDashboard?.alert_history || [];
-    } catch (err) {
-      console.error('Error fetching alerts:', err);
-    }
+watch(user, (newUser) => {
+  if (newUser) {
+    name.value = newUser.name || '';
+    email.value = newUser.email || '';
+    password.value = '';
   }
-};
-
-// Observador para cargar las alertas cuando el usuario cambie
-watch(
-  () => user.value,
-  async (newUser) => {
-    if (newUser) {
-      name.value = newUser.name || '';
-      email.value = newUser.email || '';
-      password.value = newUser.password || '';
-      await fetchUserAlerts();
-    }
-  },
-  { immediate: true }
-);
-
-const capitalizeFirstLetter = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
+}, { immediate: true });
 
 const handleUpdateProfile = async () => {
   error.value = null;
-  if (!user.value || !user.value.id) {
-    error.value = 'No estás autenticado o falta el ID del usuario';
+  if (!user.value?.id) {
+    error.value = 'Usuario no autenticado';
     return;
   }
+
   const updatedUser = {
     id: user.value.id,
     name: name.value,
     email: email.value,
-    password: password.value,
+    password: password.value || undefined,
   };
+
   const success = await auth.updateProfile(updatedUser);
-  if (!success) {
-    error.value = 'Error al actualizar el perfil';
-  }
+  if (!success) error.value = 'Error al actualizar';
 };
 </script>
 
 <style scoped>
 .profile-view {
-  padding: 20px;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
+  padding: 20px;
 }
 
 .profile-data {
   background: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-.alert-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
-  margin: 20px 0;
+.investments-link {
+  display: block;
+  margin-top: 30px;
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: 500;
 }
 
-.alert-card {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-}
-
-.alert-card:hover {
-  transform: translateY(-3px);
-}
-
-.alert-date {
-  font-size: 0.9em;
-  color: #6c757d;
-  margin-bottom: 10px;
-}
-
-.alert-code {
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.alert-type {
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 0.8em;
-  text-transform: capitalize;
-}
-
-.type-up {
-  background: #d4edda;
-  color: #155724;
-}
-
-.type-down {
-  background: #fff3cd;
-  color: #856404;
+.investments-link:hover {
+  text-decoration: underline;
 }
 
 .input-field {
