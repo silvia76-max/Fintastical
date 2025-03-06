@@ -42,7 +42,11 @@ const routes = [
       { path: 'terms-conditions', name: 'terms-conditions', component: TermsConditions },
       { path: 'general-risk-disclosure', name: 'general-risk-disclosure', component: GeneralRiskDisclosure },
       { path: 'key-information-documents', name: 'key-information-documents', component: KeyInformationDocuments },
-      { path: 'contact', name: 'contact', component: ContactForm },
+      {
+         path: '/contact',
+         name: 'contact',
+         component: ContactForm
+        },
     ]
   },
   {

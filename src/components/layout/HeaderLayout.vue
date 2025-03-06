@@ -8,8 +8,8 @@
         <li><router-link to="/charts">Gráficos</router-link></li>
         <li><router-link to="/alerts">Alertas</router-link></li>
         <li><router-link to="/blog">Blog</router-link></li>
-        <li><router-link to="/ContactForm">Contacto</router-link></li>
-        
+        <li><router-link to="/contact">Contacto</router-link></li>
+
         <li v-if="isAuthenticated"><router-link to="/auth/profile">Perfil</router-link></li>
         <li v-if="!isAuthenticated"><router-link to="/auth/login">Login</router-link></li>
         <li v-if="!isAuthenticated"><router-link to="/auth/register">Registro</router-link></li>
