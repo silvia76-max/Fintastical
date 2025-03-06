@@ -12,13 +12,14 @@ import AlertsView from '@/views/AlertsView.vue'
 import NewsView from '@/views/NewsView.vue'
 import ArticleView from '@/views/ArticleView.vue'
 import ProfileView from '@/components/auth/ProfileView.vue'
-import NotFoundView from '@/views/NotFoundView.vue' // Componente para la página 404
+import NotFoundView from '@/views/NotFoundView.vue'
 import CookiePolicy from '@/views/CookiePolicy.vue'
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue'
 import RegulationLicense from '@/views/RegulationLicense.vue'
 import TermsConditions from '@/views/TermsConditions.vue'
 import GeneralRiskDisclosure from '@/views/GeneralRiskDisclosure.vue'
 import KeyInformationDocuments from '@/views/KeyInformationDocuments.vue'
+import AboutUs from '@/views/AboutUs.vue' 
 
 const routes = [
   {
@@ -37,6 +38,7 @@ const routes = [
       { path: 'alerts', name: 'alerts', component: AlertsView },
       { path: 'blog', name: 'blog', component: NewsView },
       { path: 'article/:id', name: 'article', component: ArticleView, props: true },
+      { path: 'about-us', name: 'about-us', component: AboutUs },
     ],
   },
   {
@@ -51,14 +53,14 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
-    component: NotFoundView, // Página 404 personalizada
+    component: NotFoundView,
   },
   { path: '/cookie-policy', component: CookiePolicy },
   { path: '/privacy-policy', component: PrivacyPolicy },
   { path: '/regulation-license', component: RegulationLicense },
   { path: '/terms-conditions', component: TermsConditions },
   { path: '/general-risk-disclosure', component: GeneralRiskDisclosure },
-  { path: '/key-information-documents', component: KeyInformationDocuments }
+  { path: '/key-information-documents', component: KeyInformationDocuments },
 ]
 
 const router = createRouter({
@@ -66,7 +68,7 @@ const router = createRouter({
   routes,
 })
 
-// Guardián de seguridad (como portero de discoteca)
+
 router.beforeEach((to, from, next) => {
   const auth = useAuthStore()
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
