@@ -144,15 +144,16 @@ const alerts = ref([]);
 const showAssetForm = ref(false);
 const showAlertModal = ref(false);
 const selectedAsset = ref('');
+const companies = ref([]);
+const companiesList = ref([]);
+const stockValues = ref([]);
 
-// Lista de compañías
-const companies = ref([
-  { code: 'AAPL', name: 'Apple Inc.' },
-  { code: 'META', name: 'Meta Platforms' },
-  { code: 'TSLA', name: 'Tesla' },
-  { code: 'NVDA', name: 'NVIDIA' },
-  { code: 'MSFT', name: 'Microsoft' }
-]);
+// Params for Stock values fetch
+let listToFetch = "";
+let symbolsAlt = "AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD,NFLX,MSFT"
+const interval = "1h"
+const apikey = "2b69e37d583e41fda6a423e2b07cfdb2"
+
 
 // Formularios
 const newAsset = ref({
@@ -179,7 +180,19 @@ const fetchData = async () => {
     await api.fetchData(`http://localhost:3000/alerts?user_id=${userId}`);
     alerts.value = api.data.value || [];
 
-  } catch (err) {
+    // Load companies
+    await api.fetchData(`http://localhost:3000/companies`);
+    companies.value = api.data.value || [];
+    listToFetch = companiesCodeList();
+    console.log(listToFetch);
+
+    // // Load Stock Values
+    // await api.fetchData(`https://api.twelvedata.com/time_series?symbol=${symbolsAlt}&currency=EUR&interval=${interval}&apikey=${apikey}`);
+    // stockValues.value = api.data.value || [];
+    // console.log(stockValues.value);
+
+    
+    } catch (err) {
     console.error('Error cargando datos:', err);
   }
 };
@@ -251,7 +264,20 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('es-ES');
 };
 
+const companiesCodeList = async () => {
+    companies.value.forEach(element => {
+      // console.log(element.code);
+      companiesList.value.push(element.code)
+    });
+    // console.log(companiesList.value.toString());
+    return companiesList.value.toString();
+}
+
+
 onMounted(fetchData);
+
+
+
 </script>
 
 <style scoped>
