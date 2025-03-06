@@ -19,26 +19,27 @@ import RegulationLicense from '@/views/RegulationLicense.vue'
 import TermsConditions from '@/views/TermsConditions.vue'
 import GeneralRiskDisclosure from '@/views/GeneralRiskDisclosure.vue'
 import KeyInformationDocuments from '@/views/KeyInformationDocuments.vue'
-import AboutUs from '@/views/AboutUs.vue' 
+import AboutUs from '@/views/AboutUs.vue'
 
 const routes = [
   {
     path: '/',
-    component: MainLayout,
+    component: MainLayout, 
     children: [
       { path: '', name: 'home', component: HomeView },
-      {
-        path: 'dashboard',
-        name: 'dashboard',
-        component: DashboardView,
-        meta: { requiresAuth: true },
-      },
+      { path: 'dashboard', name: 'dashboard', component: DashboardView, meta: { requiresAuth: true } },
       { path: 'investments', name: 'investments', component: InvestmentsView },
       { path: 'charts', name: 'charts', component: ChartsView },
       { path: 'alerts', name: 'alerts', component: AlertsView },
       { path: 'blog', name: 'blog', component: NewsView },
       { path: 'article/:id', name: 'article', component: ArticleView, props: true },
       { path: 'about-us', name: 'about-us', component: AboutUs },
+      { path: 'cookie-policy', name: 'cookie-policy', component: CookiePolicy }, // Mover aquí
+      { path: 'privacy-policy', name: 'privacy-policy', component: PrivacyPolicy }, // Mover aquí
+      { path: 'regulation-license', name: 'regulation-license', component: RegulationLicense }, // Mover aquí
+      { path: 'terms-conditions', name: 'terms-conditions', component: TermsConditions }, // Mover aquí
+      { path: 'general-risk-disclosure', name: 'general-risk-disclosure', component: GeneralRiskDisclosure }, // Mover aquí
+      { path: 'key-information-documents', name: 'key-information-documents', component: KeyInformationDocuments }, // Mover aquí
     ],
   },
   {
@@ -55,14 +56,7 @@ const routes = [
     name: 'not-found',
     component: NotFoundView,
   },
-  { path: '/cookie-policy', component: CookiePolicy },
-  { path: '/privacy-policy', component: PrivacyPolicy },
-  { path: '/regulation-license', component: RegulationLicense },
-  { path: '/terms-conditions', component: TermsConditions },
-  { path: '/general-risk-disclosure', component: GeneralRiskDisclosure },
-  { path: '/key-information-documents', component: KeyInformationDocuments },
 ]
-
 const router = createRouter({
   history: createWebHistory(),
   routes,
