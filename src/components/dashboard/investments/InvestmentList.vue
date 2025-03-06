@@ -150,7 +150,8 @@ const companies = ref([]);
 const companiesList = ref([]);
 
 // Params for Stock values fetch
-let symbolsAlt = "AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD,NFLX,MSFT"
+let companiesSymbolsArray = [];
+let companiesSymbols = "";
 const interval = "1h"
 const apikey = "2b69e37d583e41fda6a423e2b07cfdb2"
 
@@ -187,11 +188,8 @@ const fetchData = async () => {
     // Load companies list
     await api.fetchData(`http://localhost:3000/companies`);
     companiesList.value = api.data.value || [];
-    console.log(companiesList.value[1].code)
+    loadCompaniesList(companiesList.value);
 
-
-
-    
     } catch (err) {
     console.error('Error cargando datos:', err);
   }
@@ -264,13 +262,13 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('es-ES');
 };
 
-const companiesCodeList = async () => {
-    companies.value.forEach(element => {
-      // console.log(element.code);
-      companiesList.value.push(element.code)
-    });
-    // console.log(companiesList.value.toString());
-    return companiesList.value;
+const loadCompaniesList = async (listOfCompanies) => {
+  listOfCompanies.forEach((element) => {
+      companiesSymbolsArray.push(element.code);
+  });
+  // console.log(companiesSymbolsArray)
+  companiesSymbols = companiesSymbolsArray.join(",")
+  // console.log(companiesSymbols);
 }
 
 
