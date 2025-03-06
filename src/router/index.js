@@ -59,11 +59,15 @@ const routes = [
     name: 'not-found',
     component: NotFoundView,
   },
-]
+
+];
+
+
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+
 })
 
 router.beforeEach((to, from, next) => {
