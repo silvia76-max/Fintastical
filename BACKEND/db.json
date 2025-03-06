@@ -31,211 +31,89 @@
       "password": "333333"
     }
   ],
-  "dashboard": [
+  "assets": [
     {
-      "id": "Q9OQ0gu6",
-      "assets": [
-        {
-          "nro": 1,
-          "code": "AAPL",
-          "investment_amount": 500,
-          "purchase_price": 280,
-          "alert_up": 600,
-          "alert_down": 450
-        },
-        {
-          "nro": 2,
-          "code": "NVDA",
-          "investment_amount": 700,
-          "purchase_price": 280,
-          "alert_up": 600,
-          "alert_down": 450
-        },
-        {
-          "nro": 3,
-          "code": "MSFT",
-          "investment_amount": 600,
-          "purchase_price": 280,
-          "alert_up": 600,
-          "alert_down": 450
-        }
-      ],
-      "alert_history": [
-        {
-          "date": "2025-03-04",
-          "code": "AAPL",
-          "type_alert": "up"
-        },
-        {
-          "date": "2025-03-03",
-          "code": "NVDA",
-          "type_alert": "down"
-        }
-      ]
+      "id": "3",
+      "user_id": "y1OVxtgM",
+      "code": "TSLA",
+      "investment_amount": 1700,
+      "purchase_price": 284.65,
+      "purchase_date": "2023-03-05"
     },
     {
-      "id": "y1OVxtgM",
-      "assets": [
-        {
-          "nro": 1,
-          "code": "AAPL",
-          "investment_amount": 1500,
-          "purchase_price": 280,
-          "alert_up": 600,
-          "alert_down": 450
-        },
-        {
-          "nro": 2,
-          "code": "TSLA",
-          "investment_amount": 1700,
-          "purchase_price": 284.65,
-          "alert_up": 500,
-          "alert_down": 450
-        },
-        {
-          "nro": 3,
-          "code": "NFLX",
-          "investment_amount": 2600,
-          "purchase_price": 937.7,
-          "alert_up": 1000,
-          "alert_down": 935
-        }
-      ],
-      "alert_history": [
-        {
-          "date": "2025-03-04",
-          "code": "TSLA",
-          "type_alert": "up"
-        },
-        {
-          "date": "2025-03-03",
-          "code": "NFLX",
-          "type_alert": "down"
-        }
-      ]
+      "id": "9787",
+      "user_id": "Q9OQ0gu6",
+      "code": "MSFT",
+      "investment_amount": 22,
+      "purchase_price": 10,
+      "purchase_date": "2025-03-05"
     },
     {
-      "id": "9NbxUMvM",
-      "assets": [
-        {
-          "nro": 1,
-          "code": "META",
-          "investment_amount": 2500,
-          "purchase_price": 655,
-          "alert_up": 700,
-          "alert_down": 650
-        },
-        {
-          "nro": 2,
-          "code": "GOOGL",
-          "investment_amount": 1700,
-          "purchase_price": 167,
-          "alert_up": 300,
-          "alert_down": 150
-        },
-        {
-          "nro": 3,
-          "code": "MSFT",
-          "investment_amount": 600,
-          "purchase_price": 280,
-          "alert_up": 600,
-          "alert_down": 450
-        }
-      ],
-      "alert_history": [
-        {
-          "date": "2025-03-04",
-          "code": "MSFT",
-          "type_alert": "up"
-        },
-        {
-          "date": "2025-03-03",
-          "code": "GOOGL",
-          "type_alert": "down"
-        }
-      ]
+      "id": "1f54",
+      "user_id": "Q9OQ0gu6",
+      "shares": 230,
+      "purchase_price": 21,
+      "investment_amount": "4830.00",
+      "purchase_date": "2025-03-05"
     },
     {
-      "id": "seNPdCFm",
-      "assets": [
-        {
-          "nro": 1,
-          "code": "TSLA",
-          "investment_amount": 900,
-          "purchase_price": 279,
-          "alert_up": 400,
-          "alert_down": 250
-        },
-        {
-          "nro": 2,
-          "code": "NFLX",
-          "investment_amount": 2000,
-          "purchase_price": 976,
-          "alert_up": 1000,
-          "alert_down": 950
-        },
-        {
-          "nro": 3,
-          "code": "AMD",
-          "investment_amount": 600,
-          "purchase_price": 97,
-          "alert_up": 120,
-          "alert_down": 60
-        }
-      ],
-      "alert_history": [
-        {
-          "date": "2025-03-04",
-          "code": "AMD",
-          "type_alert": "up"
-        },
-        {
-          "date": "2025-03-03",
-          "code": "NFLX",
-          "type_alert": "down"
-        }
-      ]
+      "id": "d58a",
+      "user_id": "y1OVxtgM",
+      "code": "TSLA",
+      "shares": 354,
+      "purchase_price": 20,
+      "purchase_date": "2025-03-05"
     },
     {
-      "id": "JlnDY64F",
-      "assets": [
-        {
-          "nro": 1,
-          "code": "GOOGL",
-          "investment_amount": 5000,
-          "purchase_price": 167,
-          "alert_up": 400,
-          "alert_down": 150
-        },
-        {
-          "nro": 2,
-          "code": "META",
-          "investment_amount": 2000,
-          "purchase_price": 654,
-          "alert_up": 800,
-          "alert_down": 600
-        },
-        {
-          "nro": 3,
-          "code": "TSLA",
-          "investment_amount": 900,
-          "purchase_price": 279,
-          "alert_up": 400,
-          "alert_down": 250
-        }
-      ],
-      "alert_history": [
-        {
-          "date": "2025-03-04",
-          "code": "META",
-          "type_alert": "up"
-        },
-        {
-          "date": "2025-03-03",
-          "code": "GOOGL",
-          "type_alert": "down"
-        }
-      ]
+      "id": "af44",
+      "user_id": "y1OVxtgM",
+      "code": "AAPL",
+      "shares": 50,
+      "purchase_price": 33,
+      "purchase_date": "2025-03-05"
+    },
+    {
+      "id": "4eb0",
+      "user_id": "y1OVxtgM",
+      "code": "TSLA",
+      "shares": 32,
+      "purchase_price": 12,
+      "purchase_date": "2025-03-05"
+    }
+  ],
+  "alerts": [
+    {
+      "id": "1484",
+      "user_id": "Q9OQ0gu6",
+      "asset_code": "MSFT",
+      "type": "down",
+      "target_price": 5,
+      "status": "active",
+      "created_at": "2025-03-05"
+    },
+    {
+      "id": "6beb",
+      "user_id": "y1OVxtgM",
+      "asset_code": "TSLA",
+      "type": "up",
+      "target_price": 324,
+      "created_at": "2025-03-05"
+    },
+    {
+      "id": "1eea",
+      "user_id": "y1OVxtgM",
+      "asset_code": "TSLA",
+      "type": "down",
+      "target_price": 52,
+      "created_at": "2025-03-05"
+    },
+    {
+      "id": "e902",
+      "user_id": "y1OVxtgM",
+      "asset_code": "TSLA",
+      "type": "up",
+      "target_price": 80,
+      "created_at": "2025-03-05"
     }
   ]
 }
