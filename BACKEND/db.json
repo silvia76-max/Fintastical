@@ -1,212 +1,119 @@
 {
   "users": [
     {
-      "id": "1",
-      "name": "Pepito Pérez",
+      "id": "Q9OQ0gu6",
+      "name": "Juan Pérez",
       "email": "juan@example.com",
-      "password": "123456"
-    },
-    {
-      "id": "89b4",
-      "name": "Ana López",
-      "email": "ana@example.com",
-      "password": "securepass"
-    },
-    {
-      "id": "890c",
-      "name": "Ana López",
-      "email": "ana@example.com",
-      "password": "securepass"
-    },
-    {
-      "id": "f663",
-      "name": "Ana López",
-      "email": "ana@example.com",
-      "password": "securepass"
-    },
-    {
-      "id": "6c04",
-      "name": "Ana López",
-      "email": "ana@example.com",
-      "password": "securepass"
-    },
-    {
-      "id": "d04e",
-      "name": "Ana López",
-      "email": "ana@example.com",
-      "password": "securepass"
-    },
-    {
-      "id": "87a0",
-      "name": "maham",
-      "email": "maham@gmail.com",
-      "password": "bilawal12"
-    },
-    {
-      "id": "435c",
-      "name": "pepa flores",
-      "email": "pepaflores@example.com",
-      "password": "123456"
-    },
-    {
-      "id": "17ec",
-      "name": "pepe perez",
-      "email": "pepe@example.com",
-      "password": "123"
-    },
-    {
-      "id": "f02c",
-      "name": "aleeza",
-      "email": "aleeza@example.com",
-      "password": "123456"
-    },
-    {
-      "id": "92bb",
-      "name": "Ana López",
-      "email": "Andres@example.com",
-      "password": "111111"
-    },
-    {
-      "id": "8466",
-      "name": "Ana López",
-      "email": "Andres@example.com",
-      "password": "111111"
-    },
-    {
-      "id": "9504",
-      "name": "Ana López",
-      "email": "aleeza@example.com",
-      "password": "123456"
-    },
-    {
-      "id": "93e9",
-      "name": "Ana López",
-      "email": "aleeza@example.com",
-      "password": "123456"
-    },
-    {
-      "id": "2d03",
-      "name": "Ana López",
-      "email": "maham@gmail.com",
-      "password": "bilawal12"
-    },
-    {
-      "id": "4f91",
-      "name": "Ana López",
-      "email": "anaperez@example.com",
       "password": "000000"
     },
     {
-      "id": "a169",
+      "id": "y1OVxtgM",
       "name": "Ana López",
-      "email": "lucas@example.com",
-      "password": "123321"
+      "email": "ana@example.com",
+      "password": "654321"
     },
     {
-      "id": "e149",
-      "name": "Ana López",
-      "email": "Andres@example.com",
+      "id": "9NbxUMvM",
+      "name": "Marta gutierrez",
+      "email": "marta@example.com",
       "password": "111111"
     },
     {
-      "id": "6fb9",
-      "name": "Ana López",
-      "email": "test@test",
-      "password": "123456"
+      "id": "seNPdCFm",
+      "name": "Manuel sainz",
+      "email": "manuel@example.com",
+      "password": "222222"
     },
     {
-      "id": "abd4",
-      "name": "Kuki Kukish3",
-      "email": "kuki@kuki.com",
-      "password": "1234"
-    },
-    {
-      "id": "3ec0",
-      "name": "Ana López",
-      "email": "laszlo@gmail.com",
-      "password": "jojojo"
-    },
-    {
-      "id": "6d30",
-      "name": "Érika",
-      "email": "erika1@gmail.com",
-      "password": "1234"
-    },
-    {
-      "id": "d810",
-      "name": "Gaizka",
-      "email": "gaizka@gmail.com",
-      "password": "1234"
-    },
-    {
-      "id": "416d",
-      "name": "HelloWorld",
-      "email": "hola@hola.com",
-      "password": "hola"
-    },
-    {
-      "id": "d5a7",
-      "name": "Gugutataa",
-      "email": "gugu@gmail.com",
-      "password": "gugu"
+      "id": "JlnDY64F",
+      "name": "Jose Prieto",
+      "email": "jose@example.com",
+      "password": "333333"
     }
   ],
-  "dashboard": [
+  "assets": [
     {
-      "id": "1",
-      "userId": 1,
-      "type": "income",
-      "amount": 1500,
-      "description": "Salario",
-      "date": "2025-02-26"
+      "id": "3",
+      "user_id": "y1OVxtgM",
+      "code": "TSLA",
+      "investment_amount": 1700,
+      "purchase_price": 284.65,
+      "purchase_date": "2023-03-05"
     },
     {
-      "id": "2",
-      "userId": 1,
-      "type": "expense",
-      "amount": 200,
-      "description": "Supermercado",
-      "date": "2025-02-25"
+      "id": "9787",
+      "user_id": "Q9OQ0gu6",
+      "code": "MSFT",
+      "investment_amount": 22,
+      "purchase_price": 10,
+      "purchase_date": "2025-03-05"
     },
     {
-      "id": "e43a",
-      "userId": 1,
-      "type": "expense",
-      "amount": 50,
-      "description": "Café",
-      "date": "2025-02-26"
+      "id": "1f54",
+      "user_id": "Q9OQ0gu6",
+      "shares": 230,
+      "purchase_price": 21,
+      "investment_amount": "4830.00",
+      "purchase_date": "2025-03-05"
     },
     {
-      "id": "1b3f",
-      "userId": 1,
-      "type": "expense",
-      "amount": 50,
-      "description": "Café",
-      "date": "2025-02-26"
+      "id": "d58a",
+      "user_id": "y1OVxtgM",
+      "code": "TSLA",
+      "shares": 354,
+      "purchase_price": 20,
+      "purchase_date": "2025-03-05"
     },
     {
-      "id": "a00b",
-      "userId": 1,
-      "type": "expense",
-      "amount": 50,
-      "description": "Café",
-      "date": "2025-02-26"
+      "id": "af44",
+      "user_id": "y1OVxtgM",
+      "code": "AAPL",
+      "shares": 50,
+      "purchase_price": 33,
+      "purchase_date": "2025-03-05"
     },
     {
-      "id": "da82",
-      "userId": null,
-      "type": "income",
-      "amount": 1e+71,
-      "description": "trabajando mucho",
-      "date": "2025-02-26"
+      "id": "4eb0",
+      "user_id": "y1OVxtgM",
+      "code": "TSLA",
+      "shares": 32,
+      "purchase_price": 12,
+      "purchase_date": "2025-03-05"
+    }
+  ],
+  "alerts": [
+    {
+      "id": "1484",
+      "user_id": "Q9OQ0gu6",
+      "asset_code": "MSFT",
+      "type": "down",
+      "target_price": 5,
+      "status": "active",
+      "created_at": "2025-03-05"
     },
     {
-      "id": "1da5",
-      "userId": null,
-      "type": "income",
-      "amount": 52321233,
-      "description": "millonaria",
-      "date": "2025-02-26"
+      "id": "6beb",
+      "user_id": "y1OVxtgM",
+      "asset_code": "TSLA",
+      "type": "up",
+      "target_price": 324,
+      "created_at": "2025-03-05"
+    },
+    {
+      "id": "1eea",
+      "user_id": "y1OVxtgM",
+      "asset_code": "TSLA",
+      "type": "down",
+      "target_price": 52,
+      "created_at": "2025-03-05"
+    },
+    {
+      "id": "e902",
+      "user_id": "y1OVxtgM",
+      "asset_code": "TSLA",
+      "type": "up",
+      "target_price": 80,
+      "created_at": "2025-03-05"
     }
   ]
 }

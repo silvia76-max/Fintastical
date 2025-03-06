@@ -13,6 +13,12 @@ import NewsView from '@/views/NewsView.vue'
 import ArticleView from '@/views/ArticleView.vue'
 import ProfileView from '@/components/auth/ProfileView.vue'
 import NotFoundView from '@/views/NotFoundView.vue' // Componente para la página 404
+import CookiePolicy from '@/views/CookiePolicy.vue'
+import PrivacyPolicy from '@/views/PrivacyPolicy.vue'
+import RegulationLicense from '@/views/RegulationLicense.vue'
+import TermsConditions from '@/views/TermsConditions.vue'
+import GeneralRiskDisclosure from '@/views/GeneralRiskDisclosure.vue'
+import KeyInformationDocuments from '@/views/KeyInformationDocuments.vue'
 
 const routes = [
   {
@@ -47,6 +53,12 @@ const routes = [
     name: 'not-found',
     component: NotFoundView, // Página 404 personalizada
   },
+  { path: '/cookie-policy', component: CookiePolicy },
+  { path: '/privacy-policy', component: PrivacyPolicy },
+  { path: '/regulation-license', component: RegulationLicense },
+  { path: '/terms-conditions', component: TermsConditions },
+  { path: '/general-risk-disclosure', component: GeneralRiskDisclosure },
+  { path: '/key-information-documents', component: KeyInformationDocuments }
 ]
 
 const router = createRouter({
