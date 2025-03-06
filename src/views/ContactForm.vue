@@ -1,3 +1,4 @@
+
 <template>
   <div class="contact-container">
     <h1>Contact Us</h1>
@@ -65,59 +66,74 @@ export default {
   },
 
   mounted() {
-    // Initialize map when the component is mounted
-    this.initMap();
+    this.loadGoogleMaps();
   },
 
   methods: {
     handleSubmit() {
-      // Handle form submission logic
       console.log('Form Submitted:', this.form);
       this.formSubmitted = true;
-
-      // Clear form fields after submission
-      this.form.name = '';
-      this.form.email = '';
-      this.form.subject = '';
-      this.form.message = '';
+      this.form = { name: '', email: '', subject: '', message: '' };
     },
 
-    // Handle file upload
     handleFileUpload(event) {
       const file = event.target.files[0];
-      if (file) {
+      if (file && file.type === "text/plain") {
         const reader = new FileReader();
-
-        // Once the file is read, set the content
-        reader.onload = () => {
-          this.fileContent = reader.result; // This will be the text content of the file
-        };
-
-        reader.readAsText(file); // Reads the file as text (can change for other types of files like PDF)
+        reader.onload = () => { this.fileContent = reader.result; };
+        reader.readAsText(file);
+      } else {
+        alert("Only text files are allowed.");
       }
     },
 
-    // Initialize the Google Map
-    initMap() {
-      const mapElement = document.getElementById('map');
-      if (mapElement) {
-        const map = new google.maps.Map(mapElement, {
-          center: { lat: 40.7128, lng: -74.0060 },  // Set the map's center (e.g., New York)
-          zoom: 12
-        });
+     loadGoogleMaps() {
+    if (!window.google) {
+      const script = document.createElement('script');
+      script.src = `<div class="google-maps">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d727.5392288067009!2d2.2945!3d48.8584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e671ed9b660c2f%3A0x9e8de4eec8cfdb64!2sEiffel%20Tower!5e0!3m2!1ses!2ses!4v1731324708690!5m2!1ses!2ses&zoom=21"
+              width="100%"
+              height="100%"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+      script.onload = () => {
+        this.initMap();
+      };
+    } else {
+      this.initMap();
+    }
+  },
 
-        new google.maps.Marker({
-          position: { lat: 40.7128, lng: -74.0060 }, // Marker position
-          map: map,
-          title: 'Our Location'
-        });
-      }
+  initMap() {
+    const mapElement = document.getElementById('map');
+    if (mapElement && window.google) {
+      const map = new google.maps.Map(mapElement, {
+        center: { lat: 40.7128, lng: -74.0060 },
+        zoom: 12
+      });
+
+      new google.maps.Marker({
+        position: { lat: 40.7128, lng: -74.0060 },
+        map: map,
+        title: 'Our Location'
+      });
+    } else {
+      console.error("Google Maps API no está cargado correctamente.");
     }
   }
+}
 };
 </script>
+
 <style scoped>
-.contact-container{
+.contact-container {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
@@ -127,28 +143,28 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1{
+h1 {
   text-align: center;
   color: #333;
   font-weight: bold;
 }
-p{
+
+p {
   text-align: center;
   color: black;
 }
-.form-group{
+
+.form-group {
   margin-bottom: 15px;
 }
 
-label{
+label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  background-color: #e6ffe6;
-  border: 1px solid #070707;
 }
 
-input,textarea{
+input, textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #070707;
@@ -157,11 +173,11 @@ input,textarea{
   font-size: 16px;
 }
 
-textarea{
+textarea {
   min-height: 120px;
 }
 
-button.submit-btn{
+button.submit-btn {
   width: 100%;
   padding: 12px;
   color: white;
@@ -171,19 +187,18 @@ button.submit-btn{
   cursor: pointer;
 }
 
-button.submit-btn:hover{
+button.submit-btn:hover {
   background-color: #b994c4;
 }
 
-.file-content{
+.file-content {
   margin: 20px;
   padding: 10px;
-  border-color: #f1f1f1;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  border:  1px solid #ddd;
 }
 
-.success-message{
+.success-message {
   margin-top: 20px;
   padding: 10px;
   background-color: #e6ffe6;
@@ -191,12 +206,12 @@ button.submit-btn:hover{
   text-align: center;
   border-radius: 4px;
 }
-/* Google Maps Styling */
+
 #map {
-width: 100%;
-height: 400px; /* You can adjust the height as needed */
-margin-top: 20px;
-border-radius: 8px;
-border: 1px solid #ddd;
+  width: 100%;
+  height: 400px;
+  margin-top: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 </style>

@@ -20,11 +20,13 @@ import TermsConditions from '@/views/TermsConditions.vue'
 import GeneralRiskDisclosure from '@/views/GeneralRiskDisclosure.vue'
 import KeyInformationDocuments from '@/views/KeyInformationDocuments.vue'
 import AboutUs from '@/views/AboutUs.vue'
+import ContactForm from '@/views/ContactForm.vue';
+
 
 const routes = [
   {
     path: '/',
-    component: MainLayout, 
+    component: MainLayout,
     children: [
       { path: '', name: 'home', component: HomeView },
       { path: 'dashboard', name: 'dashboard', component: DashboardView, meta: { requiresAuth: true } },
@@ -34,13 +36,14 @@ const routes = [
       { path: 'blog', name: 'blog', component: NewsView },
       { path: 'article/:id', name: 'article', component: ArticleView, props: true },
       { path: 'about-us', name: 'about-us', component: AboutUs },
-      { path: 'cookie-policy', name: 'cookie-policy', component: CookiePolicy }, // Mover aquí
-      { path: 'privacy-policy', name: 'privacy-policy', component: PrivacyPolicy }, // Mover aquí
-      { path: 'regulation-license', name: 'regulation-license', component: RegulationLicense }, // Mover aquí
-      { path: 'terms-conditions', name: 'terms-conditions', component: TermsConditions }, // Mover aquí
-      { path: 'general-risk-disclosure', name: 'general-risk-disclosure', component: GeneralRiskDisclosure }, // Mover aquí
-      { path: 'key-information-documents', name: 'key-information-documents', component: KeyInformationDocuments }, // Mover aquí
-    ],
+      { path: 'cookie-policy', name: 'cookie-policy', component: CookiePolicy },
+      { path: 'privacy-policy', name: 'privacy-policy', component: PrivacyPolicy },
+      { path: 'regulation-license', name: 'regulation-license', component: RegulationLicense },
+      { path: 'terms-conditions', name: 'terms-conditions', component: TermsConditions },
+      { path: 'general-risk-disclosure', name: 'general-risk-disclosure', component: GeneralRiskDisclosure },
+      { path: 'key-information-documents', name: 'key-information-documents', component: KeyInformationDocuments },
+      { path: 'contact', name: 'contact', component: ContactForm },
+    ]
   },
   {
     path: '/auth',
@@ -57,11 +60,11 @@ const routes = [
     component: NotFoundView,
   },
 ]
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
 })
-
 
 router.beforeEach((to, from, next) => {
   const auth = useAuthStore()
