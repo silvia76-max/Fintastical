@@ -134,9 +134,11 @@
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useApi } from '@/composables/useApi';
+import { useAAFetch } from '@/composables/useAAFetch';
 
 const auth = useAuthStore();
 const api = useApi();
+const aaFetch = useAAFetch();
 
 // Datos
 const assets = ref([]);
@@ -146,10 +148,8 @@ const showAlertModal = ref(false);
 const selectedAsset = ref('');
 const companies = ref([]);
 const companiesList = ref([]);
-const stockValues = ref([]);
 
 // Params for Stock values fetch
-let listToFetch = "";
 let symbolsAlt = "AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD,NFLX,MSFT"
 const interval = "1h"
 const apikey = "2b69e37d583e41fda6a423e2b07cfdb2"
@@ -183,13 +183,13 @@ const fetchData = async () => {
     // Load companies
     await api.fetchData(`http://localhost:3000/companies`);
     companies.value = api.data.value || [];
-    listToFetch = companiesCodeList();
-    console.log(listToFetch);
+    
+    // Load companies list
+    await api.fetchData(`http://localhost:3000/companies`);
+    companiesList.value = api.data.value || [];
+    console.log(companiesList.value[1].code)
 
-    // // Load Stock Values
-    // await api.fetchData(`https://api.twelvedata.com/time_series?symbol=${symbolsAlt}&currency=EUR&interval=${interval}&apikey=${apikey}`);
-    // stockValues.value = api.data.value || [];
-    // console.log(stockValues.value);
+
 
     
     } catch (err) {
@@ -270,7 +270,7 @@ const companiesCodeList = async () => {
       companiesList.value.push(element.code)
     });
     // console.log(companiesList.value.toString());
-    return companiesList.value.toString();
+    return companiesList.value;
 }
 
 
