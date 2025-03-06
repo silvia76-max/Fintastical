@@ -22,6 +22,9 @@
           <p>🪙 Acciones: {{ asset.shares }}</p>
           <p>💰 Precio/acción: ${{ asset.purchase_price }}</p>
           <p>📈 Inversión: ${{ asset.shares * asset.purchase_price }}</p>
+          <p>* Valor actual: ${{ getCurrentStockValue(asset.code) }}</p>
+          <p>* Ganancia/Pérdida: ${{ calculateProfit(asset) }}</p>
+          
         </div>
 
         <div class="asset-actions">
@@ -149,9 +152,11 @@ const selectedAsset = ref('');
 const companies = ref([]);
 const companiesList = ref([]);
 
+
 // Params for Stock values fetch
 let companiesSymbolsArray = [];
 let companiesSymbols = "";
+let stockValues = ref([]);
 const interval = "1h"
 const apikey = "2b69e37d583e41fda6a423e2b07cfdb2"
 
@@ -189,6 +194,15 @@ const fetchData = async () => {
     await api.fetchData(`http://localhost:3000/companies`);
     companiesList.value = api.data.value || [];
     loadCompaniesList(companiesList.value);
+
+    // companiesSymbols : AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD,NFLX,MSFT
+    // https://api.twelvedata.com/time_series?symbol=${companiesSymbols}&currency=EUR&interval=${interval}}&apikey=${apikey}
+
+    // Load Stock Values
+    await api.fetchData(`http://localhost:8111/stockvalues`);
+    stockValues.value = api.data.value || [];
+    console.log(stockValues.value);
+    
 
     } catch (err) {
     console.error('Error cargando datos:', err);
@@ -271,6 +285,18 @@ const loadCompaniesList = async (listOfCompanies) => {
   // console.log(companiesSymbols);
 }
 
+// get stock values comparing the code of the assets
+const getCurrentStockValue = (code) => {
+  const stock = stockValues.value.find(sym => sym.meta.symbol === code);
+  console.log(stock);
+  return stock ? stock.values[0].close : 'N/A';
+};
+
+// calculate profit using asset as a argument
+const calculateProfit = (asset) => {
+  const currentPrice = getCurrentStockValue(asset.code);
+  return currentPrice !== 'N/A' ? ((currentPrice - asset.purchase_price) * asset.shares).toFixed(2) : 'N/A';
+};
 
 onMounted(fetchData);
 
