@@ -87,48 +87,30 @@ export default {
       }
     },
 
-     loadGoogleMaps() {
-    if (!window.google) {
+    loadGoogleMaps() {
       const script = document.createElement('script');
-      script.src = `<div class="google-maps">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d727.5392288067009!2d2.2945!3d48.8584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e671ed9b660c2f%3A0x9e8de4eec8cfdb64!2sEiffel%20Tower!5e0!3m2!1ses!2ses!4v1731324708690!5m2!1ses!2ses&zoom=21"
-              width="100%"
-              height="100%"
-              style="border: 0"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap`;
       script.async = true;
       script.defer = true;
       document.head.appendChild(script);
-      script.onload = () => {
-        this.initMap();
-      };
-    } else {
-      this.initMap();
-    }
-  },
+      window.initMap = this.initMap;
+    },
 
-  initMap() {
-    const mapElement = document.getElementById('map');
-    if (mapElement && window.google) {
-      const map = new google.maps.Map(mapElement, {
-        center: { lat: 40.7128, lng: -74.0060 },
-        zoom: 12
-      });
-
-      new google.maps.Marker({
-        position: { lat: 40.7128, lng: -74.0060 },
-        map: map,
-        title: 'Our Location'
-      });
-    } else {
-      console.error("Google Maps API no está cargado correctamente.");
+    initMap() {
+      const mapElement = document.getElementById('map');
+      if (mapElement) {
+        const map = new google.maps.Map(mapElement, {
+          center: { lat: 40.7128, lng: -74.0060 },
+          zoom: 12
+        });
+        new google.maps.Marker({
+          position: { lat: 40.7128, lng: -74.0060 },
+          map: map,
+          title: 'Our Location'
+        });
+      }
     }
   }
-}
 };
 </script>
 
