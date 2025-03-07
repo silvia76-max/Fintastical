@@ -71,6 +71,14 @@
       "shares": 1,
       "purchase_price": 230,
       "purchase_date": "2025-03-06"
+    },
+    {
+      "id": "07a9",
+      "user_id": "Q9OQ0gu6",
+      "code": "AMZN",
+      "shares": 1,
+      "purchase_price": 500,
+      "purchase_date": "2025-03-07"
     }
   ],
   "alerts": [

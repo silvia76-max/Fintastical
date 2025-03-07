@@ -196,7 +196,7 @@ const fetchData = async () => {
     loadCompaniesList(companiesList.value);
 
     // companiesSymbols : AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD,NFLX,MSFT
-    // https://api.twelvedata.com/time_series?symbol=${companiesSymbols}&currency=EUR&interval=${interval}}&apikey=${apikey}
+    // https://api.twelvedata.com/time_series?symbol=${companiesSymbols}&currency=EUR&interval=${interval}&apikey=${apikey}
 
     // Load Stock Values
     await api.fetchData(`http://localhost:8111/stockvalues`);
