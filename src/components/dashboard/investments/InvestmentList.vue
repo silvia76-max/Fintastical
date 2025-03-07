@@ -199,7 +199,7 @@ const fetchData = async () => {
     // https://api.twelvedata.com/time_series?symbol=${companiesSymbols}&currency=EUR&interval=${interval}&apikey=${apikey}
 
     // Load Stock Values
-    await api.fetchData(`http://localhost:8111/stockvalues`);
+    await api.fetchData(`https://api.twelvedata.com/time_series?symbol=AAPL,NVDA,TSLA&currency=EUR&interval=${interval}&apikey=${apikey}`);
     stockValues.value = api.data.value || [];
     console.log(stockValues.value);
     
@@ -288,7 +288,7 @@ const loadCompaniesList = async (listOfCompanies) => {
 // get stock values comparing the code of the assets
 const getCurrentStockValue = (code) => {
   const stock = stockValues.value.find(sym => sym.meta.symbol === code);
-  console.log(stock);
+  // console.log(stock);
   return stock ? stock.values[0].close : 'N/A';
 };
 
