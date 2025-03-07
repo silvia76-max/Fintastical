@@ -1,10 +1,10 @@
-
 <template>
   <div class="contact-container">
     <h1>Contact Us</h1>
-    <p>If you have any questions or need us to help you with a specific topic, do not hesitate to contact us through the following form.</p>
+    <p>
+      If you have any questions or need us to help you with a specific topic, do not hesitate to contact us through the following form.
+    </p>
     <form @submit.prevent="handleSubmit">
-      <!-- Form Fields (Name, Email, Subject, Message) -->
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="name" v-model="form.name" placeholder="Enter your name" required />
@@ -25,7 +25,7 @@
         <textarea id="message" v-model="form.message" required></textarea>
       </div>
 
-      <!-- File Upload Section -->
+      <!-- File Upload -->
       <div class="form-group">
         <label for="file-upload">Upload a Contact File</label>
         <input type="file" @change="handleFileUpload" id="file-upload" />
@@ -34,7 +34,7 @@
       <button type="submit" class="submit-btn">Submit</button>
     </form>
 
-    <!-- Display File Content (if any) -->
+    <!-- Display File Content -->
     <div v-if="fileContent" class="file-content">
       <h2>File Content:</h2>
       <pre>{{ fileContent }}</pre>
@@ -60,50 +60,65 @@ export default {
         subject: '',
         message: ''
       },
-      fileContent: null,  // To store file content
+      fileContent: null,
       formSubmitted: false
     };
   },
 
   mounted() {
-    this.loadGoogleMaps();
+    this.$nextTick(() => {
+      this.loadGoogleMaps();
+    });
   },
 
   methods: {
     handleSubmit() {
       console.log('Form Submitted:', this.form);
       this.formSubmitted = true;
+
+      // Reset form
       this.form = { name: '', email: '', subject: '', message: '' };
     },
 
     handleFileUpload(event) {
       const file = event.target.files[0];
-      if (file && file.type === "text/plain") {
+
+      if (file && file.type === 'text/plain') {
         const reader = new FileReader();
-        reader.onload = () => { this.fileContent = reader.result; };
+        reader.onload = () => {
+          this.fileContent = reader.result;
+        };
         reader.readAsText(file);
       } else {
-        alert("Only text files are allowed.");
+        alert('Only text files are allowed.');
       }
     },
 
     loadGoogleMaps() {
+      if (window.google && window.google.maps) {
+        this.initMap();
+        return;
+      }
+
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY`;
       script.async = true;
       script.defer = true;
+      script.onload = () => {
+        this.initMap();
+      };
       document.head.appendChild(script);
-      window.initMap = this.initMap;
     },
 
     initMap() {
       const mapElement = document.getElementById('map');
       if (mapElement) {
-        const map = new google.maps.Map(mapElement, {
+        const map = new window.google.maps.Map(mapElement, {
           center: { lat: 40.7128, lng: -74.0060 },
           zoom: 12
         });
-        new google.maps.Marker({
+
+        new window.google.maps.Marker({
           position: { lat: 40.7128, lng: -74.0060 },
           map: map,
           title: 'Our Location'
@@ -146,7 +161,8 @@ label {
   margin-bottom: 5px;
 }
 
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #070707;
@@ -184,12 +200,12 @@ button.submit-btn:hover {
   margin-top: 20px;
   padding: 10px;
   background-color: #e6ffe6;
-  color: #4CAF50;
+  color: #4caf50;
   text-align: center;
   border-radius: 4px;
 }
 
-#map {
+.map-container {
   width: 100%;
   height: 400px;
   margin-top: 20px;

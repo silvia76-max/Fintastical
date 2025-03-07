@@ -7,7 +7,7 @@
 
     <!-- Main content in rows -->
     <div class="footer-content">
-      <!-- Navigation and links -->
+      <!-- Columna 1: Textos legales -->
       <nav class="footer-section">
         <h2>Privacy and Regulation</h2>
         <ul>
@@ -20,13 +20,17 @@
         </ul>
       </nav>
 
-      <!-- About Us and Social Media -->
+      <!-- Columna 2: FAQs y redes sociales -->
       <div class="footer-section">
-        <h2>About Us</h2>
-        <p>
-          <router-link to="/about-us">Learn more about Fintastical and our mission.</router-link>
-        </p>
+        <h2>FAQ</h2>
+        <ul>
+          <li><router-link to="/why-choose-fintastical">Why choose Fintastical</router-link></li>
+          <li><router-link to="/fintastical-reviews">Fintastical Reviews</router-link></li>
+          <li><router-link to="/our-offices">Our Offices</router-link></li>
+          <li><router-link to="/accessibility">Accessibility</router-link></li>
+        </ul>
 
+        <!-- Redes sociales -->
         <div class="social-media">
           <h2>Follow Us</h2>
           <div class="social-icons">
@@ -54,7 +58,7 @@
         </div>
       </div>
 
-      <!-- Newsletter and Contact Form -->
+      <!-- Columna 3: Newsletter y formulario de contacto -->
       <div class="footer-section">
         <h2>Subscribe to our Newsletter</h2>
         <form @submit.prevent="subscribeNewsletter" class="newsletter-form">
@@ -95,7 +99,7 @@ export default {
 
 <style scoped>
 .footer-layout {
-  background-color: #333;
+  background-color: #2F284C;
   color: #fff;
   padding: 20px;
   display: flex;
@@ -192,7 +196,7 @@ export default {
 .newsletter-form button,
 .contact-form button {
   padding: 8px 16px;
-  background-color: #555;
+  background-color: #6046B0;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -201,7 +205,7 @@ export default {
 
 .newsletter-form button:hover,
 .contact-form button:hover {
-  background-color: #777;
+  background-color: #8F6AFF;
 }
 
 .copyright {

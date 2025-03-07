@@ -7,7 +7,10 @@
       <li><router-link to="/alerts">Alertas</router-link></li>
       <li><router-link to="/profile">Perfil</router-link></li>
       <li><router-link to="/contact">Contacto</router-link></li>
+<<<<<<< HEAD
 
+=======
+>>>>>>> b00edfc74613cf9407cfefc46c05b9427d546753
     </ul>
   </aside>
 </template>
