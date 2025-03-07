@@ -1,18 +1,10 @@
 <template>
-  <div class="blog-view">
-    <h1>Noticias Financieras</h1>
-    <p>Listado de artículos.</p>
+  <div>
+    <h1>Página de Noticias</h1>
+    <NewsList />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'NewsView',
-}
+<script setup>
+import NewsList from '@/components/news/NewsList.vue';
 </script>
-
-<style scoped>
-.blog-view {
-  padding: 20px;
-}
-</style>

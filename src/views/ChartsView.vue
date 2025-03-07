@@ -5,11 +5,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ChartsView',
-}
+<script setup>
+import GlobalStateChart from "@/components/charts/GlobalStateChart.vue";
+console.log("ChartsView.vue y GlobalStateChart");
 </script>
+
 
 <style scoped>
 .charts-view {
