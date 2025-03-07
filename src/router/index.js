@@ -45,21 +45,12 @@ const routes = [
       { path: 'terms-conditions', name: 'terms-conditions', component: TermsConditions },
       { path: 'general-risk-disclosure', name: 'general-risk-disclosure', component: GeneralRiskDisclosure },
       { path: 'key-information-documents', name: 'key-information-documents', component: KeyInformationDocuments },
-<<<<<<< HEAD
-      {
-        path: 'contact',
-        name: 'contact',
-        component: ContactForm
-      }
-
-=======
       { path: 'contact', name: 'contact', component: ContactForm },
       // Nuevas rutas para la sección de FAQ
       { path: 'why-choose-fintastical', name: 'why-choose-fintastical', component: WhyChooseFintastical },
       { path: 'fintastical-reviews', name: 'fintastical-reviews', component: FintasticalReviews },
       { path: 'our-offices', name: 'our-offices', component: OurOffices },
       { path: 'accessibility', name: 'accessibility', component: Accessibility },
->>>>>>> b00edfc74613cf9407cfefc46c05b9427d546753
     ]
   },
   {
