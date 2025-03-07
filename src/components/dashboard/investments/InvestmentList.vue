@@ -22,6 +22,9 @@
           <p>🪙 Acciones: {{ asset.shares }}</p>
           <p>💰 Precio/acción: ${{ asset.purchase_price }}</p>
           <p>📈 Inversión: ${{ asset.shares * asset.purchase_price }}</p>
+          <p>* Valor actual: ${{ getCurrentStockValue(asset.code) }}</p>
+          <p>* Ganancia/Pérdida: ${{ calculateProfit(asset) }}</p>
+          
         </div>
 
         <div class="asset-actions">
@@ -134,9 +137,11 @@
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useApi } from '@/composables/useApi';
+import { useAAFetch } from '@/composables/useAAFetch';
 
 const auth = useAuthStore();
 const api = useApi();
+const aaFetch = useAAFetch();
 
 // Datos
 const assets = ref([]);
@@ -144,15 +149,17 @@ const alerts = ref([]);
 const showAssetForm = ref(false);
 const showAlertModal = ref(false);
 const selectedAsset = ref('');
+const companies = ref([]);
+const companiesList = ref([]);
 
-// Lista de compañías
-const companies = ref([
-  { code: 'AAPL', name: 'Apple Inc.' },
-  { code: 'META', name: 'Meta Platforms' },
-  { code: 'TSLA', name: 'Tesla' },
-  { code: 'NVDA', name: 'NVIDIA' },
-  { code: 'MSFT', name: 'Microsoft' }
-]);
+
+// Params for Stock values fetch
+let companiesSymbolsArray = [];
+let companiesSymbols = "";
+let stockValues = ref([]);
+const interval = "1h"
+const apikey = "2b69e37d583e41fda6a423e2b07cfdb2"
+
 
 // Formularios
 const newAsset = ref({
@@ -179,7 +186,25 @@ const fetchData = async () => {
     await api.fetchData(`http://localhost:3000/alerts?user_id=${userId}`);
     alerts.value = api.data.value || [];
 
-  } catch (err) {
+    // Load companies
+    await api.fetchData(`http://localhost:3000/companies`);
+    companies.value = api.data.value || [];
+    
+    // Load companies list
+    await api.fetchData(`http://localhost:3000/companies`);
+    companiesList.value = api.data.value || [];
+    loadCompaniesList(companiesList.value);
+
+    // companiesSymbols : AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD,NFLX,MSFT
+    // https://api.twelvedata.com/time_series?symbol=${companiesSymbols}&currency=EUR&interval=${interval}&apikey=${apikey}
+
+    // Load Stock Values
+    await api.fetchData(`http://localhost:8111/stockvalues`);
+    stockValues.value = api.data.value || [];
+    console.log(stockValues.value);
+    
+
+    } catch (err) {
     console.error('Error cargando datos:', err);
   }
 };
@@ -251,7 +276,32 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('es-ES');
 };
 
+const loadCompaniesList = async (listOfCompanies) => {
+  listOfCompanies.forEach((element) => {
+      companiesSymbolsArray.push(element.code);
+  });
+  // console.log(companiesSymbolsArray)
+  companiesSymbols = companiesSymbolsArray.join(",")
+  // console.log(companiesSymbols);
+}
+
+// get stock values comparing the code of the assets
+const getCurrentStockValue = (code) => {
+  const stock = stockValues.value.find(sym => sym.meta.symbol === code);
+  console.log(stock);
+  return stock ? stock.values[0].close : 'N/A';
+};
+
+// calculate profit using asset as a argument
+const calculateProfit = (asset) => {
+  const currentPrice = getCurrentStockValue(asset.code);
+  return currentPrice !== 'N/A' ? ((currentPrice - asset.purchase_price) * asset.shares).toFixed(2) : 'N/A';
+};
+
 onMounted(fetchData);
+
+
+
 </script>
 
 <style scoped>
