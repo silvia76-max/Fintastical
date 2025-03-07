@@ -6,7 +6,8 @@
       <li><router-link to="/charts">Gráficos</router-link></li>
       <li><router-link to="/alerts">Alertas</router-link></li>
       <li><router-link to="/profile">Perfil</router-link></li>
-      <li><router-link to="/ContactForm">Contacto</router-link></li>
+      <li><router-link to="/contact">Contacto</router-link></li>
+
     </ul>
   </aside>
 </template>
