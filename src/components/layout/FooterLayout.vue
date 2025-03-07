@@ -112,7 +112,7 @@ export default {
 }
 
 .logo {
-  width: 150px;
+  width: 250px;
   height: auto;
 }
 
@@ -189,17 +189,19 @@ export default {
 .contact-form textarea {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  color:#ddd;
+  background-color: #2F284C;
+  border: 3px solid #ccc;
+  border-radius: 12px;
 }
 
 .newsletter-form button,
 .contact-form button {
-  padding: 8px 16px;
+  padding: 8px 12px;
   background-color: #6046B0;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
 }
 
