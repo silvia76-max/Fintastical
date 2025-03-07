@@ -6,15 +6,18 @@
     </p>
     <div class="reviews">
       <div class="review">
-        <h3>John Doe</h3>
+        <h3>Manuela Serrano</h3>
+        <img src="/public/Manuela-.webp" alt="mujer dando una opinion">
         <p>"Fintastical has completely transformed the way I manage my finances. Highly recommended!"</p>
       </div>
       <div class="review">
-        <h3>Jane Smith</h3>
+        <h3>Joel Zaratain</h3>
+        <img src="/public/Joel.webp" alt="mujer dando una opinion">
         <p>"The platform is incredibly user-friendly, and the support team is always helpful."</p>
       </div>
       <div class="review">
-        <h3>Mike Johnson</h3>
+        <h3>Lorena Garrido</h3>
+        <img src="/public/Lorena.webp" alt="mujer dando una opinion">
         <p>"I love the transparency and the innovative tools Fintastical offers."</p>
       </div>
     </div>
@@ -56,7 +59,10 @@ p {
   border-radius: 8px;
   margin-bottom: 20px;
 }
-
+.review img {
+  width: 150px;
+  height: 150px;
+}
 .review h3 {
   color: #2F284C;
   margin-bottom: 10px;
