@@ -45,6 +45,14 @@
       Thank you for reaching out! We will get back to you soon.
     </div>
 
+    <!-- Pop-up de confirmación -->
+    <div v-if="showPopup" class="popup-overlay">
+      <div class="popup-content">
+        <p>Su consulta se envió correctamente, en breve le contactaremos. Gracias por su paciencia.</p>
+        <button @click="closePopup">Close</button>
+      </div>
+    </div>
+
     <!-- Google Map -->
     <div id="map" class="map-container"></div>
   </div>
@@ -61,7 +69,8 @@ export default {
         message: ''
       },
       fileContent: null,
-      formSubmitted: false
+      formSubmitted: false,
+      showPopup: false // Controla si el pop-up está visible
     };
   },
 
@@ -75,6 +84,7 @@ export default {
     handleSubmit() {
       console.log('Form Submitted:', this.form);
       this.formSubmitted = true;
+      this.showPopup = true; // Mostrar el pop-up
 
       // Reset form
       this.form = { name: '', email: '', subject: '', message: '' };
@@ -92,6 +102,10 @@ export default {
       } else {
         alert('Only text files are allowed.');
       }
+    },
+
+    closePopup() {
+      this.showPopup = false; // Cerrar el pop-up
     },
 
     loadGoogleMaps() {
@@ -179,14 +193,14 @@ button.submit-btn {
   width: 100%;
   padding: 12px;
   color: white;
-  background-color: #000000;
+  background-color:#6046B0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 button.submit-btn:hover {
-  background-color: #b994c4;
+  background-color:#8F6AFF;;
 }
 
 .file-content {
@@ -211,5 +225,47 @@ button.submit-btn:hover {
   margin-top: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;
+}
+
+/* Estilos para el pop-up */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 300px;
+}
+
+.popup-content p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.popup-content button {
+  background-color: #6046B0;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup-content button:hover {
+  background-color: #8F6AFF;
 }
 </style>
