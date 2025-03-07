@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderLayout />
-    <!-- El encabezado -->
+    <SidebarLayout />
     <router-view />
     <!-- Aquí se cargarán las vistas hijas de MainLayout -->
     <FooterLayout />
