@@ -8,6 +8,7 @@
     "build": "vite build",
     "backend": "json-server --watch BACKEND/db.json --port 3000",
     "apifake": "json-server --watch BACKEND/apiStock.json --port 8111",
+    "autofetch": "node backend.js & node autoFetch.js",
     "preview": "vite preview",
     "lint": "eslint . --fix",
     "format": "prettier --write src/"

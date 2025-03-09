@@ -11,10 +11,10 @@
     </div>
 
     <!-- LISTA DE ACTIVOS -->
-    <div v-if="assets.length > 0" class="assets-grid">
-      <div v-for="asset in assets" :key="asset.id" class="asset-card">
+    <div v-if="investmentStore.assets.length > 0" class="assets-grid">
+      <div v-for="asset in investmentStore.assets" :key="asset.id" class="asset-card">
         <div class="asset-header">
-          <span class="ticker">{{ asset.code }} </span>
+          <span class="ticker">{{ asset.code }}</span>
           <span class="date">{{ formatDate(asset.purchase_date) }}</span>
         </div>
 
@@ -22,14 +22,13 @@
           <p>💼 Acciones: {{ asset.shares }}</p>
           <p>💲 Precio/acción: ${{ asset.purchase_price }}</p>
           <p>📊 Inversión: ${{ asset.shares * asset.purchase_price }}</p>
-          <p>💰 Valor actual: ${{ stockValues[asset.code] }}</p>
-          <p>📈 Ganancia/Pérdida: ${{ profitValues[asset.code] }}</p>
-          
+          <p>💰 Valor actual: ${{ investmentStore.stockValues[asset.code] }}</p>
+          <p>📈 Ganancia/Pérdida: ${{ getAssetProfit(asset) }}</p>
         </div>
 
         <div class="asset-actions">
           <button @click="openAlertModal(asset.code)" class="btn-alert">➕ Alerta</button>
-          <button @click="deleteAsset(asset.id)" class="btn-delete">🗑️ Eliminar</button>
+          <button @click="handleDeleteAsset(asset.id)" class="btn-delete">🗑️ Eliminar</button>
         </div>
       </div>
     </div>
@@ -48,7 +47,7 @@
           >
 
           <datalist id="companyList">
-            <option v-for="company in companies" :key="company.code" :value="company.code">
+            <option v-for="company in investmentStore.companies" :key="company.code" :value="company.code">
               {{ company.name }} ({{ company.code }})
             </option>
           </datalist>
@@ -134,34 +133,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watchEffect } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import { useInvestmentStore } from '@/stores/investments';
 import { useApi } from '@/composables/useApi';
 
 const auth = useAuthStore();
+const investmentStore = useInvestmentStore();
 const api = useApi();
 
-
-// Datos
-const assets = ref([]);
+// Local state
 const alerts = ref([]);
 const showAssetForm = ref(false);
 const showAlertModal = ref(false);
 const selectedAsset = ref('');
-const companies = ref([]);
 
-
-
-// Params for Stock values fetch
-let companiesSymbolsArray = [];
-let companiesSymbols = "";
-let stockValues = ref({});
-const profitValues = ref({});
-const interval = "1h"
-const apikey = "2b69e37d583e41fda6a423e2b07cfdb2"
-
-
-// Formularios
+// Form state
 const newAsset = ref({
   code: '',
   shares: null,
@@ -173,42 +160,14 @@ const newAlert = ref({
   target: null
 });
 
-// Funciones
-const fetchData = async () => {
-  try {
-    const userId = auth.user?.id;
+// Methods
+const formatDate = (dateString) => {
+  return new Date(dateString).toLocaleDateString('es-ES');
+};
 
-    // Cargar activos
-    await api.fetchData(`http://localhost:3000/assets?user_id=${userId}`);
-    assets.value = api.data.value || [];
-
-    // Cargar alertas
-    await api.fetchData(`http://localhost:3000/alerts?user_id=${userId}`);
-    alerts.value = api.data.value || [];
-    console.log(alerts.value)
-
-    // Load companies
-    await api.fetchData(`http://localhost:3000/companies`);
-    companies.value = api.data.value || [];
-    
-    // Load companies list
-    // await api.fetchData(`http://localhost:3000/companies`);
-    // companiesList.value = api.data.value || [];
-    // loadCompaniesList(companiesList.value);
-    // console.log(companies.value)
-
-    // companiesSymbols : AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD,NFLX,MSFT
-    // https://api.twelvedata.com/time_series?symbol=${companiesSymbols}&currency=EUR&interval=${interval}&apikey=${apikey}
-
-    // Load Stock Values
-    // await api.fetchData(`http://localhost:8111/AAPL`);
-    // stockValues.value = api.data.value || [];
-    // console.log(stockValues.value);
-    
-
-    } catch (err) {
-    console.error('Error cargando datos:', err);
-  }
+const getAssetProfit = (asset) => {
+  const currentPrice = investmentStore.stockValues[asset.code] || 0;
+  return Number(parseFloat((currentPrice - asset.purchase_price) * asset.shares).toFixed(2));
 };
 
 const handleAddAsset = async () => {
@@ -221,20 +180,17 @@ const handleAddAsset = async () => {
       purchase_date: new Date().toISOString().split('T')[0]
     };
 
-    await api.postData('http://localhost:3000/assets', payload);
-    await fetchData();
+    await investmentStore.addAsset(payload);
     showAssetForm.value = false;
     newAsset.value = { code: '', shares: null, pricePerShare: null };
-
   } catch (err) {
     console.error('Error agregando activo:', err);
   }
 };
 
-const deleteAsset = async (id) => {
+const handleDeleteAsset = async (id) => {
   try {
-    await api.deleteData(`http://localhost:3000/assets/${id}`);
-    await fetchData();
+    await investmentStore.deleteAsset(id);
   } catch (err) {
     console.error('Error eliminando activo:', err);
   }
@@ -256,10 +212,9 @@ const handleAddAlert = async () => {
     };
 
     await api.postData('http://localhost:3000/alerts', payload);
-    await fetchData();
+    await fetchAlerts();
     showAlertModal.value = false;
     newAlert.value = { type: 'up', target: null };
-
   } catch (err) {
     console.error('Error creando alerta:', err);
   }
@@ -268,58 +223,29 @@ const handleAddAlert = async () => {
 const deleteAlert = async (id) => {
   try {
     await api.deleteData(`http://localhost:3000/alerts/${id}`);
-    await fetchData();
+    await fetchAlerts();
   } catch (err) {
     console.error('Error eliminando alerta:', err);
   }
 };
 
-const formatDate = (dateString) => {
-  return new Date(dateString).toLocaleDateString('es-ES');
-};
-
-// const loadCompaniesList = async (listOfCompanies) => {
-//   listOfCompanies.forEach((element) => {
-//       companiesSymbolsArray.push(element.code);
-//   });
-//   // console.log(companiesSymbolsArray)
-//   companiesSymbols = companiesSymbolsArray.join(",")
-//   // console.log(companiesSymbols);
-// }
-
-// get stock values using the codes of assets
-const getCurrentStockValue = async (code) => {
+const fetchAlerts = async () => {
   try {
-    await api.fetchData(`http://localhost:8111/${code}`);
-    let price = api.data.value.values[0].close;
-    // to float with 2 decimal places
-    stockValues.value[code] = Number(parseFloat(price).toFixed(2));
+    const userId = auth.user?.id;
+    await api.fetchData(`http://localhost:3000/alerts?user_id=${userId}`);
+    alerts.value = api.data.value || [];
   } catch (err) {
-    console.error('Error obteniendo el valor actual:', err);
-    stockValues.value[code] = null;
+    console.error('Error cargando alertas:', err);
   }
 };
 
-
-// refresh current stock values on template
-watchEffect(() => {
-  assets.value.forEach(asset => {
-    getCurrentStockValue(asset.code).then(() => {
-      profitValues.value[asset.code] = calculateProfit(asset);
-    });
-  });
+// Lifecycle hooks
+onMounted(async () => {
+  await investmentStore.fetchAssets();
+  await investmentStore.fetchCompanies();
+  await fetchAlerts();
+  investmentStore.updateStockValues();
 });
-
-// calculate profit using asset code
-const calculateProfit = (asset) => {
-  const currentPrice = stockValues.value[asset.code] || 0;
-  return Number(parseFloat((currentPrice - asset.purchase_price) * asset.shares).toFixed(2));;
-};
-
-onMounted(fetchData);
-
-
-
 </script>
 
 <style scoped>

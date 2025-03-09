@@ -6,18 +6,18 @@
       <div class="stats-grid">
         <div class="stat-item">
           <span class="stat-label">Inversión Total</span>
-          <span class="stat-value">${{ totalInvestment.toFixed(2) }}</span>
+          <span class="stat-value">${{ investmentStore.totalInvestment.toFixed(2) }}</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">Valor Actual</span>
-          <span class="stat-value">${{ currentTotalValue.toFixed(2) }}</span>
+          <span class="stat-value">${{ investmentStore.currentTotalValue.toFixed(2) }}</span>
         </div>
         <div class="stat-item">
-          <span class="stat-label" :class="totalProfit >= 0 ? 'profit' : 'loss'">
-            {{ totalProfit >= 0 ? 'Ganancia Total' : 'Pérdida Total' }}
+          <span class="stat-label" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+            {{ investmentStore.totalProfit >= 0 ? 'Ganancia Total' : 'Pérdida Total' }}
           </span>
-          <span class="stat-value" :class="totalProfit >= 0 ? 'profit' : 'loss'">
-            ${{ Math.abs(totalProfit).toFixed(2) }}
+          <span class="stat-value" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+            ${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}
           </span>
         </div>
       </div>
@@ -48,7 +48,7 @@
               <td>${{ latestInvestment.purchase_price }}</td>
               <td>${{ (latestInvestment.shares * latestInvestment.purchase_price).toFixed(2) }}</td>
               <td>{{ formatDate(latestInvestment.purchase_date) }}</td>
-              <td>${{ stockValues[latestInvestment.code] || 'Cargando...' }}</td>
+              <td>${{ investmentStore.stockValues[latestInvestment.code] || 'Cargando...' }}</td>
               <td :class="getLatestProfitClass">
                 {{ getLatestProfitIndicator }} ${{ Math.abs(latestProfit).toFixed(2) }}
               </td>
@@ -58,51 +58,26 @@
       </div>
     </div>
 
-
+    
   </div>
 </template>
   
   <script setup>
-import { ref, computed, onMounted, watchEffect } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
-import { useApi } from '@/composables/useApi'
+import { useInvestmentStore } from '@/stores/investments'
 
 const auth = useAuthStore()
-const api = useApi()
-
-// Data refs
-const assets = ref([])
-const companies = ref([])
-const stockValues = ref({})
+const investmentStore = useInvestmentStore()
 
 // Computed properties
 const userName = computed(() => auth.user?.name || 'Usuario')
 
-const totalInvestment = computed(() => {
-  return assets.value.reduce((sum, asset) => {
-    return sum + asset.shares * asset.purchase_price
-  }, 0)
-})
-
-const currentTotalValue = computed(() => {
-  return assets.value.reduce((sum, asset) => {
-    const currentPrice = stockValues.value[asset.code] || 0
-    return sum + asset.shares * currentPrice
-  }, 0)
-})
-
-const totalProfit = computed(() => {
-  return currentTotalValue.value - totalInvestment.value
-})
-
-const latestInvestment = computed(() => {
-  if (!assets.value.length) return null
-  return [...assets.value].sort((a, b) => new Date(b.purchase_date) - new Date(a.purchase_date))[0]
-})
+const latestInvestment = computed(() => investmentStore.latestInvestment)
 
 const latestProfit = computed(() => {
   if (!latestInvestment.value) return 0
-  const currentPrice = stockValues.value[latestInvestment.value.code] || 0
+  const currentPrice = investmentStore.stockValues[latestInvestment.value.code] || 0
   return (currentPrice - latestInvestment.value.purchase_price) * latestInvestment.value.shares
 })
 
@@ -111,8 +86,9 @@ const getLatestProfitClass = computed(() => {
 })
 
 const getLatestProfitIndicator = computed(() => {
-  return latestProfit.value >= 0 ? 'Ganancia:' : 'Pérdida:'
+  return latestProfit.value >= 0 ? '✅ Ganancia:' : '🔻 Pérdida:'
 })
+
 
 
 const formatDate = (dateString) => {
@@ -120,46 +96,17 @@ const formatDate = (dateString) => {
 }
 
 const getCompanyName = (code) => {
-  const company = companies.value.find((c) => c.code === code)
+  const company = investmentStore.companies.find((c) => c.code === code)
   return company ? company.name : code
 }
 
-const getCurrentStockValue = async (code) => {
-  try {
-    await api.fetchData(`http://localhost:8111/${code}`)
-    const price = api.data.value.values[0].close
-    stockValues.value[code] = Number(parseFloat(price).toFixed(2))
-  } catch (err) {
-    console.error('Error obteniendo el valor actual:', err)
-    stockValues.value[code] = null
-  }
-}
 
-const fetchData = async () => {
-  try {
-    const userId = auth.user?.id
 
-    // fetch assets
-    await api.fetchData(`http://localhost:3000/assets?user_id=${userId}`)
-    assets.value = api.data.value || []
-
-    // fetch companies
-    await api.fetchData('http://localhost:3000/companies')
-    companies.value = api.data.value || []
-  } catch (err) {
-    console.error('Error cargando datos:', err)
-  }
-}
-
-// update
-watchEffect(() => {
-  assets.value.forEach((asset) => {
-    getCurrentStockValue(asset.code)
-  })
+onMounted(async () => {
+  await investmentStore.fetchAssets()
+  await investmentStore.fetchCompanies()
+  investmentStore.updateStockValues()
 })
-
-
-onMounted(fetchData)
 </script>
   
   <style scoped>
@@ -259,7 +206,7 @@ onMounted(fetchData)
 }
 
 .portfolio-item span {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .portfolio-header {
@@ -273,17 +220,17 @@ onMounted(fetchData)
 }
 
 .profit {
-  color: #22c55e;
+  color: var(--green);
 }
 
 .loss {
-  color: #ef4444;
+  color: var(--red);
 }
 table {
   text-align: center;
 }
 table th {
-    color: var(--purple);
+  color: var(--purple);
 }
 
 @media (max-width: 768px) {
