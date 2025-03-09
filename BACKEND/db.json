@@ -33,38 +33,6 @@
   ],
   "assets": [
     {
-      "id": "3",
-      "user_id": "y1OVxtgM",
-      "code": "TSLA",
-      "investment_amount": 1700,
-      "purchase_price": 284.65,
-      "purchase_date": "2023-03-05"
-    },
-    {
-      "id": "d58a",
-      "user_id": "y1OVxtgM",
-      "code": "TSLA",
-      "shares": 354,
-      "purchase_price": 20,
-      "purchase_date": "2025-03-05"
-    },
-    {
-      "id": "af44",
-      "user_id": "y1OVxtgM",
-      "code": "AAPL",
-      "shares": 50,
-      "purchase_price": 33,
-      "purchase_date": "2025-03-05"
-    },
-    {
-      "id": "4eb0",
-      "user_id": "y1OVxtgM",
-      "code": "TSLA",
-      "shares": 32,
-      "purchase_price": 12,
-      "purchase_date": "2025-03-05"
-    },
-    {
       "id": "0b77",
       "user_id": "Q9OQ0gu6",
       "code": "AAPL",
@@ -78,6 +46,14 @@
       "code": "TSLA",
       "shares": 11,
       "purchase_price": 321,
+      "purchase_date": "2025-03-09"
+    },
+    {
+      "id": "d434",
+      "user_id": "y1OVxtgM",
+      "code": "META",
+      "shares": 4,
+      "purchase_price": 300,
       "purchase_date": "2025-03-09"
     }
   ],

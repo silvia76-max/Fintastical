@@ -1,8 +1,9 @@
 <template>
   <div class="investment-summary">
+    <h1>Resumen</h1>
     <!-- User Info Section -->
     <div class="summary-card user-info">
-      <h2>Bienvenido, {{ userName }}</h2>
+      <h2>Hola, {{ userName }}</h2>
       <div class="stats-grid">
         <div class="stat-item">
           <span class="stat-label">Inversión Total</span>
