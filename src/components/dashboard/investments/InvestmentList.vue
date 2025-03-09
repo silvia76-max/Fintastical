@@ -6,7 +6,7 @@
     <div class="section-header">
       <h2>Tus Activos</h2>
       <button @click="showAssetForm = true" class="btn-icon">
-        ＋ Agregar
+        ➕ Agregar
       </button>
     </div>
 
@@ -14,16 +14,16 @@
     <div v-if="assets.length > 0" class="assets-grid">
       <div v-for="asset in assets" :key="asset.id" class="asset-card">
         <div class="asset-header">
-          <span class="ticker">{{ asset.code }}</span>
+          <span class="ticker">{{ asset.code }} </span>
           <span class="date">{{ formatDate(asset.purchase_date) }}</span>
         </div>
 
         <div class="asset-details">
-          <p>🪙 Acciones: {{ asset.shares }}</p>
-          <p>💰 Precio/acción: ${{ asset.purchase_price }}</p>
-          <p>📈 Inversión: ${{ asset.shares * asset.purchase_price }}</p>
-          <p>* Valor actual: ${{ getCurrentStockValue(asset.code) }}</p>
-          <p>* Ganancia/Pérdida: ${{ calculateProfit(asset) }}</p>
+          <p>💼 Acciones: {{ asset.shares }}</p>
+          <p>💲 Precio/acción: ${{ asset.purchase_price }}</p>
+          <p>📊 Inversión: ${{ asset.shares * asset.purchase_price }}</p>
+          <p>💰 Valor actual: ${{ stockValues[asset.code] }}</p>
+          <p>📈 Ganancia/Pérdida: ${{ profitValues[asset.code] }}</p>
           
         </div>
 
@@ -134,14 +134,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watchEffect } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useApi } from '@/composables/useApi';
 import { useAAFetch } from '@/composables/useAAFetch';
 
 const auth = useAuthStore();
 const api = useApi();
-const aaFetch = useAAFetch();
+
 
 // Datos
 const assets = ref([]);
@@ -150,13 +150,14 @@ const showAssetForm = ref(false);
 const showAlertModal = ref(false);
 const selectedAsset = ref('');
 const companies = ref([]);
-const companiesList = ref([]);
+
 
 
 // Params for Stock values fetch
 let companiesSymbolsArray = [];
 let companiesSymbols = "";
-let stockValues = ref([]);
+let stockValues = ref({});
+const profitValues = ref({});
 const interval = "1h"
 const apikey = "2b69e37d583e41fda6a423e2b07cfdb2"
 
@@ -185,23 +186,25 @@ const fetchData = async () => {
     // Cargar alertas
     await api.fetchData(`http://localhost:3000/alerts?user_id=${userId}`);
     alerts.value = api.data.value || [];
+    console.log(alerts.value)
 
     // Load companies
     await api.fetchData(`http://localhost:3000/companies`);
     companies.value = api.data.value || [];
     
     // Load companies list
-    await api.fetchData(`http://localhost:3000/companies`);
-    companiesList.value = api.data.value || [];
-    loadCompaniesList(companiesList.value);
+    // await api.fetchData(`http://localhost:3000/companies`);
+    // companiesList.value = api.data.value || [];
+    // loadCompaniesList(companiesList.value);
+    // console.log(companies.value)
 
     // companiesSymbols : AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD,NFLX,MSFT
     // https://api.twelvedata.com/time_series?symbol=${companiesSymbols}&currency=EUR&interval=${interval}&apikey=${apikey}
 
     // Load Stock Values
-    await api.fetchData(`https://api.twelvedata.com/time_series?symbol=AAPL,NVDA,TSLA&currency=EUR&interval=${interval}&apikey=${apikey}`);
-    stockValues.value = api.data.value || [];
-    console.log(stockValues.value);
+    // await api.fetchData(`http://localhost:8111/AAPL`);
+    // stockValues.value = api.data.value || [];
+    // console.log(stockValues.value);
     
 
     } catch (err) {
@@ -276,26 +279,42 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('es-ES');
 };
 
-const loadCompaniesList = async (listOfCompanies) => {
-  listOfCompanies.forEach((element) => {
-      companiesSymbolsArray.push(element.code);
-  });
-  // console.log(companiesSymbolsArray)
-  companiesSymbols = companiesSymbolsArray.join(",")
-  // console.log(companiesSymbols);
-}
+// const loadCompaniesList = async (listOfCompanies) => {
+//   listOfCompanies.forEach((element) => {
+//       companiesSymbolsArray.push(element.code);
+//   });
+//   // console.log(companiesSymbolsArray)
+//   companiesSymbols = companiesSymbolsArray.join(",")
+//   // console.log(companiesSymbols);
+// }
 
-// get stock values comparing the code of the assets
-const getCurrentStockValue = (code) => {
-  const stock = stockValues.value.find(sym => sym.meta.symbol === code);
-  // console.log(stock);
-  return stock ? stock.values[0].close : 'N/A';
+// get stock values using the codes of assets
+const getCurrentStockValue = async (code) => {
+  try {
+    await api.fetchData(`http://localhost:8111/${code}`);
+    let price = api.data.value.values[0].close;
+    // to float with 2 decimal places
+    stockValues.value[code] = Number(parseFloat(price).toFixed(2));
+  } catch (err) {
+    console.error('Error obteniendo el valor actual:', err);
+    stockValues.value[code] = null;
+  }
 };
 
-// calculate profit using asset as a argument
+
+// refresh current stock values on template
+watchEffect(() => {
+  assets.value.forEach(asset => {
+    getCurrentStockValue(asset.code).then(() => {
+      profitValues.value[asset.code] = calculateProfit(asset);
+    });
+  });
+});
+
+// calculate profit using asset code
 const calculateProfit = (asset) => {
-  const currentPrice = getCurrentStockValue(asset.code);
-  return currentPrice !== 'N/A' ? ((currentPrice - asset.purchase_price) * asset.shares).toFixed(2) : 'N/A';
+  const currentPrice = stockValues.value[asset.code] || 0;
+  return Number(parseFloat((currentPrice - asset.purchase_price) * asset.shares).toFixed(2));;
 };
 
 onMounted(fetchData);
@@ -360,6 +379,11 @@ onMounted(fetchData);
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: transform 0.2s;
+  color: var(--purple)
+}
+
+.target-price {
+  color: var(--purple-dark)
 }
 
 .asset-card:hover {
@@ -396,7 +420,7 @@ onMounted(fetchData);
 }
 
 .btn-icon {
-  background: #3498db;
+  background: var(--purple);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -411,7 +435,7 @@ onMounted(fetchData);
 }
 
 .btn-icon:hover {
-  background: #2980b9;
+  background: var(--purple-hover);
   transform: translateY(-1px);
 }
 
@@ -426,7 +450,7 @@ onMounted(fetchData);
 }
 
 .btn-alert {
-  background: #3498db;
+  background: var(--purple);
   color: white;
   padding: 10px 20px;
   border-radius: 8px;
@@ -436,7 +460,7 @@ onMounted(fetchData);
 }
 
 .btn-alert:hover {
-  background: #72a6f5;
+  background: var(--purple-hover);
   color: rgb(16, 11, 59);
 }
 
