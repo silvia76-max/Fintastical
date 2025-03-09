@@ -1,6 +1,6 @@
 <template>
   <div class="investments-view">
-    <h1>Mis Inversiones</h1>
+    <h1>Inversiones</h1>
 
     <!-- SECCIÓN DE ACTIVOS -->
     <div class="section-header">
@@ -137,7 +137,6 @@
 import { ref, onMounted, watchEffect } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useApi } from '@/composables/useApi';
-import { useAAFetch } from '@/composables/useAAFetch';
 
 const auth = useAuthStore();
 const api = useApi();
