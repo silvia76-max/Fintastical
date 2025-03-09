@@ -23,7 +23,8 @@
           <p>💲 Precio/acción: ${{ asset.purchase_price }}</p>
           <p>📊 Inversión: ${{ asset.shares * asset.purchase_price }}</p>
           <p>💰 Valor actual: ${{ investmentStore.stockValues[asset.code] }}</p>
-          <p>📈 Ganancia/Pérdida: ${{ getAssetProfit(asset) }}</p>
+          <p>📈 {{ getAssetProfit(asset) >= 0 ? 'Ganancia' : 'Pérdida'}} ${{ getAssetProfit(asset) }}</p>
+          <!-- <p>📈 Ganancia/Pérdida: ${{ getAssetProfit(asset) }}</p> -->
         </div>
 
         <div class="asset-actions">
