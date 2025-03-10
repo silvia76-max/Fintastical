@@ -9,7 +9,7 @@
         >
           {{ code }}
           <span class="price-indicator" :class="getPriceChangeClass(code)">
-            ${{ getCurrentPrice(code) }}
+            <!-- ${{ getCurrentPrice(code) }} -->
           </span>
         </button>
       </div>
@@ -18,7 +18,7 @@
         <div class="chart-header">
           <h3>{{ currentAsset }}</h3>
           <span class="current-price" :class="getPriceChangeClass(currentAsset)">
-            ${{ getCurrentPrice(currentAsset) }}
+            <!-- ${{ getCurrentPrice(currentAsset) }} -->
           </span>
         </div>
         <div :id="'tradingview-widget-' + currentAsset" class="tradingview-widget"></div>
@@ -177,10 +177,12 @@
   
   <style scoped>
   .charts-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 1rem;
+    gap: 24px;
   }
   
   .navigation-buttons {
