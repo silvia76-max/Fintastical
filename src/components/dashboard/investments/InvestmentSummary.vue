@@ -58,8 +58,6 @@
         </table>
       </div>
     </div>
-
-    
   </div>
 </template>
   
@@ -90,8 +88,6 @@ const getLatestProfitIndicator = computed(() => {
   return latestProfit.value >= 0 ? '✅ Ganancia:' : '🔻 Pérdida:'
 })
 
-
-
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('es-ES')
 }
@@ -100,8 +96,6 @@ const getCompanyName = (code) => {
   const company = investmentStore.companies.find((c) => c.code === code)
   return company ? company.name : code
 }
-
-
 
 onMounted(async () => {
   await investmentStore.fetchAssets()
