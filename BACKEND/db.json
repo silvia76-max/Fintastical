@@ -33,14 +33,6 @@
   ],
   "assets": [
     {
-      "id": "0b77",
-      "user_id": "Q9OQ0gu6",
-      "code": "AAPL",
-      "shares": 1,
-      "purchase_price": 230,
-      "purchase_date": "2025-03-06"
-    },
-    {
       "id": "d434",
       "user_id": "y1OVxtgM",
       "code": "META",
@@ -49,20 +41,12 @@
       "purchase_date": "2025-03-09"
     },
     {
-      "id": "2330",
+      "id": "41f5",
       "user_id": "Q9OQ0gu6",
-      "code": "TSLA",
+      "code": "NVDA",
       "shares": 1,
-      "purchase_price": 222,
-      "purchase_date": "2025-03-09"
-    },
-    {
-      "id": "dd05",
-      "user_id": "Q9OQ0gu6",
-      "code": "TSLA",
-      "shares": 1,
-      "purchase_price": 500,
-      "purchase_date": "2025-03-09"
+      "purchase_price": 200,
+      "purchase_date": "2025-03-10"
     }
   ],
   "alerts": [
