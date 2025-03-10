@@ -1,7 +1,18 @@
+:root {
+  --purple: #6046B0;
+  --purple-dark: #2F284C;
+  --purple-light: #DFDAEE;
+  --purple-hover: #8F6AFF;
+  --purple-gray: #76708E;
+  --green: #5F9D49;
+  --red: #D34E54
+
+}
+
 /* Estilos globales */
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Ginto','Arial', sans-serif;
   background-color: #eaeaea;
 }
 
@@ -15,3 +26,31 @@ button {
 }
 
 /* Puedes incluir más reglas globales aquí */
+
+@font-face {
+  font-family: 'Ginto';
+  src: url("../../public/ABCGintoNormal-Regular.otf") format('opentype');
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Ginto-Bold';
+  src: url("../../public/ABCGintoNormal-Bold.otf") format('opentype');
+  font-style: bold;
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'Ginto-Black';
+  src: url("../../public/ABCGintoNormal-Black.otf") format('opentype');
+  font-style: bold;
+  font-weight: bold;
+}
+p {
+  font-family: 'Ginto';
+}
+h1, h2, h3, h4, h5 {
+  font-family: 'Ginto-Bold';
+}
+h1 {
+  color: var(--purple)
+}

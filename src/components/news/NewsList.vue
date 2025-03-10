@@ -95,8 +95,10 @@ const siguientePagina = () => {
 onMounted(cargarDatos);
 </script>
 
-<style>
+
+<style scoped>
 /* Estilo de las tarjetas en tres columnas */
+
 .noticias-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Tres columnas */
