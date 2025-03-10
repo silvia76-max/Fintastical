@@ -6,19 +6,52 @@
     </p>
     <div class="reviews">
       <div class="review">
-        <h3>Manuela Serrano</h3>
+        <div class="review-content">
+          <h3>Manuela Serrano</h3>
+          <div class="stars">
+            <div class="star-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i> <!-- 4/5 stars -->
+            </div>
+          </div>
+          <p>"Fintastical has completely transformed the way I manage my finances. Highly recommended!"</p>
+        </div>
         <img src="/public/Manuela-.webp" alt="mujer dando una opinion">
-        <p>"Fintastical has completely transformed the way I manage my finances. Highly recommended!"</p>
       </div>
       <div class="review">
-        <h3>Joel Zaratain</h3>
-        <img src="/public/Joel.webp" alt="mujer dando una opinion">
-        <p>"The platform is incredibly user-friendly, and the support team is always helpful."</p>
+        <div class="review-content">
+          <h3>Joel Zaratain</h3>
+          <div class="stars">
+            <div class="star-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i> <!-- 3/5 stars -->
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+          <p>"The platform is incredibly user-friendly, and the support team is always helpful."</p>
+        </div>
+        <img src="/public/Joel.webp" alt="hombre dando una opinion">
       </div>
       <div class="review">
-        <h3>Lorena Garrido</h3>
+        <div class="review-content">
+          <h3>Lorena Garrido</h3>
+          <div class="stars">
+            <div class="star-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i> <!-- 5/5 stars -->
+            </div>
+          </div>
+          <p>"I love the transparency and the innovative tools Fintastical offers."</p>
+        </div>
         <img src="/public/Lorena.webp" alt="mujer dando una opinion">
-        <p>"I love the transparency and the innovative tools Fintastical offers."</p>
       </div>
     </div>
   </div>
@@ -54,15 +87,25 @@ p {
 }
 
 .review {
+  display: flex;
+  align-items: center;
   background-color: #f7f7f7;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 20px;
 }
+
 .review img {
   width: 150px;
   height: 150px;
+  border-radius: 50%;
+  margin-left: 20px;
 }
+
+.review-content {
+  flex: 1;
+}
+
 .review h3 {
   color: #2F284C;
   margin-bottom: 10px;
@@ -73,5 +116,26 @@ p {
   line-height: 1.5;
   color: #555;
   text-align: left;
+}
+
+.stars {
+  margin-bottom: 10px;
+}
+
+.star-rating {
+  display: flex;
+  color: #ffd700; /* Color dorado para las estrellas */
+}
+
+.star-rating i {
+  margin-right: 5px; /* Espacio entre las estrellas */
+}
+
+.star-rating .fas {
+  color: #ffd700; /* Estrellas llenas */
+}
+
+.star-rating .far {
+  color: #e0e0e0; /* Estrellas vacías */
 }
 </style>

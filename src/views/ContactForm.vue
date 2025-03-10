@@ -48,13 +48,22 @@
     <!-- Pop-up de confirmación -->
     <div v-if="showPopup" class="popup-overlay">
       <div class="popup-content">
-        <p>Su consulta se envió correctamente, en breve le contactaremos. Gracias por su paciencia.</p>
+        <p>We have received your details and will contact you shortly. Thank you for your patience.</p>
         <button @click="closePopup">Close</button>
       </div>
     </div>
 
     <!-- Google Map -->
-    <div id="map" class="map-container"></div>
+    <iframe
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9921.580742178235!2d-0.10874529083371688!3d51.51766570000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b1f29d917ad%3A0xf3fa0498c14db63c!2s456%20Business%20Ave%2C%20London%2C%20UK%20EC1A%201BB!5e0!3m2!1sen!2sin!4v1678208291173!5m2!1sen!2sin"
+  width="600"
+  height="450"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy">
+</iframe>
+
+
   </div>
 </template>
 
@@ -127,51 +136,41 @@ const closePopup = () => {
   fileContent.value = null;
 };
 
-// loadGoogleMaps function
 const loadGoogleMaps = () => {
   if (window.google && window.google.maps) {
     initMap(); // Initialize map if API is already loaded
     return;
   }
   const script = document.createElement('script');
-         <div class="google-maps">
-            <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093675!2d144.95565131531837!3d-37.81731397975179!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5df1f5f97f%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sin!4v1646636262845!5m2!1sen!2sin"
-            width="600"
-            height="450"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy">
-          </iframe>`
-          </div>
+  script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap`;
   script.async = true;
   script.defer = true;
   script.onload = () => {
     initMap(); // Initialize map once the script is loaded
   };
   document.head.appendChild(script); // Append the script to the document head
-};
+}
 
-// initMap function
 const initMap = () => {
   const mapElement = document.getElementById('map');
   if (mapElement) {
     const map = new window.google.maps.Map(mapElement, {
       center: { lat: 40.7128, lng: -74.0060 }, // Coordinates for map center (New York)
-      zoom: 12 // Set zoom level
+      zoom: 12, // Set zoom level
     });
     new window.google.maps.Marker({
       position: { lat: 40.7128, lng: -74.0060 }, // Position of the marker
       map: map, // Attach the marker to the map
-      title: 'Our Location' // Tooltip that appears when hovering over the marker
+      title: 'Our Location', // Tooltip that appears when hovering over the marker
     });
   }
 };
 
 // onMounted lifecycle hook to load Google Maps when the component is mounted
 onMounted(() => {
-  loadGoogleMaps();
+  loadGoogleMaps(); // Call the function to load the Google Maps script
 });
+
 </script>
 
 
