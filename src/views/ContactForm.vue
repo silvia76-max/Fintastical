@@ -45,89 +45,135 @@
       Thank you for reaching out! We will get back to you soon.
     </div>
 
+    <!-- Pop-up de confirmación -->
+    <div v-if="showPopup" class="popup-overlay">
+      <div class="popup-content">
+        <p>We have received your details and will contact you shortly. Thank you for your patience.</p>
+        <button @click="closePopup">Close</button>
+      </div>
+    </div>
+
     <!-- Google Map -->
-    <div id="map" class="map-container"></div>
+    <iframe
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9921.580742178235!2d-0.10874529083371688!3d51.51766570000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b1f29d917ad%3A0xf3fa0498c14db63c!2s456%20Business%20Ave%2C%20London%2C%20UK%20EC1A%201BB!5e0!3m2!1sen!2sin!4v1678208291173!5m2!1sen!2sin"
+  width="600"
+  height="450"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy">
+</iframe>
+
+
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      form: {
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+<script setup>
+import { ref, onMounted } from 'vue';
+
+// Reactive variables using ref
+const form = ref({
+  name: '',
+  email: '',
+  subject: '',
+  message: ''
+});
+const fileContent = ref(null); // Stores the content of the uploaded file
+const formSubmitted = ref(false); // Tracks if the form has been submitted
+const showPopup = ref(false); // Controls visibility of the popup
+
+// handleSubmit function
+const handleSubmit = async () => {
+  console.log('Form Submitted:', form.value);
+  formSubmitted.value = true;
+  showPopup.value = true; // Show the popup
+
+  // Prepare the form data for submission
+  const data = { ...form.value };
+
+  try {
+    const response = await fetch("http://localhost:3000/contactos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      fileContent: null,
-      formSubmitted: false
-    };
-  },
-
-  mounted() {
-    this.$nextTick(() => {
-      this.loadGoogleMaps();
+      body: JSON.stringify(data),
     });
-  },
 
-  methods: {
-    handleSubmit() {
-      console.log('Form Submitted:', this.form);
-      this.formSubmitted = true;
+    const result = await response.json();
+    console.log("Respuesta del servidor:", result);
 
-      // Reset form
-      this.form = { name: '', email: '', subject: '', message: '' };
-    },
+    if (response.ok) {
 
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-
-      if (file && file.type === 'text/plain') {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.fileContent = reader.result;
-        };
-        reader.readAsText(file);
-      } else {
-        alert('Only text files are allowed.');
-      }
-    },
-
-    loadGoogleMaps() {
-      if (window.google && window.google.maps) {
-        this.initMap();
-        return;
-      }
-
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY`;
-      script.async = true;
-      script.defer = true;
-      script.onload = () => {
-        this.initMap();
-      };
-      document.head.appendChild(script);
-    },
-
-    initMap() {
-      const mapElement = document.getElementById('map');
-      if (mapElement) {
-        const map = new window.google.maps.Map(mapElement, {
-          center: { lat: 40.7128, lng: -74.0060 },
-          zoom: 12
-        });
-
-        new window.google.maps.Marker({
-          position: { lat: 40.7128, lng: -74.0060 },
-          map: map,
-          title: 'Our Location'
-        });
-      }
+      form.value = { name: '', email: '', subject: '', message: '' }; // Reset form fields
+    } else {
+      alert("Error al enviar el mensaje");
     }
+  } catch (error) {
+    console.error("Error de conexión:", error);
+    alert("Error de conexión con el servidor");
   }
 };
+
+// handleFileUpload function
+const handleFileUpload = (event) => {
+  const file = event.target.files[0];
+  if (file && file.type === 'text/plain') {
+    const reader = new FileReader();
+    reader.onload = () => {
+      fileContent.value = reader.result; // Store file content
+    };
+    reader.readAsText(file); // Read the file as text
+  } else {
+    alert('Only text files are allowed.'); // Show an alert if the file is not text
+  }
+};
+
+
+
+// closePopup function
+const closePopup = () => {
+  showPopup.value = false;
+  fileContent.value = null;
+};
+
+const loadGoogleMaps = () => {
+  if (window.google && window.google.maps) {
+    initMap(); // Initialize map if API is already loaded
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap`;
+  script.async = true;
+  script.defer = true;
+  script.onload = () => {
+    initMap(); // Initialize map once the script is loaded
+  };
+  document.head.appendChild(script); // Append the script to the document head
+}
+
+const initMap = () => {
+  const mapElement = document.getElementById('map');
+  if (mapElement) {
+    const map = new window.google.maps.Map(mapElement, {
+      center: { lat: 40.7128, lng: -74.0060 }, // Coordinates for map center (New York)
+      zoom: 12, // Set zoom level
+    });
+    new window.google.maps.Marker({
+      position: { lat: 40.7128, lng: -74.0060 }, // Position of the marker
+      map: map, // Attach the marker to the map
+      title: 'Our Location', // Tooltip that appears when hovering over the marker
+    });
+  }
+};
+
+// onMounted lifecycle hook to load Google Maps when the component is mounted
+onMounted(() => {
+  loadGoogleMaps(); // Call the function to load the Google Maps script
+});
+
 </script>
+
+
 
 <style scoped>
 .contact-container {
@@ -179,14 +225,14 @@ button.submit-btn {
   width: 100%;
   padding: 12px;
   color: white;
-  background-color: #000000;
+  background-color:#6046B0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 button.submit-btn:hover {
-  background-color: #b994c4;
+  background-color:#8F6AFF;;
 }
 
 .file-content {
@@ -211,5 +257,47 @@ button.submit-btn:hover {
   margin-top: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;
+}
+
+/* Estilos para el pop-up */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 300px;
+}
+
+.popup-content p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.popup-content button {
+  background-color: #6046B0;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup-content button:hover {
+  background-color: #8F6AFF;
 }
 </style>
