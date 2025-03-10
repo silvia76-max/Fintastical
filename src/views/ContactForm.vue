@@ -58,85 +58,122 @@
   </div>
 </template>
 
-<script>
-export default {
-data() {
-return {
-form: {
-name: '',
-email: '',
-subject: '',
-message: ''
-},
-fileContent: null, // Stores the content of the uploaded file
-formSubmitted: false, // Tracks if the form has been submitted
-showPopup: false // Controls visibility of the popup
-};
-},
-mounted() {
-// Waits for the component to be mounted before loading Google Maps
-this.$nextTick(() => {
-this.loadGoogleMaps();
+<script setup>
+import { ref, onMounted } from 'vue';
+
+// Reactive variables using ref
+const form = ref({
+  name: '',
+  email: '',
+  subject: '',
+  message: ''
 });
-},
-methods: {
-handleSubmit() {
-// Logs the form data when submitted and resets the form
-console.log('Form Submitted:', this.form);
-this.formSubmitted = true;
-this.showPopup = true; // Show the popup
-this.form = { name: '', email: '', subject: '', message: '' }; // Reset form fields
-},
-handleFileUpload(event) {
-// Handles file upload and reads the content of the file
-const file = event.target.files[0];
-if (file && file.type === 'text/plain') {
-const reader = new FileReader();
-reader.onload = () => {
-this.fileContent = reader.result; // Store file content
+const fileContent = ref(null); // Stores the content of the uploaded file
+const formSubmitted = ref(false); // Tracks if the form has been submitted
+const showPopup = ref(false); // Controls visibility of the popup
+
+// handleSubmit function
+const handleSubmit = async () => {
+  console.log('Form Submitted:', form.value);
+  formSubmitted.value = true;
+  showPopup.value = true; // Show the popup
+
+  // Prepare the form data for submission
+  const data = { ...form.value };
+
+  try {
+    const response = await fetch("http://localhost:3000/contactos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    console.log("Respuesta del servidor:", result);
+
+    if (response.ok) {
+
+      form.value = { name: '', email: '', subject: '', message: '' }; // Reset form fields
+    } else {
+      alert("Error al enviar el mensaje");
+    }
+  } catch (error) {
+    console.error("Error de conexión:", error);
+    alert("Error de conexión con el servidor");
+  }
 };
-reader.readAsText(file); // Read the file as text
-} else {
-alert('Only text files are allowed.'); // Show an alert if the file is not text
-}
-},
-closePopup() {
-// Closes the popup
-this.showPopup = false;
-},
-loadGoogleMaps() {
-// Loads the Google Maps script if it's not already loaded
-if (window.google && window.google.maps) {
-this.initMap(); // Initialize map if API is already loaded
-return;
-}
-const script = document.createElement('script');
-script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY`;
-script.async = true;
-script.defer = true;
-script.onload = () => {
-this.initMap(); // Initialize map once the script is loaded
+
+// handleFileUpload function
+const handleFileUpload = (event) => {
+  const file = event.target.files[0];
+  if (file && file.type === 'text/plain') {
+    const reader = new FileReader();
+    reader.onload = () => {
+      fileContent.value = reader.result; // Store file content
+    };
+    reader.readAsText(file); // Read the file as text
+  } else {
+    alert('Only text files are allowed.'); // Show an alert if the file is not text
+  }
 };
-document.head.appendChild(script); // Append the script to the document head
-},
-initMap() {
-// Initializes the map and adds a marker
-const mapElement = document.getElementById('map');
-if (mapElement) {
-const map = new window.google.maps.Map(mapElement, {
-center: { lat: 40.7128, lng: -74.0060 }, // Coordinates for map center (New York)
-zoom: 12 // Set zoom level
+
+
+
+// closePopup function
+const closePopup = () => {
+  showPopup.value = false;
+  fileContent.value = null;
+};
+
+// loadGoogleMaps function
+const loadGoogleMaps = () => {
+  if (window.google && window.google.maps) {
+    initMap(); // Initialize map if API is already loaded
+    return;
+  }
+  const script = document.createElement('script');
+         <div class="google-maps">
+            <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093675!2d144.95565131531837!3d-37.81731397975179!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5df1f5f97f%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sin!4v1646636262845!5m2!1sen!2sin"
+            width="600"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy">
+          </iframe>`
+          </div>
+  script.async = true;
+  script.defer = true;
+  script.onload = () => {
+    initMap(); // Initialize map once the script is loaded
+  };
+  document.head.appendChild(script); // Append the script to the document head
+};
+
+// initMap function
+const initMap = () => {
+  const mapElement = document.getElementById('map');
+  if (mapElement) {
+    const map = new window.google.maps.Map(mapElement, {
+      center: { lat: 40.7128, lng: -74.0060 }, // Coordinates for map center (New York)
+      zoom: 12 // Set zoom level
+    });
+    new window.google.maps.Marker({
+      position: { lat: 40.7128, lng: -74.0060 }, // Position of the marker
+      map: map, // Attach the marker to the map
+      title: 'Our Location' // Tooltip that appears when hovering over the marker
+    });
+  }
+};
+
+// onMounted lifecycle hook to load Google Maps when the component is mounted
+onMounted(() => {
+  loadGoogleMaps();
 });
-new window.google.maps.Marker({
-position: { lat: 40.7128, lng: -74.0060 }, // Position of the marker
-map: map, // Attach the marker to the map
-title: 'Our Location' // Tooltip that appears when hovering over the marker
-});
-}
-}
-}
-};
 </script>
+
 
 
 <style scoped>

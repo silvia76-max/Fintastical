@@ -1,3 +1,4 @@
+<!-- eslint-disable no-unused-vars -->
 <template>
   <footer class="footer-layout">
     <!-- Logo from the public folder -->
@@ -68,10 +69,26 @@
         </form>
 
         <h2>Contact Us</h2>
-        <form @submit.prevent="sendMessage" class="contact-form">
-          <input type="text" placeholder="Name" required />
-          <input type="email" placeholder="Email" required />
-          <textarea placeholder="Your message..." required></textarea>
+        <form @submit.prevent="handleSubmit" class="contact-form">
+
+        <label for="name">Name</label>
+        <input type="text" id="name" v-model="form.name" placeholder="Enter your name" required />
+
+
+
+        <label for="email">Email</label>
+        <input type="email" id="email" v-model="form.email" placeholder="Enter your email" required />
+
+
+
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" v-model="form.subject" placeholder="Enter the subject" required />
+
+
+
+        <label for="message">Message</label>
+ 
+
           <button type="submit">Send Message</button>
         </form>
       </div>
@@ -79,83 +96,71 @@
 
     <!-- Copyright notice -->
     <p class="copyright">&copy; 2025 Fintastical. All rights reserved.</p>
+
+    <!-- Success Message -->
+    <div v-if="formSubmitted" class="success-message">
+      Thank you for reaching out! We will get back to you soon.
+    </div>
+
+    <!-- Pop-up de confirmación -->
+    <div v-if="showPopup" class="popup-overlay">
+      <div class="popup-content">
+        <p>Su consulta se envió correctamente, en breve le contactaremos. Gracias por su paciencia.</p>
+        <button @click="closePopup">Close</button>
+      </div>
+    </div>
   </footer>
 </template>
 
-<script>
-export default {
-  name: "FooterLayout",
-  mounted() {
-    document.addEventListener("DOMContentLoaded", () => {
-      const formContacto = document.getElementById("form-contacto");
-      const formNewsletter = document.getElementById("form-newsletter");
+<script setup>
+import { ref, onMounted } from 'vue';
 
-      if (formContacto) {
-        formContacto.addEventListener("submit", async (event) => {
-          event.preventDefault();
+// Reactive variables for the form
+const form = ref({
+  name: '',
+  email: '',
+  subject: '',
+  message: ''
+});
+const formSubmitted = ref(false); // Track if the form has been submitted
+const showPopup = ref(false); // Controls visibility of the popup
 
-          const formData = new FormData(formContacto);
-          const data = Object.fromEntries(formData);
+// handleSubmit function
+const handleSubmit = async () => {
+  console.log('Form Submitted:', form.value);
 
-          try {
-            const response = await fetch("http://localhost:3000/contactos", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(data),
-            });
+  // Prepare the form data for submission
+  const data = { ...form.value };
 
-            if (response.ok) {
-              alert("Mensaje enviado correctamente");
-              formContacto.reset();
-            } else {
-              alert("Hubo un error al enviar el mensaje");
-            }
-          // eslint-disable-next-line no-unused-vars
-          } catch (error) {
-            alert("Error de conexión con el servidor");
-          }
-        });
-      }
-
-      if (formNewsletter) {
-        formNewsletter.addEventListener("submit", async (event) => {
-          event.preventDefault();
-
-          const email = document.getElementById("newsletter-email").value;
-
-          if (!email) {
-            alert("Por favor, introduce un correo electrónico válido");
-            return;
-          }
-
-          try {
-            const response = await fetch("http://localhost:3000/newsletter", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ email }),
-            });
-
-            if (response.ok) {
-              alert("Suscripción exitosa");
-              formNewsletter.reset();
-            } else {
-              alert("Hubo un error al suscribirse");
-            }
-          // eslint-disable-next-line no-unused-vars
-          } catch (error) {
-            alert("Error de conexión con el servidor");
-          }
-        });
-      }
+  try {
+    const response = await fetch("http://localhost:3000/contactos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
-  },
-};
-</script>
 
+    const result = await response.json();
+    console.log("Respuesta del servidor:", result);
+
+    if (response.ok) {
+      alert("Mensaje enviado correctamente");
+      form.value = { name: '', email: '', subject: '', message: '' }; // Reset form fields
+    } else {
+      alert("Error al enviar el mensaje");
+    }
+  } catch (error) {
+    console.error("Error de conexión:", error);
+    alert("Error de conexión con el servidor");
+  }
+};
+
+// Form validation or other logic can be added here
+onMounted(() => {
+  // You can perform any necessary initialization here if needed
+});
+</script>
 
 <style scoped>
 .footer-layout {
