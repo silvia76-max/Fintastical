@@ -33,38 +33,6 @@
   ],
   "assets": [
     {
-      "id": "3",
-      "user_id": "y1OVxtgM",
-      "code": "TSLA",
-      "investment_amount": 1700,
-      "purchase_price": 284.65,
-      "purchase_date": "2023-03-05"
-    },
-    {
-      "id": "d58a",
-      "user_id": "y1OVxtgM",
-      "code": "TSLA",
-      "shares": 354,
-      "purchase_price": 20,
-      "purchase_date": "2025-03-05"
-    },
-    {
-      "id": "af44",
-      "user_id": "y1OVxtgM",
-      "code": "AAPL",
-      "shares": 50,
-      "purchase_price": 33,
-      "purchase_date": "2025-03-05"
-    },
-    {
-      "id": "4eb0",
-      "user_id": "y1OVxtgM",
-      "code": "TSLA",
-      "shares": 32,
-      "purchase_price": 12,
-      "purchase_date": "2025-03-05"
-    },
-    {
       "id": "0b77",
       "user_id": "Q9OQ0gu6",
       "code": "AAPL",
@@ -73,12 +41,28 @@
       "purchase_date": "2025-03-06"
     },
     {
-      "id": "07a9",
+      "id": "d434",
+      "user_id": "y1OVxtgM",
+      "code": "META",
+      "shares": 4,
+      "purchase_price": 300,
+      "purchase_date": "2025-03-09"
+    },
+    {
+      "id": "2330",
       "user_id": "Q9OQ0gu6",
-      "code": "AMZN",
+      "code": "TSLA",
+      "shares": 1,
+      "purchase_price": 222,
+      "purchase_date": "2025-03-09"
+    },
+    {
+      "id": "dd05",
+      "user_id": "Q9OQ0gu6",
+      "code": "TSLA",
       "shares": 1,
       "purchase_price": 500,
-      "purchase_date": "2025-03-07"
+      "purchase_date": "2025-03-09"
     }
   ],
   "alerts": [
@@ -113,22 +97,6 @@
       "type": "down",
       "target_price": 215,
       "created_at": "2025-03-06"
-    },
-    {
-      "id": "36d6",
-      "user_id": "Q9OQ0gu6",
-      "asset_code": "AAPL",
-      "type": "up",
-      "target_price": 250,
-      "created_at": "2025-03-07"
-    },
-    {
-      "id": "1150",
-      "user_id": "Q9OQ0gu6",
-      "asset_code": "AAPL",
-      "type": "down",
-      "target_price": 500,
-      "created_at": "2025-03-07"
     }
   ],
   "companies": [
@@ -179,18 +147,6 @@
       "name": "Advanced Micro Devices, Inc.",
       "market": "NASDAQ",
       "id": "4d87"
-    },
-    {
-      "code": "NFLX",
-      "name": "Netflix, Inc.",
-      "market": "NASDAQ",
-      "id": "1355"
-    },
-    {
-      "code": "MSFT",
-      "name": "Microsoft Corporation",
-      "market": "NASDAQ",
-      "id": "fc21"
     }
   ]
 }

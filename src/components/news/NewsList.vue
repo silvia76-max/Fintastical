@@ -62,7 +62,7 @@ const cargarDatos = async () => {
 onMounted(cargarDatos);
 </script>
 
-<style>
+<style scoped>
 /* Estilo de las tarjetas en dos columnas fijas */
 .noticias-container {
   display: grid;
