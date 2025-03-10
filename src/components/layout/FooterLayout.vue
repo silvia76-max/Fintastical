@@ -3,6 +3,7 @@
     <!-- Logo from the public folder -->
     <div class="logo-container">
       <img src="/public/Fintastical-logo-footer.svg" alt="Fintastical Logo" class="logo" />
+
     </div>
 
     <!-- Main content in rows -->
@@ -83,19 +84,78 @@
 
 <script>
 export default {
-  name: 'FooterLayout',
-  methods: {
-    sendMessage() {
-      // Logic to send message
-      alert('Message sent!');
-    },
-    subscribeNewsletter() {
-      // Logic to subscribe to newsletter
-      alert('Subscribed to newsletter!');
-    }
-  }
-}
+  name: "FooterLayout",
+  mounted() {
+    document.addEventListener("DOMContentLoaded", () => {
+      const formContacto = document.getElementById("form-contacto");
+      const formNewsletter = document.getElementById("form-newsletter");
+
+      if (formContacto) {
+        formContacto.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const formData = new FormData(formContacto);
+          const data = Object.fromEntries(formData);
+
+          try {
+            const response = await fetch("http://localhost:3000/contactos", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+              alert("Mensaje enviado correctamente");
+              formContacto.reset();
+            } else {
+              alert("Hubo un error al enviar el mensaje");
+            }
+          // eslint-disable-next-line no-unused-vars
+          } catch (error) {
+            alert("Error de conexión con el servidor");
+          }
+        });
+      }
+
+      if (formNewsletter) {
+        formNewsletter.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const email = document.getElementById("newsletter-email").value;
+
+          if (!email) {
+            alert("Por favor, introduce un correo electrónico válido");
+            return;
+          }
+
+          try {
+            const response = await fetch("http://localhost:3000/newsletter", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email }),
+            });
+
+            if (response.ok) {
+              alert("Suscripción exitosa");
+              formNewsletter.reset();
+            } else {
+              alert("Hubo un error al suscribirse");
+            }
+          // eslint-disable-next-line no-unused-vars
+          } catch (error) {
+            alert("Error de conexión con el servidor");
+          }
+        });
+      }
+    });
+  },
+};
 </script>
+
 
 <style scoped>
 .footer-layout {

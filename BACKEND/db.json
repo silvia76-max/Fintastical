@@ -192,5 +192,24 @@
       "market": "NASDAQ",
       "id": "fc21"
     }
-  ]
+  ],
+  "contactos":[
+  {
+    "name":"",
+    "email":"",
+    "subject":"",
+    "message":""
+  }
+  ],
+
+  "newsletter":[
+  {
+    "name":"",
+    "email":""
+  }
+
+]
 }
+
+  
+  

@@ -60,88 +60,84 @@
 
 <script>
 export default {
-  data() {
-    return {
-      form: {
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      },
-      fileContent: null,
-      formSubmitted: false,
-      showPopup: false // Controla si el pop-up está visible
-    };
-  },
-
-  mounted() {
-    this.$nextTick(() => {
-      this.loadGoogleMaps();
-    });
-  },
-
-  methods: {
-    handleSubmit() {
-      console.log('Form Submitted:', this.form);
-      this.formSubmitted = true;
-      this.showPopup = true; // Mostrar el pop-up
-
-      // Reset form
-      this.form = { name: '', email: '', subject: '', message: '' };
-    },
-
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-
-      if (file && file.type === 'text/plain') {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.fileContent = reader.result;
-        };
-        reader.readAsText(file);
-      } else {
-        alert('Only text files are allowed.');
-      }
-    },
-
-    closePopup() {
-      this.showPopup = false; // Cerrar el pop-up
-    },
-
-    loadGoogleMaps() {
-      if (window.google && window.google.maps) {
-        this.initMap();
-        return;
-      }
-
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY`;
-      script.async = true;
-      script.defer = true;
-      script.onload = () => {
-        this.initMap();
-      };
-      document.head.appendChild(script);
-    },
-
-    initMap() {
-      const mapElement = document.getElementById('map');
-      if (mapElement) {
-        const map = new window.google.maps.Map(mapElement, {
-          center: { lat: 40.7128, lng: -74.0060 },
-          zoom: 12
-        });
-
-        new window.google.maps.Marker({
-          position: { lat: 40.7128, lng: -74.0060 },
-          map: map,
-          title: 'Our Location'
-        });
-      }
-    }
-  }
+data() {
+return {
+form: {
+name: '',
+email: '',
+subject: '',
+message: ''
+},
+fileContent: null, // Stores the content of the uploaded file
+formSubmitted: false, // Tracks if the form has been submitted
+showPopup: false // Controls visibility of the popup
+};
+},
+mounted() {
+// Waits for the component to be mounted before loading Google Maps
+this.$nextTick(() => {
+this.loadGoogleMaps();
+});
+},
+methods: {
+handleSubmit() {
+// Logs the form data when submitted and resets the form
+console.log('Form Submitted:', this.form);
+this.formSubmitted = true;
+this.showPopup = true; // Show the popup
+this.form = { name: '', email: '', subject: '', message: '' }; // Reset form fields
+},
+handleFileUpload(event) {
+// Handles file upload and reads the content of the file
+const file = event.target.files[0];
+if (file && file.type === 'text/plain') {
+const reader = new FileReader();
+reader.onload = () => {
+this.fileContent = reader.result; // Store file content
+};
+reader.readAsText(file); // Read the file as text
+} else {
+alert('Only text files are allowed.'); // Show an alert if the file is not text
+}
+},
+closePopup() {
+// Closes the popup
+this.showPopup = false;
+},
+loadGoogleMaps() {
+// Loads the Google Maps script if it's not already loaded
+if (window.google && window.google.maps) {
+this.initMap(); // Initialize map if API is already loaded
+return;
+}
+const script = document.createElement('script');
+script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY`;
+script.async = true;
+script.defer = true;
+script.onload = () => {
+this.initMap(); // Initialize map once the script is loaded
+};
+document.head.appendChild(script); // Append the script to the document head
+},
+initMap() {
+// Initializes the map and adds a marker
+const mapElement = document.getElementById('map');
+if (mapElement) {
+const map = new window.google.maps.Map(mapElement, {
+center: { lat: 40.7128, lng: -74.0060 }, // Coordinates for map center (New York)
+zoom: 12 // Set zoom level
+});
+new window.google.maps.Marker({
+position: { lat: 40.7128, lng: -74.0060 }, // Position of the marker
+map: map, // Attach the marker to the map
+title: 'Our Location' // Tooltip that appears when hovering over the marker
+});
+}
+}
+}
 };
 </script>
+
 
 <style scoped>
 .contact-container {
