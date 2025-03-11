@@ -26,7 +26,7 @@
     margin: 0 auto;
   }
   
-  h1 {
+  h2 {
     color: #2F284C;
     text-align: center;
   }

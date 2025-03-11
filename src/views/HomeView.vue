@@ -24,10 +24,21 @@
 
     <!-- About Section -->
     <section id="about" class="content-section-purple">
-      <h2>Simply The Best Messaging App Out There.</h2>
-      <p>
-        Et nihil atque ex. Reiciendis et rerum ut voluptate. Omnis molestiae nemo est.
-      </p>
+      <h2>View all your assets in one place, track their evolution, and make decisions.</h2>
+    <div class="cards-container">
+      <div class="card">
+        <h3>Tracking</h3>
+        <p>Maintain a complete history of all your stock market transactions. Easily add and manage each asset, including stocks, ETFs, cryptocurrencies, and other financial instruments.</p>
+      </div>
+      <div class="card">
+        <h3>Graphics</h3>
+        <p>Explore the performance of your investments with detailed charts and analysis tools. Identify trends, compare assets, and fine-tune your investment strategy with clear and precise information.</p>
+      </div>
+      <div class="card">
+        <h3>News</h3>
+        <p>Stay updated with the latest financial news. Get real-time market insights and updates to make informed investment decisions.</p>
+      </div>
+    </div>
     </section>
 
     <!-- Features Section -->
@@ -143,4 +154,32 @@ onMounted(async () => {
   gap: 20px;
   margin-top: 20px;
 }
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  max-width: 300px;
+  color: white;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.card p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 </style>
