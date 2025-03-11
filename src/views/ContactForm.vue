@@ -359,7 +359,7 @@ button.submit-btn:hover {
 
 
 .office {
-  flex: 1 1 400px; /* Each box will at least be 400px but grow if space allows */
+  flex: 1 1 400px;
 }
 
 .office h3 {
