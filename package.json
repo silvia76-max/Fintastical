@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@cypress/vite-dev-server": "^6.0.2",
+    "@cypress/vue": "^6.0.2",
     "@eslint/js": "^9.20.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/eslint-config-prettier": "^10.2.0",

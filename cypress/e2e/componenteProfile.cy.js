@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-//* eslint-disable no-undef */
 describe('Perfil de Usuario', () => {
   beforeEach(() => {
     // Simulamos que el usuario está autenticado, dependiendo de cómo manejes la autenticación en tu tienda (auth store).

@@ -3,7 +3,7 @@
 import { mount } from '@cypress/vue'
 import ComponenteLogin from '@/components/ComponenteLogin.vue'
 import { createTestingPinia } from '@pinia/testing'
-import { useAuthStore } from '@/stores/auth'
+
 
 describe('ComponenteLogin.vue', () => {
   beforeEach(() => {
