@@ -19,7 +19,7 @@
           </div>
           <p>"Fintastical has completely transformed the way I manage my finances. Highly recommended!"</p>
         </div>
-        <img src="/public/Manuela-.webp" alt="mujer dando una opinion">
+        <img src="@/assets/photos/Manuela-.webp" alt="mujer dando una opinion">
       </div>
       <div class="review">
         <div class="review-content">
@@ -35,7 +35,7 @@
           </div>
           <p>"The platform is incredibly user-friendly, and the support team is always helpful."</p>
         </div>
-        <img src="/public/Joel.webp" alt="hombre dando una opinion">
+        <img src="@/assets/photos/Joel.webp" alt="hombre dando una opinion">
       </div>
       <div class="review">
         <div class="review-content">
@@ -51,7 +51,7 @@
           </div>
           <p>"I love the transparency and the innovative tools Fintastical offers."</p>
         </div>
-        <img src="/public/Lorena.webp" alt="mujer dando una opinion">
+        <img src="@/assets/photos/Lorena.webp" alt="mujer dando una opinion">
       </div>
     </div>
   </div>

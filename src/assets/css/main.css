@@ -4,8 +4,8 @@
   --purple-light: #DFDAEE;
   --purple-hover: #8F6AFF;
   --purple-gray: #76708E;
-  --green: #5F9D49;
-  --red: #D34E54
+  --green: #7bc85f;
+  --red: #c86380ff;
 
 }
 
@@ -29,19 +29,19 @@ button {
 
 @font-face {
   font-family: 'Ginto';
-  src: url("../../public/ABCGintoNormal-Regular.otf") format('opentype');
+  src: url("fonts/ABCGintoNormal-Regular.otf") format('opentype');
   font-style: normal;
   font-weight: normal;
 }
 @font-face {
   font-family: 'Ginto-Bold';
-  src: url("../../public/ABCGintoNormal-Bold.otf") format('opentype');
+  src: url("fonts/ABCGintoNormal-Bold.otf") format('opentype');
   font-style: bold;
   font-weight: bold;
 }
 @font-face {
   font-family: 'Ginto-Black';
-  src: url("../../public/ABCGintoNormal-Black.otf") format('opentype');
+  src: url("fonts/ABCGintoNormal-Black.otf") format('opentype');
   font-style: bold;
   font-weight: bold;
 }
