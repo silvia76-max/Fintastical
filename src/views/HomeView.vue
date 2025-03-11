@@ -55,7 +55,7 @@
 
     <!-- Download Section -->
     <section id="download" class="content-section">
-     <WhyChoose/>
+     <FAQ />
       <div class="download-buttons">
         <a href="#0" class="btn btn--primary">App Store</a>
         <a href="#0" class="btn btn--primary">Play Store</a>
@@ -67,7 +67,7 @@
 <script setup>
 import { ref, onMounted, nextTick } from 'vue';
 import Reviews from '@/components/home/Reviews.vue';
-import WhyChoose from '@/components/home/WhyChoose.vue';
+import FAQ from '@/components/home/FAQ.vue';
 
 const loading = ref(true);
 
