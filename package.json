@@ -15,7 +15,6 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@pinia/testing": "^1.0.0",
     "axios": "^1.8.2",
     "chart.js": "^3.9.1",
     "pinia": "^3.0.1",
@@ -27,8 +26,10 @@
     "@cypress/vite-dev-server": "^6.0.2",
     "@cypress/vue": "^6.0.2",
     "@eslint/js": "^9.20.0",
+    "@pinia/testing": "^1.0.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/test-utils": "^2.4.6",
     "cypress": "^14.1.0",
     "eslint": "^9.20.1",
     "eslint-plugin-vue": "^9.32.0",

@@ -3,6 +3,7 @@ import { defineConfig } from 'cypress';
 import { createTestingPinia } from '@pinia/testing';
 
 export default defineConfig({
+  projectId: 'gi6sbw',
   e2e: {
     baseUrl: 'http://localhost:8080', 
     supportFile: 'cypress/support/e2e.js',

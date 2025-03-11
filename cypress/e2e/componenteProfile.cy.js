@@ -1,4 +1,8 @@
+//eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
+
+
 describe('User Profile', () => {
   beforeEach(() => {
     // Simulate that the user is authenticated, depending on how you handle authentication in your store (auth store).

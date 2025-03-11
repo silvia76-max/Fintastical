@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 describe('ComponenteLogin.vue', () => {
   beforeEach(() => {
     mount(ComponenteLogin, {
