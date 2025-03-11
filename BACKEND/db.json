@@ -41,20 +41,20 @@
       "purchase_date": "2025-03-09"
     },
     {
-      "id": "4cc2",
+      "id": "a2de",
       "user_id": "Q9OQ0gu6",
-      "code": "TSLA",
+      "code": "AAPL",
       "shares": 2,
-      "purchase_price": 333,
-      "purchase_date": "2025-03-10"
+      "purchase_price": 300,
+      "purchase_date": "2025-03-11"
     },
     {
-      "id": "b430",
+      "id": "bad2",
       "user_id": "Q9OQ0gu6",
-      "code": "NVDA",
-      "shares": 2,
-      "purchase_price": 333,
-      "purchase_date": "2025-03-10"
+      "code": "TSLA",
+      "shares": 3,
+      "purchase_price": 300,
+      "purchase_date": "2025-03-11"
     }
   ],
   "alerts": [

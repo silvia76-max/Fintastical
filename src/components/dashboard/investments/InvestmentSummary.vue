@@ -1,7 +1,7 @@
 <template>
   <div class="investment-summary">
     <h1>Resumen</h1>
-    <!-- User Info Section -->
+    <!-- User info -->
     <div class="summary-card user-info">
       <h2>Hola, {{ userName }}</h2>
       <div class="stats-grid">
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <!-- Latest Investment Section -->
+    <!-- last investment section -->
     <div v-if="latestInvestment" class="summary-card latest-investment">
       <h3>Última Inversión</h3>
       <div class="latest-investment-details">
@@ -69,7 +69,7 @@ import { useInvestmentStore } from '@/stores/investments'
 const auth = useAuthStore()
 const investmentStore = useInvestmentStore()
 
-// Computed properties
+// computed
 const userName = computed(() => auth.user?.name || 'Usuario')
 
 const latestInvestment = computed(() => investmentStore.latestInvestment)

@@ -88,11 +88,7 @@ const fetchPriceData = async (code) => {
   }
 };
 
-// Get current price for an asset
-const getCurrentPrice = (code) => {
-  const history = priceHistory.value[code] || [];
-  return history.length > 0 ? history[history.length - 1].price.toFixed(2) : '0.00';
-};
+
 
 // Determine price change class for styling
 const getPriceChangeClass = (code) => {
