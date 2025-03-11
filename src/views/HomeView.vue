@@ -43,8 +43,8 @@
 
     <!-- Features Section -->
     <section id="features" class="content-section">
-      <h2>Loaded With Features You Would Absolutely Love.</h2>
-      <p>Explore powerful features that make our app unique.</p>
+      <h2>Optimize Your Investment Strategy</h2>
+      <p>With Fintastical, managing your investment portfolio has never been easier. View all your assets in one place, track their evolution, and make data-driven decisions.</p>
     </section>
 
 
@@ -105,7 +105,7 @@ onMounted(async () => {
 }
 .hero {
   height: 100vh;
-  background-image: url('/images/hero-bg.jpg');
+  background-image: url('/src/assets/img/home-header.jpg');
   background-size: cover;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
@@ -180,6 +180,11 @@ onMounted(async () => {
 .card p {
   font-size: 1rem;
   line-height: 1.5;
+}
+
+h2 {
+  color: var(--purple);
+  text-align: center;
 }
 
 </style>

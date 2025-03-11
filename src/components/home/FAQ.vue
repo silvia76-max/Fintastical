@@ -1,6 +1,6 @@
 <template>
   <div class="why-choose-fintastical">
-    <h1>Why Choose Fintastical?</h1>
+    <h2>Why Choose Fintastical?</h2>
     <p>
       At Fintastical, we are committed to providing you with the best financial tools and resources to help you achieve your goals. Here are a few reasons why you should choose us:
     </p>
@@ -77,7 +77,7 @@ export default {
   margin: 0 auto;
 }
 
-h1 {
+h2 {
   color: #2F284C;
   text-align: center;
 }
