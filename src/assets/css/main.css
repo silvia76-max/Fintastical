@@ -4,6 +4,7 @@
   --purple-light: #DFDAEE;
   --purple-hover: #8F6AFF;
   --purple-gray: #76708E;
+  --background: #ffffff;
   --green: #7bc85f;
   --red: #c86380ff;
 
@@ -13,7 +14,7 @@
 body {
   margin: 0;
   font-family: 'Ginto','Arial', sans-serif;
-  background-color: #eaeaea;
+  background-color: var(--background);
 }
 
 a {
