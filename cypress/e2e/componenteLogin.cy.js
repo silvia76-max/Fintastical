@@ -1,10 +1,4 @@
-
 /* eslint-disable no-undef */
-
-import ComponenteLogin from 'cypress/e2e/ComponenteLogin.cy.js'
-
-
-
 describe('ComponenteLogin.vue', () => {
   beforeEach(() => {
     mount(ComponenteLogin, {
