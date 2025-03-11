@@ -14,9 +14,12 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "axios": "^1.8.1",
     "chart.js": "^3.9.1",
+    "fontawesome": "^5.6.3",
     "pinia": "^3.0.1",
+    "swiper": "^11.2.5",
     "vue": "^3.5.13",
     "vue-chart-3": "^3.1.8",
     "vue-router": "^4.5.0"

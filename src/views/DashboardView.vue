@@ -1,6 +1,10 @@
 <template>
+          <!-- Preloader -->
+          <div v-if="loading">
+      <Loader />
+    </div>
   <div class="investments-view">
-    <h1>Tu Tablero Personal</h1>
+    <h1>Your personal dashboard</h1>
     <InvestmentSummary />
     <PersonalCharts />
 
@@ -13,6 +17,7 @@
 import InvestmentList from '@/components/dashboard/investments/InvestmentList.vue';
 import InvestmentSummary from '@/components/dashboard/investments/InvestmentSummary.vue';
 import PersonalCharts from '@/components/charts/PersonalCharts.vue';
+import Loader from '@/components/LoaderComp.vue'
 
 
 

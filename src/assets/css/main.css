@@ -10,11 +10,27 @@
 
 }
 
-/* Estilos globales */
-body {
+/* RESET */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 0.625em;
+}
+
+body {
+  /* Modificar */
+  margin: 0;
+  font-size: 1.6rem;
   font-family: 'Ginto','Arial', sans-serif;
   background-color: var(--background);
+}
+
+iframe {
+  border: 0;
 }
 
 a {
@@ -22,11 +38,15 @@ a {
   text-decoration: none;
 }
 
+ul {
+  list-style: none;
+}
+
 button {
   cursor: pointer;
 }
 
-/* Puedes incluir más reglas globales aquí */
+/* Font Styles */
 
 @font-face {
   font-family: 'Ginto';
@@ -46,12 +66,16 @@ button {
   font-style: bold;
   font-weight: bold;
 }
+
 p {
   font-family: 'Ginto';
 }
+
 h1, h2, h3, h4, h5 {
   font-family: 'Ginto-Bold';
 }
+
 h1 {
-  color: var(--purple)
+  color: var(--purple);
+  font-size: 6rem;
 }

@@ -4,7 +4,7 @@
       "id": "Q9OQ0gu6",
       "name": "Juan Pérez",
       "email": "juan@example.com",
-      "password": "000000"
+      "password": "123456"
     },
     {
       "id": "y1OVxtgM",
@@ -270,6 +270,20 @@
       "email": "sda@jre.com",
       "subject": "jfds",
       "message": "sdsafsda"
+    },
+    {
+      "id": "1798",
+      "name": "fda",
+      "email": "gaizkamg@gmail.com",
+      "subject": "fjsda",
+      "message": ""
+    },
+    {
+      "id": "bcaf",
+      "name": "gaizka",
+      "email": "gaizka@gmail.com",
+      "subject": "el footer no funciona",
+      "message": "Le falta la pantalla de que se ha enviado el mensaje."
     }
   ],
   "newsletter": [
