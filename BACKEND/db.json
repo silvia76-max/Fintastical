@@ -49,12 +49,12 @@
       "purchase_date": "2025-03-10"
     },
     {
-      "id": "eb93",
-      "user_id": "Q9OQ0gu6",
+      "id": "f2dc",
+      "user_id": "y1OVxtgM",
       "code": "AMD",
-      "shares": 3,
-      "purchase_price": 200,
-      "purchase_date": "2025-03-10"
+      "shares": 2,
+      "purchase_price": 333,
+      "purchase_date": "2025-03-11"
     }
   ],
   "alerts": [
