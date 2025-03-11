@@ -1,34 +1,34 @@
 <template>
   <div>
-    <h2>Últimas noticias sobre el mercado de valores</h2>
-    <div class="noticias-container">
-      <!-- 👇 Aquí ahora usamos "noticiasPaginadas" -->
-      <div class="noticia-card" v-for="articulo in noticiasPaginadas" :key="articulo.url">          
-        <p> {{ formatDate(articulo.publishedAt) }}</p>
-        <div class="noticia-image">
-          <img v-if="articulo.urlToImage" :src="articulo.urlToImage" alt="Imagen de la noticia" />
+    <h2>Latest Stock Market News</h2>
+    <div class="news-container">
+      <!-- 👇 Now using "paginatedNews" -->
+      <div class="news-card" v-for="article in paginatedNews" :key="article.url">          
+        <p> {{ formatDate(article.publishedAt) }}</p>
+        <div class="news-image">
+          <img v-if="article.urlToImage" :src="article.urlToImage" alt="News Image" />
         </div>
         
-        <div class="noticia-content">
-          <a :href="articulo.url" target="_blank">
-            <h2>{{ articulo.title }}</h2>
+        <div class="news-content">
+          <a :href="article.url" target="_blank">
+            <h2>{{ article.title }}</h2>
           </a>
-          <p><strong>Autor:</strong>{{ articulo.author || 'Desconocido' }}</p>
+          <p><strong>Author:</strong> {{ article.author || 'Unknown' }}</p>
 
-          <p>{{ articulo.description }}</p>
+          <p>{{ article.description }}</p>
 
-          <a :href="articulo.url" target="_blank">
-            <button v-if="articulo.content">Leer noticia completa</button>
+          <a :href="article.url" target="_blank">
+            <button v-if="article.content">Read Full Article</button>
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Controles de paginación -->
-    <div class="paginacion">
-      <button @click="paginaAnterior" :disabled="paginaActual === 1">Anterior</button>
-      <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
-      <button @click="siguientePagina" :disabled="paginaActual >= totalPaginas">Siguiente</button>
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <button @click="previousPage" :disabled="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button @click="nextPage" :disabled="currentPage >= totalPages">Next</button>
     </div>
 
     <p v-if="error" class="error">{{ error }}</p>
@@ -39,103 +39,102 @@
 import { ref, onMounted, computed } from 'vue';
 
 const apikey = '9107e2f197fc42308182c5bc92f503d1';
-const busqueda = 'stock%market%nasdaq';
-const noticias = ref([]);
+const searchQuery = 'stock%market%nasdaq';
+const news = ref([]);
 const error = ref(null);
-const paginaActual = ref(1);
-const noticiasPorPagina = 9; // ✅ Ahora 9 noticias por página
+const currentPage = ref(1);
+const newsPerPage = 9; // ✅ Now 9 news articles per page
 
-// Función para formatear la fecha
+// Function to format the date
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString();
 };
 
-// Función para cargar los datos desde la API
-const cargarDatos = async () => {
+// Function to fetch data from the API
+const fetchData = async () => {
   try {
-    const response = await fetch(`https://newsapi.org/v2/everything?q=${busqueda}&apiKey=${apikey}`);
+    const response = await fetch(`https://newsapi.org/v2/everything?q=${searchQuery}&apiKey=${apikey}`);
     if (!response.ok) {
-      throw new Error('Error al cargar datos');
+      throw new Error('Error loading data');
     }
-    const datos = await response.json();
-    noticias.value = datos.articles;
+    const data = await response.json();
+    news.value = data.articles;
   } catch (err) {
-    error.value = 'Hubo un problema al cargar las noticias';
+    error.value = 'There was a problem loading the news';
     console.error(err);
   }
 };
 
-// Computed para obtener las noticias paginadas ✅
-const noticiasPaginadas = computed(() => {
-  const inicio = (paginaActual.value - 1) * noticiasPorPagina;
-  const fin = inicio + noticiasPorPagina;
-  return noticias.value.slice(inicio, fin);
+// Computed property to get paginated news ✅
+const paginatedNews = computed(() => {
+  const start = (currentPage.value - 1) * newsPerPage;
+  const end = start + newsPerPage;
+  return news.value.slice(start, end);
 });
 
-// Computed para calcular el total de páginas ✅
-const totalPaginas = computed(() => {
-  return noticias.value.length > 0 ? Math.ceil(noticias.value.length / noticiasPorPagina) : 1;
+// Computed property to calculate total pages ✅
+const totalPages = computed(() => {
+  return news.value.length > 0 ? Math.ceil(news.value.length / newsPerPage) : 1;
 });
 
-// Función para ir a la página anterior ✅
-const paginaAnterior = () => {
-  if (paginaActual.value > 1) {
-    paginaActual.value--;
+// Function to go to the previous page ✅
+const previousPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
   }
 };
 
-// Función para ir a la siguiente página ✅
-const siguientePagina = () => {
-  if (paginaActual.value < totalPaginas.value) {
-    paginaActual.value++;
+// Function to go to the next page ✅
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
   }
 };
 
-onMounted(cargarDatos);
+onMounted(fetchData);
 </script>
 
-
 <style scoped>
-/* Estilo de las tarjetas en tres columnas */
+/* Style for news cards in three columns */
 
-.noticias-container {
+.news-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-  gap: 20px; /* Espacio entre las tarjetas en ambas direcciones */
-  justify-items: center; /* Centra las tarjetas */
-  margin: 0 30px; /* Márgenes laterales */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-items: center;
+  margin: 0 30px;
 }
 
-.noticia-card {
+.news-card {
   display: flex;
-  flex-direction: column; /* Coloca la imagen arriba, el contenido debajo */
+  flex-direction: column;
   gap: 15px;
   padding: 15px;
   border-radius: 20px;
   box-shadow: #2F284C 0px 2px 2px;
   background-color: #DFDAEE;
   width: 100%;
-  max-width: 550px; /* Aumento del ancho de las tarjetas */
+  max-width: 550px;
   box-sizing: border-box;
   overflow: hidden;
-  min-height: 300px; /* Establece una altura mínima */
+  min-height: 300px;
 }
 
-.noticia-image {
+.news-image {
   width: 100%;
-  height: 200px; /* Tamaño fijo para las imágenes */
+  height: 200px;
   overflow: hidden;
-  border-radius: 12px; /* Esquinas redondeadas en las imágenes */
+  border-radius: 12px;
 }
 
-.noticia-image img {
+.news-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.noticia-content {
+.news-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -143,25 +142,25 @@ onMounted(cargarDatos);
   color: #2F284C;
 }
 
-.noticia-content h2 {
+.news-content h2 {
   margin: 0;
   font-size: 18px;
   color: #2F284C;
 }
 
-.noticia-content .author {
-  font-size: 12px; /* Autor más pequeño */
+.news-content .author {
+  font-size: 12px;
   color: #76708E;
 }
 
-.noticia-content .author span {
+.news-content .author span {
   font-weight: bold;
 }
 
-.noticia-content .date {
+.news-content .date {
   font-size: 14px;
   color: #A8CC9B;
-  text-align: right; /* Alineamos la fecha a la derecha */
+  text-align: right;
 }
 
 button {
@@ -172,7 +171,7 @@ button {
   border: none;
   cursor: pointer;
   border-radius: 12px;
-  align-self: center; /* Alineamos el botón hacia la izquierda */
+  align-self: center;
   box-shadow: #A396D7 0px 2px 2px;
 }
 
@@ -185,7 +184,7 @@ button:hover {
   font-weight: bold;
 }
 
-.paginacion {
+.pagination {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -193,7 +192,7 @@ button:hover {
   margin-top: 20px;
 }
 
-.paginacion button {
+.pagination button {
   padding: 10px;
   background-color: #6046B0;
   color: white;
@@ -202,7 +201,7 @@ button:hover {
   border-radius: 5px;
 }
 
-.paginacion button:disabled {
+.pagination button:disabled {
   background-color: gray;
   cursor: not-allowed;
 }
