@@ -1,18 +1,15 @@
 <template>
   <header class="header-layout">
-    <div class="logo">MiPlataforma</div>
+    <div class="logo"><img src="@/assets/img/Fintastical-logo-nav-DESKTOP.svg " alt="Fintastical Logo" class="logo" /></div>
     <nav>
       <ul>
-        <li><router-link to="/dashboard">Dashboard</router-link></li>
-        <li><router-link to="/investments">Inversiones</router-link></li>
-        <li><router-link to="/charts">Gráficos</router-link></li>
-        <li><router-link to="/alerts">Alertas</router-link></li>
-        <li><router-link to="/blog">Blog</router-link></li>
+        <li v-if="isAuthenticated"><router-link to="/dashboard">Dashboard</router-link></li>
+        <li><router-link to="/blog">Noticias</router-link></li>
         <li><router-link to="/contact">Contacto</router-link></li>
+        <li><router-link to="/auth/login">Login</router-link></li>
+        <li><router-link to="/auth/register">Registro</router-link></li>
 
         <li v-if="isAuthenticated"><router-link to="/auth/profile">Perfil</router-link></li>
-        <li v-if="!isAuthenticated"><router-link to="/auth/login">Login</router-link></li>
-        <li v-if="!isAuthenticated"><router-link to="/auth/register">Registro</router-link></li>
         <li v-if="isAuthenticated"><a href="#" @click.prevent="logout">Logout</a></li>
       </ul>
     </nav>
@@ -40,13 +37,12 @@ const logout = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #333;
+  background-color: var(--purple-light);
   color: #fff;
   padding: 10px 20px;
 }
 .logo {
-  font-size: 1.5em;
-  font-weight: bold;
+width: 40%;
 }
 nav ul {
   list-style: none;

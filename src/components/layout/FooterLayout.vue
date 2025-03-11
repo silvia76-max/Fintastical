@@ -3,7 +3,7 @@
   <footer class="footer-layout">
     <!-- Logo from the public folder -->
     <div class="logo-container">
-      <img src="/public/Fintastical-logo-footer.svg" alt="Fintastical Logo" class="logo" />
+      <img src="@/assets/img/Fintastical-logo-footer.svg" alt="Fintastical Logo" class="logo" />
 
     </div>
 
