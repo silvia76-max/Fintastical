@@ -186,5 +186,12 @@ h2 {
   color: var(--purple);
   text-align: center;
 }
+h1 {
+  font-size: 5rem;
+  animation: sparkle 2s infinite;
+  background: linear-gradient(45deg, var(--purple), var(--purple-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 </style>
