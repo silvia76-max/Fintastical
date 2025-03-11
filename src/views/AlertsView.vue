@@ -2,13 +2,13 @@
   <div class="alerts-view">
     <h1>Configuración de Alertas</h1>
     <p>Aquí se podrán configurar alertas personalizadas.</p>
-  </div>
+
+    </div>
 </template>
 
-<script>
-export default {
-  name: 'AlertsView',
-}
+<script setup>
+
+
 </script>
 
 <style scoped>

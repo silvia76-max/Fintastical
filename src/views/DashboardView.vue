@@ -1,30 +1,25 @@
 <template>
-  <div>
-    <h1>Tu Tablero Personal 📊</h1>
-    <LoaderComp v-if="loading" />
-    <div v-else-if="error">{{ error }}</div>
-    <div v-else-if="data">
-      <p>Tipo: {{ data.type }}</p>
-      <p>Cantidad: {{ data.amount }}</p>
-    </div>
-    <UserStats />
-  </div>
+  <div class="investments-view">
+    <h1>Tu Tablero Personal</h1>
+    <InvestmentSummary />
+    <PersonalCharts />
 
+    <InvestmentList />
+
+  </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import { useApi } from '@/composables/useApi.js';
-import LoaderComp from '@/components/LoaderComp.vue';
-import UserStats from '@/components/dashboard/UserStats.vue';
+import InvestmentList from '@/components/dashboard/investments/InvestmentList.vue';
+import InvestmentSummary from '@/components/dashboard/investments/InvestmentSummary.vue';
+import PersonalCharts from '@/components/charts/PersonalCharts.vue';
 
-const { data, loading, error, fetchData } = useApi()
 
-onMounted(async () => {
-  try {
-    await fetchData('http://localhost:3000/dashboard') // Endpoint fake
-  } catch (err) {
-    console.error('Error fetching data:', err)
-  }
-})
+
 </script>
+
+<style scoped>
+.investments-view {
+  padding: 20px;
+}
+</style>
