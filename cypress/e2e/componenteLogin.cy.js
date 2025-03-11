@@ -1,8 +1,8 @@
 
 /* eslint-disable no-undef */
-import { mount } from '@cypress/vue'
-import ComponenteLogin from '@/components/ComponenteLogin.vue'
-import { createTestingPinia } from '@pinia/testing'
+
+import ComponenteLogin from 'cypress/e2e/ComponenteLogin.cy.js'
+
 
 
 describe('ComponenteLogin.vue', () => {
