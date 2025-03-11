@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "cy:open": "cypress open",
-    "dev": "vite",
+    "dev": "vite --port 8080",
     "build": "vite build",
     "backend": "json-server --watch BACKEND/db.json --port 3000",
     "apifake": "json-server --watch BACKEND/apiStock.json --port 8111",
@@ -15,7 +15,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "axios": "^1.8.1",
+    "@pinia/testing": "^1.0.0",
+    "axios": "^1.8.2",
     "chart.js": "^3.9.1",
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
@@ -36,4 +37,3 @@
     "vite-plugin-vue-devtools": "^7.7.2"
   }
 }
-
