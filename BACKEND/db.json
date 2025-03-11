@@ -29,6 +29,12 @@
       "name": "Jose Prieto",
       "email": "jose@example.com",
       "password": "333333"
+    },
+    {
+      "id": "93aa",
+      "name": "Érika",
+      "email": "erika@gmail.com",
+      "password": "123456"
     }
   ],
   "assets": [
@@ -79,6 +85,20 @@
       "shares": 3,
       "purchase_price": 200,
       "purchase_date": "2025-03-10"
+    },
+    {
+      "id": "c667",
+      "code": "AMZN",
+      "shares": 200,
+      "purchase_price": 30,
+      "purchase_date": "2025-03-11"
+    },
+    {
+      "id": "012b",
+      "code": "GOOGL",
+      "shares": 100,
+      "purchase_price": 20,
+      "purchase_date": "2025-03-11"
     }
   ],
   "alerts": [
@@ -113,6 +133,13 @@
       "type": "down",
       "target_price": 215,
       "created_at": "2025-03-06"
+    },
+    {
+      "id": "00e4",
+      "asset_code": "GOOGL",
+      "type": "up",
+      "target_price": 100,
+      "created_at": "2025-03-11"
     }
   ],
   "companies": [
