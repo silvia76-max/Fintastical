@@ -1,42 +1,80 @@
+
 /* eslint-disable no-undef */
-describe('Formulario de Registro', () => {
+describe('User Profile', () => {
   beforeEach(() => {
-    // Visitar la página de registro
-    cy.visit('/register')  // Ajusta la ruta según corresponda
-  })
+    // Simulate that the user is authenticated, depending on how you handle authentication in your store (auth store).
+    // Here we will use a mock for authentication.
+    cy.intercept('GET', '/api/user', { fixture: 'user.json' }).as('getUser');
+    cy.visit('/profile'); // The route where the profile component is located
+    cy.wait('@getUser');
+  });
 
-  it('debe mostrar los campos de registro', () => {
-    // Verificar que los campos de nombre, email y contraseña están visibles
-    cy.get('[data-cy=input-name]').should('be.visible')
-    cy.get('[data-cy=input-email]').should('be.visible')
-    cy.get('[data-cy=input-password]').should('be.visible')
-    cy.get('[data-cy=submit-btn]').should('be.visible')
-  })
+  it('Should display the profile information if the user is authenticated', () => {
+    // Verify that the user data is loaded correctly
+    cy.get('[data-testid="user-greeting"]').should('contain', 'Hello');
+    cy.get('[data-testid="user-email"]').should('contain', 'user@example.com');
+    cy.get('[data-testid="user-id"]').should('contain', '123');
+  });
 
-  it('debe registrar un usuario correctamente', () => {
-    // Simular la introducción de datos
-    cy.get('[data-cy=input-name]').type('Juan Pérez')
-    cy.get('[data-cy=input-email]').type('juanperez@example.com')
-    cy.get('[data-cy=input-password]').type('contraseña123')
+  it('Should display a form to update the profile', () => {
+    // Verify that the update form appears
+    cy.get('form').should('be.visible');
+    cy.get('input[placeholder="Name"]').should('have.value', 'User');
+    cy.get('input[placeholder="Email"]').should('have.value', 'user@example.com');
+    cy.get('input[placeholder="Password"]').should('exist');
+  });
 
-    // Hacer clic en el botón de submit
-    cy.get('[data-cy=submit-btn]').click()
+  it('Should update the profile correctly when the form is submitted', () => {
+    // Mock the API call to update the profile
+    cy.intercept('POST', '/api/user/update', { statusCode: 200 }).as('updateProfile');
 
-    // Verificar que el usuario sea redirigido al dashboard (ajusta la ruta según corresponda)
-    cy.url().should('include', '/dashboard')
-  })
+    // Fill out the form
+    cy.get('input[placeholder="Name"]').clear().type('New Name');
+    cy.get('input[placeholder="Email"]').clear().type('newemail@example.com');
+    cy.get('input[placeholder="Password"]').clear().type('newPassword123');
 
-  it('debe mostrar un error si la registración falla', () => {
-    // Simular datos incorrectos (o dejar campos vacíos)
-    cy.get('[data-cy=input-name]').type('Juan Pérez')
-    cy.get('[data-cy=input-email]').type('juanperez@example.com')
-    cy.get('[data-cy=input-password]').type('')
+    // Submit the form
+    cy.get('button[type="submit"]').click();
 
-    // Hacer clic en el botón de submit
-    cy.get('[data-cy=submit-btn]').click()
+    // Verify that the API was called
+    cy.wait('@updateProfile').its('request.body').should('deep.equal', {
+      id: '123',
+      name: 'New Name',
+      email: 'newemail@example.com',
+      password: 'newPassword123',
+    });
 
-    // Verificar que el mensaje de error sea visible
-    cy.get('[data-cy=error-msg]').should('be.visible')
-      .and('contain.text', 'Error al registrar el usuario')
-  })
-})
+    // Verify that no error is displayed
+    cy.get('.error').should('not.exist');
+  });
+
+  it('Should display an error message if there is a failure when updating the profile', () => {
+    // Simulate a failure in updating the profile
+    cy.intercept('POST', '/api/user/update', { statusCode: 500 }).as('updateProfileError');
+
+    // Fill out the form
+    cy.get('input[placeholder="Name"]').clear().type('New Name');
+    cy.get('input[placeholder="Email"]').clear().type('newemail@example.com');
+    cy.get('input[placeholder="Password"]').clear().type('newPassword123');
+
+    // Submit the form
+    cy.get('button[type="submit"]').click();
+
+    // Verify that the API was called
+    cy.wait('@updateProfileError');
+
+    // Verify that an error message is displayed
+    cy.get('.error').should('be.visible').and('contain', 'Error updating');
+  });
+
+  it('Should display the message that there is no authenticated user if not authenticated', () => {
+    // Intercept the request to simulate that there is no authenticated user
+    cy.intercept('GET', '/api/user', { statusCode: 401 }).as('getUserNotAuthenticated');
+    cy.visit('/profile');
+    cy.wait('@getUserNotAuthenticated');
+
+    // Verify that the message about no authentication is displayed
+    cy.get('[data-testid="no-auth-message"]').should('be.visible')
+      .and('contain', 'You are not authenticated. Please log in.');
+  });
+});

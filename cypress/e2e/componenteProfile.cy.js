@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+//* eslint-disable no-undef */
 describe('Perfil de Usuario', () => {
   beforeEach(() => {
     // Simulamos que el usuario está autenticado, dependiendo de cómo manejes la autenticación en tu tienda (auth store).
@@ -10,9 +11,9 @@ describe('Perfil de Usuario', () => {
 
   it('Debería mostrar la información del perfil si el usuario está autenticado', () => {
     // Verificar que los datos del usuario se cargan correctamente
-    cy.contains('Hola').should('be.visible');
-    cy.contains('Email').should('contain', 'user@example.com');
-    cy.contains('ID').should('contain', '123');
+    cy.get('[data-testid="user-greeting"]').should('contain', 'Hola');
+    cy.get('[data-testid="user-email"]').should('contain', 'user@example.com');
+    cy.get('[data-testid="user-id"]').should('contain', '123');
   });
 
   it('Debería mostrar un formulario para actualizar el perfil', () => {
@@ -73,6 +74,7 @@ describe('Perfil de Usuario', () => {
     cy.wait('@getUserNotAuthenticated');
 
     // Verificar que se muestra el mensaje de no autenticación
-    cy.contains('No estás autenticado. Por favor, inicia sesión.').should('be.visible');
+    cy.get('[data-testid="no-auth-message"]').should('be.visible')
+      .and('contain', 'No estás autenticado. Por favor, inicia sesión.');
   });
 });
