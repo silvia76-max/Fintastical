@@ -4,6 +4,8 @@
     <p>
       If you have any questions or need us to help you with a specific topic, do not hesitate to contact us through the following form.
     </p>
+
+
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <label for="name">Name</label>
@@ -63,6 +65,28 @@
   loading="lazy">
 </iframe>
 
+  <!-- Our Offices Section -->
+<div class="our-offices">
+    <h1>Our Offices</h1>
+    <p>Visit us at one of our locations worldwide.</p>
+    <div class="office-list">
+      <div class="office">
+        <h3>New York Office</h3>
+        <p>123 Financial Street, New York, NY 10001</p>
+        <p>Phone: +1 (555) 123-4567</p>
+      </div>
+      <div class="office">
+        <h3>London Office</h3>
+        <p>456 Business Avenue, London, UK EC1A 1BB</p>
+        <p>Phone: +44 (0)20 7946 0958</p>
+      </div>
+      <div class="office">
+        <h3>Tokyo Office</h3>
+        <p>789 Innovation Road, Tokyo, Japan 100-0001</p>
+        <p>Phone: +81 (0)3 1234 5678</p>
+      </div>
+    </div>
+  </div>
 
   </div>
 </template>
@@ -91,28 +115,29 @@ const handleSubmit = async () => {
   const data = { ...form.value };
 
   try {
-    const response = await fetch("http://localhost:3000/contactos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+  // Sending a POST request to the local server at port 3000 with the "/contactos" endpoint
+  const response = await fetch("http://localhost:3000/contactos", {
+    method: "POST", // Specifies that we are sending data to the server
+    headers: {
+      "Content-Type": "application/json", // Indicates that we are sending JSON data
+    },
+    body: JSON.stringify(data), // Converts the JavaScript object 'data' into a JSON string
+  });
 
-    const result = await response.json();
-    console.log("Respuesta del servidor:", result);
+  // Parsing the JSON response from the server
+  const result = await response.json();
+  console.log("Respuesta del servidor:", result); // Logs the server response to the console
 
-    if (response.ok) {
-
-      form.value = { name: '', email: '', subject: '', message: '' }; // Reset form fields
-    } else {
-      alert("Error al enviar el mensaje");
-    }
-  } catch (error) {
-    console.error("Error de conexión:", error);
-    alert("Error de conexión con el servidor");
+  if (response.ok) { // Checks if the request was successful (status code 200-299)
+    form.value = { name: '', email: '', subject: '', message: '' }; // Resets form fields after successful submission
+  } else {
+    alert("Error al enviar el mensaje"); // Alerts the user if the response indicates a failure
   }
-};
+} catch (error) {
+  console.error("Error de conexión:", error); // Logs any connection error to the console
+  alert("Error de conexión con el servidor"); // Alerts the user about a connection failure
+}
+}
 
 // handleFileUpload function
 const handleFileUpload = (event) => {
@@ -299,5 +324,51 @@ button.submit-btn:hover {
 
 .popup-content button:hover {
   background-color: #8F6AFF;
+}
+
+/* office section styling*/
+
+.our-offices {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.office-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.office {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%; 
+  width: 500px; 
+  text-align: center;
+  height: 10rem;
+}
+
+
+.office {
+  flex: 1 1 400px; /* Each box will at least be 400px but grow if space allows */
+}
+
+.office h3 {
+  color: var(--purple); 
+  font-size: 30px;
+}
+
+.office p {
+  color: #333;
+  font-size: 17px;
 }
 </style>
