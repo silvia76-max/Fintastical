@@ -67,6 +67,7 @@
           <input type="email" placeholder="Enter your email" required />
           <button type="submit">Subscribe</button>
         </form>
+        
 
         <h2>Contact Us</h2>
         <form @submit.prevent="handleSubmit" class="contact-form">
