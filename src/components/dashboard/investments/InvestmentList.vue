@@ -161,7 +161,7 @@ const newAlert = ref({
   target: null
 });
 
-// Methods
+
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('es-ES');
 };
@@ -240,7 +240,7 @@ const fetchAlerts = async () => {
   }
 };
 
-// Lifecycle hooks
+
 onMounted(async () => {
   await investmentStore.fetchAssets();
   await investmentStore.fetchCompanies();
