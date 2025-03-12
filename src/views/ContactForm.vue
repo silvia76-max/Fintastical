@@ -206,6 +206,7 @@ onMounted(() => {
   background-color: #f7f7f7;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
 }
 
 h1 {
@@ -404,17 +405,33 @@ textarea {
   margin: 5px 0;
 }
 
-/* Responsive: Stack on smaller screens */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .office-list {
     flex-direction: row;
-    align-items: center;
-  }
-  .our-offices{
-    width: 85%
   }
   .office {
-    width: 90%; 
+    width: 80%;
+  }
+}
+
+@media (max-width: 900px) {
+  .office-list {
+    flex-direction: row;
+  }
+  .office {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .office-list {
+    flex-direction: column;
+  }
+  .our-offices {
+    width: 85%;
+  }
+  .office {
+    width: 95%;
   }
 }
 
