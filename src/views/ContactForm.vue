@@ -63,8 +63,9 @@
   allowfullscreen=""
   loading="lazy">
 </iframe>
+</div>
 
-  <!-- Our Offices Section (Separate from Contact Form) -->
+<!-- Our Offices Section (Separate from Contact Form) -->
   <div class="our-offices">
     <h1>Our Offices</h1>
     <p>Visit us at one of our locations worldwide.</p>
@@ -86,7 +87,8 @@
       </div>
     </div>
   </div>
-</div>
+
+
 </template>
 
 <script setup>
@@ -195,10 +197,9 @@ onMounted(() => {
 </script>
 
 
-
 <style scoped>
 .contact-container {
-  width: 100%;
+  width: 90rem;
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
@@ -230,7 +231,7 @@ label {
 
 input,
 textarea {
-  width: 100%;
+  width: 590px;
   padding: 10px;
   border: 1px solid #070707;
   border-radius: 4px;
@@ -280,6 +281,41 @@ button.submit-btn:hover {
   border: 1px solid #ddd;
 }
 
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .contact-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .map-container {
+    height: 300px; 
+    width: 5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container {
+    max-width: 90%; 
+    padding: 10px;
+  }
+
+  .map-container {
+    height: 250px;
+    width: 10%
+  }
+
+  input,
+textarea {
+  width: 24rem;
+  padding: 7px;
+  font-size: 14px;
+}
+  button.submit-btn {
+    padding: 10px; 
+  }
+}
+
 /* Estilos para el pop-up */
 .popup-overlay {
   position: fixed;
@@ -323,9 +359,10 @@ button.submit-btn:hover {
 }
 
 /* Office Section Styling */
+
 .our-offices {
-  max-width: 800px;
-  margin: 40px auto;
+  max-width: 1200px; 
+  margin: 20px auto; 
   padding: 20px;
   background-color: #f7f7f7;
   border-radius: 8px;
@@ -333,31 +370,50 @@ button.submit-btn:hover {
   text-align: center;
 }
 
-.office {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 100%; 
-  width: 500px; 
-  text-align: center;
-}
+/* Office List - Display in a Single Row */
 .office-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  justify-content: space-between; 
+  gap: 15px; 
+  margin-top: 10px; 
 }
 
+/* Individual Office */
+.office {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  min-width: 250px; 
+  text-align: center;
+}
+
+/* Office Title */
 .office h3 {
   color: #6046B0;
-  margin-bottom: 10px;
-  font-size: 30px;
+  font-size: 30px; 
+  margin-bottom: 8px;
 }
 
+/* Office Text */
 .office p {
   color: #333;
   font-size: 18px;
-
+  margin: 5px 0;
 }
+
+/* Responsive: Stack on smaller screens */
+@media (max-width: 768px) {
+  .office-list {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .office {
+    width: 90%; 
+  }
+}
+
 </style>
