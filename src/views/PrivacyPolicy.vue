@@ -1,6 +1,6 @@
 <template>
   <div class="privacy-container">
-    <h1>PrivacyPolicy.vue</h1>
+ 
    <h1>Privacy Policy</h1>
     <p><strong>Last Updated:</strong> June 2022</p>
     <p>This privacy policy (the “Policy“) explains how the Fintastical group (collectively “Fintastical“, “we” or “us” and each member of the Fintastical group for whose services you registered, the “Fintastical Entity“) collects, uses and discloses personal information through its websites, mobile applications, and other online products and services that link to this Policy, including any of the products and services detailed in the following paragraph (collectively, the “Services“) or when you otherwise interact with us.</p>

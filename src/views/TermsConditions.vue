@@ -1,6 +1,5 @@
 <template>
   <div class="conditions-container">
-    <h1>TermsConditions.vue</h1>
     <h1>Fintastical Futures Risk Disclosures</h1>
 
 <p>Investment products offered by Fintastical include stocks, Exchange-Traded Funds (ETFs), and cryptocurrencies, in which you gain ownership of the underlying asset. In addition, Fintastical offers contracts for differences (CFDs) that offer exposure to currencies, commodities, and indices.</p>
