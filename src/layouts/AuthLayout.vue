@@ -12,11 +12,3 @@ export default {
   name: 'AuthLayout',
 }
 </script>
-
-<style scoped>
-.container {
-  position: absolute;
-}
-
-</style>
-

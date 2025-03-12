@@ -94,14 +94,13 @@ const togglePasswordVisibility = () => {
 <style scoped>
 .profile-view {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 0 auto; /* Centrado automático */
   padding: 20px;
+  position: relative; /* Asegurar contexto de posicionamiento */
 }
 
 .profile-data {
   position: relative;
-  top: 0;
-  left: 0;
   background: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
