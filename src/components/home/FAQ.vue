@@ -78,14 +78,15 @@ export default {
 }
 
 h2 {
-  color: #2F284C;
+  color: var(--purple);
   text-align: center;
+  margin: 2rem;
 }
 
 p {
   font-size: 18px;
   line-height: 1.6;
-  color: #333;
+  color: var(--purple-dark);
   background-color: var(--purple-light);
   padding: 1rem;
   border-radius: 1rem;
@@ -98,15 +99,15 @@ p {
 
 .faq-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+  grid-template-columns: repeat(2, 1fr); 
   gap: 20px;
   margin-top: 20px;
   text-align: left;
 }
 
-/* Estilos de cada pregunta */
+
 details {
-  background-color: #f8f8f8;
+  background-color:var(--purple-light);
   border-radius: 1rem;
   padding: 15px;
 }
@@ -115,15 +116,16 @@ summary {
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
+  color: var(--purple-dark);
 }
 
 details p {
   font-size: 16px;
-  color: #555;
+  color: var(--purple-dark);
   margin-top: 10px;
 }
 
-/* Responsivo: en móviles, una sola columna */
+
 @media (max-width: 768px) {
   .faq-grid {
     grid-template-columns: 1fr;
