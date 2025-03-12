@@ -409,9 +409,6 @@ textarea {
   .office-list {
     flex-direction: row;
   }
-  .office {
-    width: 80%;
-  }
 }
 
 @media (max-width: 900px) {
