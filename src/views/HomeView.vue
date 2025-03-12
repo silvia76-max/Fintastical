@@ -1,11 +1,8 @@
 <template>
   <div>
     <!-- Preloader -->
-    <div v-if="loading" class="preloader">
-      <div class="dots-jump">
-        <div></div>
-        <div></div>
-      </div>
+    <div v-if="loading">
+      <Loader />
     </div>
 
     <!-- Hero Section -->
@@ -75,12 +72,13 @@
 import { ref, onMounted, nextTick } from 'vue';
 import Reviews from '@/components/home/Reviews.vue';
 import FAQ from '@/components/home/FAQ.vue';
+import Loader from '@/components/LoaderComp.vue'
 
 const loading = ref(true);
 
 onMounted(async () => {
   setTimeout(() => loading.value = false, 1000);
-  
+
   await nextTick();
   document.querySelectorAll('.scroll-link').forEach(anchor => {
     anchor.addEventListener('click', (event) => {
@@ -93,15 +91,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.preloader {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: white;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  z-index: 9999;
-}
 .dots-jump div {
   width: 10px; height: 10px;
   margin: 5px;
@@ -137,6 +126,7 @@ onMounted(async () => {
 .home-content {
   text-align: center;
 }
+
 .btn {
   margin-top: 20px;
   padding: 10px 20px;
@@ -146,9 +136,11 @@ onMounted(async () => {
   text-decoration: none;
   transition: background 0.3s;
 }
+
 .btn:hover {
   background: rgba(255, 255, 255, 0.5);
 }
+
 .content-section {
   padding: 100px 20px;
   text-align: center;
