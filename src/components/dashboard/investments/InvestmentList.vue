@@ -24,7 +24,7 @@
           <p>📊 Investment: ${{ asset.shares * asset.purchase_price }}</p>
           <p>💰 Current value: ${{ investmentStore.stockValues[asset.code] }}</p>
           <p>📈 {{ getAssetProfit(asset) >= 0 ? 'Profit' : 'Loss'}} ${{ getAssetProfit(asset) }}</p>
-          <!-- <p>📈 Ganancia/Pérdida: ${{ getAssetProfit(asset) }}</p> -->
+         
         </div>
 
         <div class="asset-actions">
@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <p v-else class="empty-state">No tienes activos registrados</p>
+    <p v-else class="empty-state">You have no registered assets</p>
 
     <!-- Assets modal -->
     <div v-if="showAssetForm" class="modal-backdrop">

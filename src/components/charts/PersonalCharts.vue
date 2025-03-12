@@ -1,6 +1,6 @@
 <template>
   <div class="charts-container">
-    <h1>Gráficos</h1>
+    <h1>Charts</h1>
     <template v-if="uniqueAssetCodes.length > 0">
       <div class="charts-container__navigation-buttons">
         <button 
@@ -26,7 +26,7 @@
         <div :id="'tradingview-widget-' + currentAsset" class="charts-container__tradingview-widget"></div>
       </div>
     </template>
-    <p v-else class="charts-container__empty-state">No tienes activos registrados</p>
+    <p v-else class="charts-container__empty-state">You have no registered assets</p>
   </div>
 </template>
 
