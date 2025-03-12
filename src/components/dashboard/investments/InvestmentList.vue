@@ -1,12 +1,12 @@
 <template>
   <div class="investments-view">
-    <h1>Inversiones</h1>
+    <h1>Investments</h1>
 
     <!-- SECCIÓN DE ACTIVOS -->
     <div class="section-header">
-      <h2>Tus Activos</h2>
+      <h2>Your assets</h2>
       <button @click="showAssetForm = true" class="btn-icon">
-        ➕ Agregar
+        ➕ Add New Asset
       </button>
     </div>
 
@@ -19,30 +19,30 @@
         </div>
 
         <div class="asset-details">
-          <p>💼 Acciones: {{ asset.shares }}</p>
-          <p>💲 Precio/acción: ${{ asset.purchase_price }}</p>
-          <p>📊 Inversión: ${{ asset.shares * asset.purchase_price }}</p>
-          <p>💰 Valor actual: ${{ investmentStore.stockValues[asset.code] }}</p>
-          <p>📈 {{ getAssetProfit(asset) >= 0 ? 'Ganancia' : 'Pérdida'}} ${{ getAssetProfit(asset) }}</p>
+          <p>💼 Shares: {{ asset.shares }}</p>
+          <p>💲 Price/share: ${{ asset.purchase_price }}</p>
+          <p>📊 Investment: ${{ asset.shares * asset.purchase_price }}</p>
+          <p>💰 Current value: ${{ investmentStore.stockValues[asset.code] }}</p>
+          <p>📈 {{ getAssetProfit(asset) >= 0 ? 'Profit' : 'Loss'}} ${{ getAssetProfit(asset) }}</p>
           <!-- <p>📈 Ganancia/Pérdida: ${{ getAssetProfit(asset) }}</p> -->
         </div>
 
         <div class="asset-actions">
-          <button @click="openAlertModal(asset.code)" class="btn-alert">➕ Alerta</button>
-          <button @click="handleDeleteAsset(asset.id)" class="btn-delete">🗑️ Eliminar</button>
+          <button @click="openAlertModal(asset.code)" class="btn-alert">➕ Alert</button>
+          <button @click="handleDeleteAsset(asset.id)" class="btn-delete">🗑️ Delete</button>
         </div>
       </div>
     </div>
     <p v-else class="empty-state">No tienes activos registrados</p>
 
-    <!-- MODAL DE ACTIVOS -->
+    <!-- Assets modal -->
     <div v-if="showAssetForm" class="modal-backdrop">
       <div class="modal">
-        <h3>Agregar Nuevo Activo</h3>
+        <h3>Add New Asset</h3>
         <form @submit.prevent="handleAddAsset" class="asset-form">
           <input
             v-model="newAsset.code"
-            placeholder="Código (ej: AAPL)"
+            placeholder="Code or Symbol (ej: AAPL)"
             list="companyList"
             required
           >
@@ -56,7 +56,7 @@
           <input
             v-model.number="newAsset.shares"
             type="number"
-            placeholder="Cantidad de acciones"
+            placeholder="Ammount of shares"
             min="1"
             required
           >
@@ -64,42 +64,42 @@
           <input
             v-model.number="newAsset.pricePerShare"
             type="number"
-            placeholder="Precio por acción ($)"
+            placeholder="Price per share ($)"
             step="0.01"
             min="0.01"
             required
           >
 
           <div class="modal-actions">
-            <button type="button" @click="showAssetForm = false" class="btn-cancel">Cancelar</button>
-            <button type="submit" class="btn-confirm">Guardar</button>
+            <button type="button" @click="showAssetForm = false" class="btn-cancel">Cancel</button>
+            <button type="submit" class="btn-confirm">Save</button>
           </div>
         </form>
       </div>
     </div>
 
-    <!-- SECCIÓN DE ALERTAS -->
-    <h2>Alertas Activas</h2>
+    <!-- alerts section -->
+    <h2>Active Alerts</h2>
     <div v-if="alerts.length > 0" class="alerts-grid">
       <div v-for="alert in alerts" :key="alert.id" class="alert-card" :class="alert.type">
         <div class="alert-header">
           <span class="ticker">{{ alert.asset_code }}</span>
           <span class="type-badge" :class="alert.type">
-            {{ alert.type === 'up' ? '▲ Subida' : '▼ Bajada' }}
+            {{ alert.type === 'up' ? '▲ Up' : '▼ Down' }}
           </span>
         </div>
 
-        <p class="target-price">🎯 Objetivo: ${{ alert.target_price }}</p>
+        <p class="target-price">🎯 Target: ${{ alert.target_price }}</p>
 
         <div class="alert-footer">
-          <span class="date">{{ formatDate(alert.created_at) }}</span>
-          <button @click="deleteAlert(alert.id)" class="btn-delete">Eliminar</button>
+          <span class="date">{{ formatDate(alert.created_at) }} </span>
+          <button @click="deleteAlert(alert.id)" class="btn-delete">Delete</button>
         </div>
       </div>
     </div>
-    <p v-else class="empty-state">No hay alertas activas</p>
+    <p v-else class="empty-state">There are no active alerts</p>
 
-    <!-- MODAL DE ALERTAS -->
+   <!-- alert modal -->
     <div v-if="showAlertModal" class="modal-backdrop">
       <div class="modal">
         <h3>Nueva Alerta para {{ selectedAsset }}</h3>
@@ -124,8 +124,8 @@
           </div>
 
           <div class="modal-actions">
-            <button type="button" @click="showAlertModal = false" class="btn-cancel">Cancelar</button>
-            <button type="submit" class="btn-confirm">Crear Alerta</button>
+            <button type="button" @click="showAlertModal = false" class="btn-cancel">Cancel</button>
+            <button type="submit" class="btn-confirm">Set alert</button>
           </div>
         </form>
       </div>
@@ -251,7 +251,8 @@ onMounted(async () => {
 
 <style scoped>
 
-/* Estilos principales */
+/* Main styles */
+
 .investments-view {
   max-width: 1200px;
   margin: 0 auto;
@@ -266,7 +267,7 @@ onMounted(async () => {
   margin: 30px 0 20px;
 }
 
-/* Formularios */
+
 .asset-form {
   background: #d9f2ff;
   padding: 20px;
@@ -290,7 +291,6 @@ onMounted(async () => {
   margin: 15px 0;
 }
 
-/* Grid de activos y alertas */
 .assets-grid, .alerts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -298,7 +298,6 @@ onMounted(async () => {
   margin: 25px 0;
 }
 
-/* Tarjetas */
 .asset-card, .alert-card {
   background: white;
   border-radius: 12px;
@@ -316,7 +315,6 @@ onMounted(async () => {
   transform: translateY(-3px);
 }
 
-/* Detalles de activos */
 .asset-header {
   display: flex;
   justify-content: space-between;
@@ -368,7 +366,6 @@ onMounted(async () => {
 .btn-icon:active {
   transform: translateY(0);
 }
-/* Acciones */
 .asset-actions {
   display: flex;
   gap: 12px;
@@ -417,9 +414,7 @@ onMounted(async () => {
   font-weight: 500;
 }
 
-/* Modal */
 
-/* Estilos del modal mejorado */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -526,12 +521,13 @@ onMounted(async () => {
 }
 
 .btn-cancel:hover {
-  background: #f1f5f9;
+  background: var(--purple-hover);
   border-color: #cbd5e0;
+  color: white;
 }
 
 .btn-confirm {
-  background: #3498db;
+  background: var(--purple);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -542,11 +538,10 @@ onMounted(async () => {
 }
 
 .btn-confirm:hover {
-  background: #2980b9;
+  background: var(--purple-hover);
 }
 
 
-/* Estados vacíos */
 .empty-state {
   text-align: center;
   padding: 40px;
