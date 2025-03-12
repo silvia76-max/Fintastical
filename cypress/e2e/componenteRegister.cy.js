@@ -3,12 +3,12 @@
 
 
 
-describe('User Profile', () => {
+describe('componenteProfile.cy.js', () => {
   beforeEach(() => {
     // Simulate that the user is authenticated, depending on how you handle authentication in your store (auth store).
     // Here we will use a mock for authentication.
     cy.intercept('GET', '/api/user', { fixture: 'user.json' }).as('getUser');
-    cy.visit('/profile'); // The route where the profile component is located
+    cy.visit('/Register'); // The route where the profile component is located
     cy.wait('@getUser');
   });
 

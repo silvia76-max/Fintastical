@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-describe('ComponenteLogin.vue', () => {
+describe('componenteLogin.cy.js', () => {
   beforeEach(() => {
     mount(ComponenteLogin, {
       global: {

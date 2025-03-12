@@ -3,7 +3,7 @@
 
 
 
-describe('User Profile', () => {
+describe('componenteProfile.cy.js', () => {
   beforeEach(() => {
     // Simulate that the user is authenticated, depending on how you handle authentication in your store (auth store).
     // Here, we'll use a mock for the authentication.
