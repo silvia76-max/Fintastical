@@ -1,5 +1,4 @@
 <template>
-  <h1>Perfil del Usuario</h1>
   <div class="profile-view" v-if="isAuthenticated">
     <div class="profile-data">
       <h1>Hello {{ user.name }}!</h1>
@@ -100,6 +99,9 @@ const togglePasswordVisibility = () => {
 }
 
 .profile-data {
+  position: relative;
+  top: 0;
+  left: 0;
   background: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
