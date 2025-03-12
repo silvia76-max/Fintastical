@@ -43,10 +43,14 @@ const logout = () => {
   background-color: var(--background) ;
   color: var(--purple-light);
   padding: 10px 20px;
-  box-shadow: 0px 0px 50px 1px #6046b0;
+  box-shadow: 0px 0px 5px var(--purple);
 }
 
-
+.logo {
+width: 40%;
+min-width: 266px;
+max-width: 500px;
+}
 
 .signup {
   color: var(--green);
@@ -170,10 +174,3 @@ nav ul li .router-link:hover {
 
 </style>
 
-<style>
-.logo {
-width: 40%;
-min-width: 266px;
-max-width: 500px;
-}
-</style>
