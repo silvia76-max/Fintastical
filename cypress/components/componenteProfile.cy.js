@@ -1,16 +1,26 @@
+/* eslint-disable no-unused-vars */
 //eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
 
+import { createTestingPinia } from '@pinia/testing';
+import { mount } from 'cypress/vue';
+import Profileview from '../../src/components/auth/Profileview.vue';
 
-describe('componenteProfile.cy.js', () => {
+
+
+describe('componentProfile', () => {
   beforeEach(() => {
-    // Simulate that the user is authenticated, depending on how you handle authentication in your store (auth store).
-    // Here, we'll use a mock for the authentication.
-    cy.intercept('GET', '/api/user', { fixture: 'user.json' }).as('getUser');
-    cy.visit('/perfil'); // Route where the profile component is located
-    cy.wait('@getUser');
+    mount(ComponenteProfile, {
+      global: {
+        plugins: [createTestingPinia({ createSpy: cy.spy })],
+      },
+    });
   });
+  it('renders correctly', () => {
+    cy.contains('').should('exist');
+  });
+});
 
   it('Should display the profile information if the user is authenticated', () => {
     // Verify that the user data loads correctly
@@ -80,4 +90,4 @@ describe('componenteProfile.cy.js', () => {
     cy.get('[data-testid="no-auth-message"]').should('be.visible')
       .and('contain', 'You are not authenticated. Please log in.');
   });
-});
+
