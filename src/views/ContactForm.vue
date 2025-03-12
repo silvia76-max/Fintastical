@@ -410,7 +410,9 @@ textarea {
     flex-direction: row;
     align-items: center;
   }
-  
+  .our-offices{
+    width: 85%
+  }
   .office {
     width: 90%; 
   }
