@@ -2,14 +2,14 @@
   <h1>Perfil del Usuario</h1>
   <div class="profile-view" v-if="isAuthenticated">
     <div class="profile-data">
-      <h1>Hola {{ user.name }}!</h1>
+      <h1>Hello {{ user.name }}!</h1>
       <ul>
         <li>Email: {{ user.email }}</li>
         <li>ID: {{ user.id }}</li>
       </ul>
     </div>
 
-    <h2>Actualizar Perfil</h2>
+    <h2>Profile Update</h2>
     <form @submit.prevent="handleUpdateProfile">
       <input
         type="text"
@@ -23,18 +23,21 @@
         placeholder="Email"
         class="input-field"
       >
-      <input
-        type="password"
-        v-model="password"
-        placeholder="Contraseña"
-        class="input-field"
-      >
+      <div class="password-field">
+        <input
+          :type="showPassword ? 'text' : 'password'"
+          v-model="password"
+          placeholder="Contraseña"
+          class="input-field"
+        >
+        <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" @click="togglePasswordVisibility"></i>
+      </div>
       <button type="submit" class="update-btn">Actualizar</button>
       <p v-if="error" class="error">{{ error }}</p>
     </form>
 
     <router-link to="/investments" class="investments-link">
-      Gestionar mis inversiones →
+      Manage my investments →
     </router-link>
   </div>
 
@@ -56,6 +59,7 @@ const name = ref('');
 const email = ref('');
 const password = ref('');
 const error = ref(null);
+const showPassword = ref(false);
 
 watch(user, (newUser) => {
   if (newUser) {
@@ -82,6 +86,10 @@ const handleUpdateProfile = async () => {
   const success = await auth.updateProfile(updatedUser);
   if (!success) error.value = 'Error al actualizar';
 };
+
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value;
+};
 </script>
 
 <style scoped>
@@ -101,13 +109,15 @@ const handleUpdateProfile = async () => {
 .investments-link {
   display: block;
   margin-top: 30px;
-  color: #0d6efd;
-  text-decoration: none;
-  font-weight: 500;
+  background-color: var(--purple);
+  color: var(--purple-light);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
 }
 
 .investments-link:hover {
-  text-decoration: underline;
+  background-color: var(--purple-light);
+  color: var(--purple);
 }
 
 .input-field {
@@ -118,18 +128,35 @@ const handleUpdateProfile = async () => {
   border-radius: 4px;
 }
 
+.password-field {
+  position: relative;
+}
+
+.password-field .input-field {
+  padding-right: 40px;
+}
+
+.password-field i {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d;
+}
+
 .update-btn {
-  background: #0d6efd;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
+  background-color: var(--purple-light);
+  color: var(--purple);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
   cursor: pointer;
   transition: background 0.3s;
 }
 
 .update-btn:hover {
-  background: #0b5ed7;
+  background-color:var(--purple);
+  color: var(--purple-light);
 }
 
 .error {

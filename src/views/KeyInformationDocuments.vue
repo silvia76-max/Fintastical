@@ -1,4 +1,8 @@
 <template>
+      <!-- Preloader -->
+      <div v-if="loading">
+      <Loader />
+    </div>
   <div class="key-container">
     <h1>KeyInformationDocuments.vue</h1>
     <h1>Key Information Documents (KIDs)</h1>
@@ -50,6 +54,9 @@
 
   </div>
 </template>
+<script setup>
+import Loader from "@/components/LoaderComp.vue"
+</script>
 
 <style scoped>
 .key-container {
