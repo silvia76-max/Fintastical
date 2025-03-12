@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "cy:open": "cypress open",
-    "dev": "vite --port 8080",
+    "dev": "vite",
     "build": "vite build",
     "backend": "json-server --watch BACKEND/db.json --port 3000",
     "apifake": "json-server --watch BACKEND/apiStock.json --port 8111",
