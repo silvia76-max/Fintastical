@@ -1,22 +1,22 @@
 <template>
   <div>
-    <!-- Preloader -->
+
     <div v-if="loading">
       <Loader />
     </div>
 
-    <!-- Hero Section -->
+    <!-- hero -->
     <section class="hero">
       <div class="shadow-overlay"></div>
       <div class="container">
         <div class="row home-content__main">
           <div class="col-hero-text">
-            <h1>The tool for managing your<br> stock market investments</h1>
-            <h3>
+            <h1>The tool for managing your stock market investments</h1>
+            <p>
               Check the updated value of your assets. Our platform keeps you informed of market fluctuations so you can react quickly.
-            </h3>
+            </p>
             <div class="home-content__btn-wrap">
-              <a href="#about" class="btn-getstarted scroll-link">Get Started</a>
+              <a href="/auth/login" class="btn-getstarted scroll-link">Get Started</a>
             </div>
           </div>
           <div class="col-hero-image">
@@ -26,7 +26,7 @@
       </div>
     </section>
 
-    <!-- About Section -->
+    <!-- about  -->
     <section id="about" class="content-section-purple">
       <h2 class="h2white">View all your assets in one place,<br> track their evolution, and make decisions.</h2>
     <div class="cards-container">
@@ -45,25 +45,21 @@
     </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="content-section">
+    <!-- optimize -->
+    <section id="optimize" class="content-section-light">
       <h2>Optimize Your Investment Strategy</h2>
-      <p>With Fintastical, managing your investment portfolio has never been easier. View all your assets in one place, track their evolution, and make data-driven decisions.</p>
+      <p>With Fintastical, managing your investment portfolio has never been easier. <br> View all your assets in one place, track their evolution, and make data-driven decisions.</p>
     </section>
 
 
-    <!-- Pricing Section -->
-    <section id="pricing" class=".content-section-light">
+    <!-- reviews -->
+    <section id="reviews" class=".content-section-light">
       <Reviews/>
     </section>
 
-    <!-- Download Section -->
-    <section id="download" class="content-section">
+    <!-- faq -->
+    <section id="faq" class="content-section">
      <FAQ />
-      <div class="download-buttons">
-        <a href="#0" class="btn btn--primary">App Store</a>
-        <a href="#0" class="btn btn--primary">Play Store</a>
-      </div>
     </section>
   </div>
 </template>
@@ -92,8 +88,8 @@ onMounted(async () => {
 
 <style scoped>
 .dots-jump div {
-  width: 10px; height: 10px;
-  margin: 5px;
+  width: 0.625rem; height: 0.625rem;
+  margin: 0.313rem;
   background: black;
   border-radius: 50%;
   display: inline-block;
@@ -110,7 +106,7 @@ onMounted(async () => {
   color: white;
   text-align: center;
   position: relative;
-  z-index: 1; /* Asegura que el contenido esté por encima */
+  z-index: 1; 
 }
 
 .hero::before {
@@ -120,18 +116,18 @@ onMounted(async () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to left, #6146b083, #c9647f70); /* Ajusta los colores */
-  z-index: -1; /* Envía la capa detrás del contenido pero encima de la imagen */
+  background: linear-gradient(to left, #6146b083, #c9647f70);
+  z-index: -1; 
 }
 .home-content {
   text-align: center;
 }
 
 .btn {
-  margin-top: 20px;
-  padding: 10px 20px;
+  margin-top: 1.25rem;
+  padding: 0.625rem 1.25rem;
   background: rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
+  border-radius: 0.313rem;
   color: white;
   text-decoration: none;
   transition: background 0.3s;
@@ -142,24 +138,29 @@ onMounted(async () => {
 }
 
 .content-section {
-  padding: 100px 20px;
+  padding: 6.25rem 1.25rem;
   text-align: center;
   background: white;
   color: black;
 }
 .content-section-purple {
-  padding: 100px 20px;
+  padding: 6.25rem 1.25rem;
   text-align: center;
   background: var(--purple);
   color: white;
 }
 
 .content-section-light {
-  padding: 100px 20px;
+  padding: 6.25rem 1.25rem;
   text-align: center;
   background: var(--purple-light);
   color: white;
   position: relative;
+}
+.content-section-light p {
+  color: var(--purple-dark);
+  margin-top: 2rem;
+
 }
 .container {
   width: 90%;
@@ -177,6 +178,16 @@ onMounted(async () => {
   text-align: left;
   max-width: 50%;
 }
+
+.col-hero-text h1 {
+  font-size: 7rem;
+}
+
+.col-hero-text p {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
 .col-hero-image {
   flex: 1;
   display: flex;
@@ -194,34 +205,36 @@ onMounted(async () => {
 .download-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
 }
 .cards-container {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
   flex-wrap: wrap;
 }
 
 .card {
   background: transparent;
-  border: 2px solid white;
-  border-radius: 10px;
-  padding: 20px;
+  border: 0.125rem solid var(--purple-light);
+  border-radius: 0.625rem;
+  padding: 1.25rem;
   text-align: center;
-  max-width: 300px;
-  color: white;
+  max-width: 40rem;
+  height:20rem;
+  color: var(--purple-light)
 }
 
 .card h3 {
-  margin-bottom: 10px;
-  font-size: 1.5rem;
+  margin-bottom: 0.625rem;
+  font-size: 2rem;
+  font-family: 'Ginto-Bold';
 }
 
 .card p {
-  font-size: 1rem;
+  font-size: 1.8rem;
   line-height: 1.5;
 }
 
@@ -245,12 +258,15 @@ h1 {
   /* -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; */
 }
+p {
+  font-size: 2rem;
+}
 
 .btn-getstarted {
   margin-top: 2rem;
   background: var(--purple);
   color: white;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -262,7 +278,8 @@ h1 {
   color: rgb(16, 11, 59);
   color: white;
 }
-/* Responsive Design */
+
+/* responsive */
 @media (max-width: 1024px) {
   .row {
     flex-direction: column;
@@ -272,26 +289,48 @@ h1 {
     max-width: 100%;
   }
   .col-hero-text {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 4rem;
   }
   .hero h3 {
     font-size: 1.2rem;
   }
   .hero-app-image {
-    max-width: 70%;
+    max-width: 50%;
+    z-index: -1;
+    position: relative;
   }
+  .content-section-purple{
+    position: relative;
+    bottom: 22rem;
+    z-index: 3;
+
+  }
+  .content-section-light {
+    position: relative;
+    bottom: 22rem;
+  }
+  .fintastical-reviews {
+    position: relative;
+    bottom: 22rem;
+  }
+  .content-section {
+    position: relative;
+    bottom: 22rem;
+    max-height: 95rem;
+  }
+
 }
 
 @media (max-width: 768px) {
   .hero {
     height: auto;
-    padding: 60px 20px;
+    padding: 60px 1.25rem;
   }
   .hero h1 {
-    font-size: 2rem;
+    font-size: 4rem;
   }
   .hero h3 {
     font-size: 1rem;
@@ -303,21 +342,22 @@ h1 {
   .hero-app-image {
     max-width: 60%;
   }
+  
 }
 
 @media (max-width: 480px) {
   .hero {
-    padding: 40px 15px;
+    padding: 40px 10.313rem;
   }
   .hero h1 {
-    font-size: 1.8rem;
+    font-size: 3rem;
   }
   .hero h3 {
     font-size: 0.9rem;
   }
   .btn {
     font-size: 0.8rem;
-    padding: 6px 12px;
+    padding: 6px 10.125rem;
   }
   .hero-app-image {
     max-width: 50%;
