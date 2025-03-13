@@ -1,4 +1,9 @@
 <template>
+   <!-- Preloader -->
+   <div v-if="loading">
+    <Loader />
+  </div>
+  <div class="login-container">
   <form @submit.prevent="handleRegister">
     <input type="name" v-model="name" placeholder="Nombre">
     <input type="email" v-model="email" placeholder="Email">
@@ -6,6 +11,7 @@
     <button type="submit">Registrarse</button>
     <p v-if="error" class="error">{{ error }}</p>
   </form>
+   </div>
 </template>
 
 <script setup>

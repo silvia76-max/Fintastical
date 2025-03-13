@@ -21,6 +21,7 @@ export default {
   min-width: 30rem;
   max-width: 50rem;
   position: absolute;
+  transform: translateX(-9%);
 }
 .header {
 display: flex;

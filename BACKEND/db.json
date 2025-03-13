@@ -284,6 +284,20 @@
       "email": "gaizka@gmail.com",
       "subject": "el footer no funciona",
       "message": "Le falta la pantalla de que se ha enviado el mensaje."
+    },
+    {
+      "id": "001a",
+      "name": "",
+      "email": "sinozzuke@gmail.com",
+      "subject": "el footer no funciona",
+      "message": ""
+    },
+    {
+      "id": "7738",
+      "name": "Moises",
+      "email": "mosses@gmail.com",
+      "subject": "hola",
+      "message": "petardo"
     }
   ],
   "newsletter": [

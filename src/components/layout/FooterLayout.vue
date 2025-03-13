@@ -58,16 +58,10 @@
             </a>
           </div>
         </div>
-      </div>
+     </div>
 
       <!-- Columna 3: Newsletter y formulario de contacto -->
       <div class="footer-section">
-        <h2>Subscribe to our Newsletter</h2>
-        <form @submit.prevent="subscribeNewsletter" class="newsletter-form">
-          <input type="email" placeholder="Enter your email" required />
-          <button type="submit">Subscribe</button>
-        </form>
-
         <h2>Contact Us</h2>
         <form @submit.prevent="handleSubmit" class="contact-form">
 

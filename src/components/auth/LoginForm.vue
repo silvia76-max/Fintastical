@@ -68,13 +68,6 @@ const handleLogin = async () => {
   background: url("@/assets/img/login-unicorn.jpg") center/cover no-repeat;
 }
 
-.logo {
-  width: 100%;
-  min-width: 30rem;
-  max-width: 50rem;
-  position: absolute;
-}
-
 h1 {
   color: var(--purple);
   font-size: 3rem;
