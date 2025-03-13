@@ -52,6 +52,10 @@ min-width: 266px;
 max-width: 500px;
 }
 
+.logo-img {
+  width: 40%;
+}
+
 .signup {
   color: var(--green);
   padding: 1rem 2rem;
