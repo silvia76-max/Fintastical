@@ -2,7 +2,7 @@
   <div class="investments-view">
     <h1>Investments</h1>
 
-    <!-- SECCIÓN DE ACTIVOS -->
+    <!-- assets section -->
     <div class="section-header">
       <h2>Your assets</h2>
       <button @click="showAssetForm = true" class="btn-icon">
@@ -10,7 +10,7 @@
       </button>
     </div>
 
-    <!-- LISTA DE ACTIVOS -->
+    <!-- assets list -->
     <div v-if="investmentStore.assets.length > 0" class="assets-grid">
       <div v-for="asset in investmentStore.assets" :key="asset.id" class="asset-card">
         <div class="asset-header">
@@ -35,7 +35,7 @@
     </div>
     <p v-else class="empty-state">You have no registered assets</p>
 
-    <!-- Assets modal -->
+    <!-- assets modal -->
     <div v-if="showAssetForm" class="modal-backdrop">
       <div class="modal">
         <h3>Add New Asset</h3>
