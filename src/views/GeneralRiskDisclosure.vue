@@ -1,6 +1,5 @@
 <template>
   <div class="general-container">
-    <h1>GeneralRiskDisclosure.vue</h1>
     <h1>General Risk Disclosure</h1>
     <p>This notice provides you with information about the risks associated with investment products, in which you may invest, through services provided to you by Fintastical Group entities. Fintastical provides a wide range of investment services in relation to a number of products through its regulated entities: Fintastical (Europe) Ltd., authorised and regulated by the Cyprus Securities and Exchange Commission (CySEC), Fintastical (UK) Ltd., authorised and regulated by the Financial Conduct Authority (FCA), Fintastical AUS Capital Limited, authorised by the Australian Securities and Investments Commission (ASIC), and Fintastical (Middle East) Ltd. Investment products offered by Fintastical include stocks, Exchange-Traded Funds (ETFs) and cryptocurrencies, in which you gain ownership of the underlying asset. In addition, Fintastical offers contracts for differences (CFDs) that offer exposure to currencies, commodities and indices.</p>
 

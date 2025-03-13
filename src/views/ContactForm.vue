@@ -4,8 +4,6 @@
     <p>
       If you have any questions or need us to help you with a specific topic, do not hesitate to contact us through the following form.
     </p>
-
-
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <label for="name">Name</label>
@@ -54,19 +52,21 @@
         <button @click="closePopup">Close</button>
       </div>
     </div>
-
-    <!-- Google Map -->
-    <iframe
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9921.580742178235!2d-0.10874529083371688!3d51.51766570000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b1f29d917ad%3A0xf3fa0498c14db63c!2s456%20Business%20Ave%2C%20London%2C%20UK%20EC1A%201BB!5e0!3m2!1sen!2sin!4v1678208291173!5m2!1sen!2sin"
-  width="600"
-  height="450"
-  style="border:0;"
-  allowfullscreen=""
-  loading="lazy">
+  </div>
+  
+  <!-- Google Map -->
+  <iframe
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9921.580742178235!2d-0.10874529083371688!3d51.51766570000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b1f29d917ad%3A0xf3fa0498c14db63c!2s456%20Business%20Ave%2C%20London%2C%20UK%20EC1A%201BB!5e0!3m2!1sen!2sin!4v1678208291173!5m2!1sen!2sin"
+width="600"
+height="450"
+class="map-container"
+style="border:0;"
+allowfullscreen=""
+loading="lazy">
 </iframe>
 
-  <!-- Our Offices Section -->
-<div class="our-offices">
+<!-- Our Offices Section (Separate from Contact Form) -->
+  <div class="our-offices">
     <h1>Our Offices</h1>
     <p>Visit us at one of our locations worldwide.</p>
     <div class="office-list">
@@ -88,7 +88,7 @@
     </div>
   </div>
 
-  </div>
+
 </template>
 
 <script setup>
@@ -115,29 +115,28 @@ const handleSubmit = async () => {
   const data = { ...form.value };
 
   try {
-  // Sending a POST request to the local server at port 3000 with the "/contactos" endpoint
-  const response = await fetch("http://localhost:3000/contactos", {
-    method: "POST", // Specifies that we are sending data to the server
-    headers: {
-      "Content-Type": "application/json", // Indicates that we are sending JSON data
-    },
-    body: JSON.stringify(data), // Converts the JavaScript object 'data' into a JSON string
-  });
+    const response = await fetch("http://localhost:3000/contactos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-  // Parsing the JSON response from the server
-  const result = await response.json();
-  console.log("Respuesta del servidor:", result); // Logs the server response to the console
+    const result = await response.json();
+    console.log("Respuesta del servidor:", result);
 
-  if (response.ok) { // Checks if the request was successful (status code 200-299)
-    form.value = { name: '', email: '', subject: '', message: '' }; // Resets form fields after successful submission
-  } else {
-    alert("Error al enviar el mensaje"); // Alerts the user if the response indicates a failure
+    if (response.ok) {
+
+      form.value = { name: '', email: '', subject: '', message: '' }; // Reset form fields
+    } else {
+      alert("Error al enviar el mensaje");
+    }
+  } catch (error) {
+    console.error("Error de conexión:", error);
+    alert("Error de conexión con el servidor");
   }
-} catch (error) {
-  console.error("Error de conexión:", error); // Logs any connection error to the console
-  alert("Error de conexión con el servidor"); // Alerts the user about a connection failure
-}
-}
+};
 
 // handleFileUpload function
 const handleFileUpload = (event) => {
@@ -152,7 +151,6 @@ const handleFileUpload = (event) => {
     alert('Only text files are allowed.'); // Show an alert if the file is not text
   }
 };
-
 
 
 // closePopup function
@@ -199,16 +197,14 @@ onMounted(() => {
 </script>
 
 
-
 <style scoped>
 .contact-container {
-  width: 100%;
+  width: 50%;
   max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
   background-color: #f7f7f7;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 h1 {
@@ -234,7 +230,7 @@ label {
 
 input,
 textarea {
-  width: 100%;
+  width: 590px;
   padding: 10px;
   border: 1px solid #070707;
   border-radius: 4px;
@@ -276,12 +272,58 @@ button.submit-btn:hover {
   border-radius: 4px;
 }
 
+.map-wrapper {
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-end; 
+}
+
 .map-container {
-  width: 100%;
-  height: 400px;
-  margin-top: 20px;
+  width: 50%; 
+  max-width: 600px;
+  height:400px; 
   border-radius: 8px;
   border: 1px solid #ddd;
+  margin-left: 70rem;
+  position: relative;
+  top: -50px; 
+
+}
+
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .contact-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .map-container {
+    height: 300px; 
+    width: 5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container {
+    max-width: 90%; 
+    padding: 10px;
+  }
+
+  .map-container {
+    height: 250px;
+    width: 10%
+  }
+
+  input,
+textarea {
+  width: 24rem;
+  padding: 7px;
+  font-size: 14px;
+}
+  button.submit-btn {
+    padding: 10px; 
+  }
 }
 
 /* Estilos para el pop-up */
@@ -326,11 +368,11 @@ button.submit-btn:hover {
   background-color: #8F6AFF;
 }
 
-/* office section styling*/
+/* Office Section Styling */
 
 .our-offices {
-  max-width: 800px;
-  margin: 40px auto;
+  max-width: 1200px; 
+  margin: 20px auto; 
   padding: 20px;
   background-color: #f7f7f7;
   border-radius: 8px;
@@ -338,37 +380,65 @@ button.submit-btn:hover {
   text-align: center;
 }
 
+/* Office List - Display in a Single Row */
 .office-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: space-between; 
+  gap: 15px; 
+  margin-top: 10px; 
 }
 
+/* Individual Office */
 .office {
   background: white;
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 100%; 
-  width: 500px; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  min-width: 250px; 
   text-align: center;
-  height: 10rem;
 }
 
-
-.office {
-  flex: 1 1 400px;
-}
-
+/* Office Title */
 .office h3 {
-  color: var(--purple); 
-  font-size: 30px;
+  color: #6046B0;
+  font-size: 30px; 
+  margin-bottom: 8px;
 }
 
+/* Office Text */
 .office p {
   color: #333;
-  font-size: 17px;
+  font-size: 18px;
+  margin: 5px 0;
 }
+
+@media (max-width: 1024px) {
+  .office-list {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 900px) {
+  .office-list {
+    flex-direction: row;
+  }
+  .office {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .office-list {
+    flex-direction: column;
+  }
+  .our-offices {
+    width: 85%;
+  }
+  .office {
+    width: 95%;
+  }
+}
+
 </style>
