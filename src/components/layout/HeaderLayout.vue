@@ -1,6 +1,6 @@
 <template>
   <header class="header-layout">
-    <div class="logo"><router-link to="/"><img src="@/assets/img/Fintastical-logo-nav-DESKTOP.svg " alt="Fintastical Logo" class="logo-img" /></router-link></div>
+    <div class="logo"><router-link to="/"><img src="@/assets/img/Fintastical-logo-nav-DESKTOP.svg " alt="Fintastical Logo" class="logo" /></router-link></div>
     <nav>
       <ul>
         <li v-if="isAuthenticated"><router-link to="/dashboard" class="router-link">Dashboard</router-link></li>
