@@ -61,7 +61,8 @@ During the creation of this project, we have used the following tools:
 11-Grid<br>
 12-Git <br>
 13-JSON Server<br>
-14-Vue.js
+14-Vue.js<br>
+15-Cypress
 
 ## 🖌️ Branding:
 The name "Fintastical" is a creative combination of the words "fin" (referring to finance) and "fantastic," meaning something related to finance in an exceptionally good or surprising way.
@@ -92,6 +93,14 @@ In the project, we are required to meet certain requirements for the development
 ### ⏳ Login
 
 ### 👥 User Registration
+
+### 👩‍💻 User Profile:
+
+## ✅ Cypress Code Testing:
+We have performed a code test using Cypress.
+![Captura_de_pantalla_de_home](https://github.com/user-attachments/assets/311c003a-3d51-442d-8e08-df3bdcb4ce91)
+![Captura_de_pantalla_de_cypress_about](https://github.com/user-attachments/assets/33076697-ed88-4074-886d-30d30fe59190)
+
 
 ## ✨ Team:
 ![Logo5coinspequeño](https://github.com/user-attachments/assets/2404b5e0-e9c7-43b9-8e9d-bf2ee317649c)

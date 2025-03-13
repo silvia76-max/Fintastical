@@ -43,7 +43,7 @@ const logout = () => {
   background-color: var(--background) ;
   color: var(--purple-light);
   padding: 10px 20px;
-  box-shadow: 0px 0px 50px #6046b0;
+  box-shadow: 0px 0px 5px var(--purple);
 }
 
 .logo {
@@ -173,3 +173,4 @@ nav ul li .router-link:hover {
 }
 
 </style>
+

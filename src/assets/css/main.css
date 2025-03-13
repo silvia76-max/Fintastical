@@ -67,8 +67,27 @@ button {
   font-weight: bold;
 }
 
+@font-face {
+  font-family: 'Nunito';
+  src: url('fonts/Nunito-Regular.woff2') format('woff2'),
+      url('fonts/Nunito-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'InstrumentSans';
+  src: url('fonts/InstrumentSans-Regular.woff2') format('woff2'),
+      url('fonts/InstrumentSans-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 p {
-  font-family: 'Ginto';
+  font-family: 'InstrumentSans';
 }
 
 h1, h2, h3, h4, h5 {
@@ -77,5 +96,6 @@ h1, h2, h3, h4, h5 {
 
 h1 {
   color: var(--purple);
-  font-size: 6rem;
+
 }
+
