@@ -81,7 +81,7 @@
 
 
         <label for="message">Message</label>
-
+        <input type="text" id="message" v-model="form.message" placeholder="Enter your message" required />
 
           <button type="submit">Send Message</button>
         </form>

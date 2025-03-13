@@ -5,11 +5,11 @@
   </div>
   <div class="login-container">
   <form @submit.prevent="handleRegister">
-    <input type="name" v-model="name" placeholder="Nombre">
-    <input type="email" v-model="email" placeholder="Email">
-    <input type="password" v-model="password" placeholder="Contraseña">
-    <button type="submit">Registrarse</button>
-    <p v-if="error" class="error">{{ error }}</p>
+    <input type="name" v-model="name" placeholder="Nombre" data-cy="input-name">
+    <input type="email" v-model="email" placeholder="Email" data-cy="input-email">
+    <input type="password" v-model="password" placeholder="Contraseña" data-cy="input-password">
+    <button type="submit" data-cy="submit-btn">Registrarse</button>
+    <p v-if="error" class="error" data-cy="error-msg">{{ error }}</p>
   </form>
    </div>
 </template>
