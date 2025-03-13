@@ -1,21 +1,21 @@
 <template>
   <div class="investment-summary">
-    <h1>Resumen</h1>
+    <h1>Overview</h1>
     <!-- User info -->
     <div class="summary-card user-info">
-      <h2>Hola, {{ userName }}</h2>
+      <h2>Hi, {{ userName }}</h2>
       <div class="stats-grid">
         <div class="stat-item">
-          <span class="stat-label">Inversión Total</span>
+          <span class="stat-label">Total Investment</span>
           <span class="stat-value">${{ investmentStore.totalInvestment.toFixed(2) }}</span>
         </div>
         <div class="stat-item">
-          <span class="stat-label">Valor Actual</span>
+          <span class="stat-label">Current Value</span>
           <span class="stat-value">${{ investmentStore.currentTotalValue.toFixed(2) }}</span>
         </div>
         <div class="stat-item">
           <span class="stat-label" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
-            {{ investmentStore.totalProfit >= 0 ? 'Ganancia Total' : 'Pérdida Total' }}
+            {{ investmentStore.totalProfit >= 0 ? 'Total Profit' : 'Total Loss' }}
           </span>
           <span class="stat-value" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
             ${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}
@@ -24,23 +24,24 @@
       </div>
     </div>
 
-    <!-- last investment section -->
+    <!-- Last investment section -->
     <div v-if="latestInvestment" class="summary-card latest-investment">
-      <h3>Última Inversión</h3>
+      <h3>Last Investment</h3>
       <div class="latest-investment-details">
         <div class="company-info">
           <span class="company-code">{{ latestInvestment.code }}</span>
           <span class="company-name">{{ getCompanyName(latestInvestment.code) }}</span>
         </div>
-        <table>
+        <!-- Desktop Table -->
+        <table class="desktop-table">
           <thead>
             <tr>
-              <th>Acciones</th>
-              <th>Precio por acción</th>
-              <th>Inversión total</th>
-              <th>Fecha</th>
-              <th>Valor actual</th>
-              <th>Ganancia/Pérdida</th>
+              <th>Shares</th>
+              <th>Price per Share</th>
+              <th>Total Investment</th>
+              <th>Date</th>
+              <th>Current Value</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -49,7 +50,39 @@
               <td>${{ latestInvestment.purchase_price }}</td>
               <td>${{ (latestInvestment.shares * latestInvestment.purchase_price).toFixed(2) }}</td>
               <td>{{ formatDate(latestInvestment.purchase_date) }}</td>
-              <td>${{ investmentStore.stockValues[latestInvestment.code] || 'Cargando...' }}</td>
+              <td>${{ investmentStore.stockValues[latestInvestment.code] || 'Loading...' }}</td>
+              <td :class="getLatestProfitClass">
+                {{ getLatestProfitIndicator }} ${{ Math.abs(latestProfit).toFixed(2) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Responsive Table -->
+        <table class="responsive-table">
+          <tbody>
+            <!-- Fila 1: primeros 3 encabezados -->
+            <tr>
+              <th>Shares</th>
+              <th>Price per Share</th>
+              <th>Total Investment</th>
+            </tr>
+            <!-- Fila 2: datos correspondientes -->
+            <tr>
+              <td>{{ latestInvestment.shares }}</td>
+              <td>${{ latestInvestment.purchase_price }}</td>
+              <td>${{ (latestInvestment.shares * latestInvestment.purchase_price).toFixed(2) }}</td>
+            </tr>
+            <!-- Fila 3: siguientes 3 encabezados -->
+            <tr>
+              <th>Date</th>
+              <th>Current Value</th>
+              <th>Status</th>
+            </tr>
+            <!-- Fila 4: datos correspondientes -->
+            <tr>
+              <td>{{ formatDate(latestInvestment.purchase_date) }}</td>
+              <td>${{ investmentStore.stockValues[latestInvestment.code] || 'Loading...' }}</td>
               <td :class="getLatestProfitClass">
                 {{ getLatestProfitIndicator }} ${{ Math.abs(latestProfit).toFixed(2) }}
               </td>
@@ -61,7 +94,7 @@
   </div>
 </template>
   
-  <script setup>
+<script setup>
 import { computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useInvestmentStore } from '@/stores/investments'
@@ -69,7 +102,6 @@ import { useInvestmentStore } from '@/stores/investments'
 const auth = useAuthStore()
 const investmentStore = useInvestmentStore()
 
-// computed
 const userName = computed(() => auth.user?.name || 'Usuario')
 
 const latestInvestment = computed(() => investmentStore.latestInvestment)
@@ -85,7 +117,7 @@ const getLatestProfitClass = computed(() => {
 })
 
 const getLatestProfitIndicator = computed(() => {
-  return latestProfit.value >= 0 ? '✅ Ganancia:' : '🔻 Pérdida:'
+  return latestProfit.value >= 0 ? '✅ Profit:' : '🔻 Loss:'
 })
 
 const formatDate = (dateString) => {
@@ -104,7 +136,7 @@ onMounted(async () => {
 })
 </script>
   
-  <style scoped>
+<style scoped>
 .investment-summary {
   max-width: 1200px;
   margin: 0 auto;
@@ -138,13 +170,14 @@ onMounted(async () => {
   gap: 8px;
 }
 
+
 .stat-label {
-  font-size: 0.9rem;
-  color: #64748b;
+  font-size: 2rem;
+  color: var(--purple-dark);
 }
 
 .stat-value {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
   color: var(--purple);
 }
@@ -175,45 +208,6 @@ onMounted(async () => {
   color: #64748b;
 }
 
-.investment-details,
-.current-status {
-  display: grid;
-  gap: 8px;
-  color: var(--purple-dark);
-}
-
-.portfolio-status h3 {
-  color: var(--purple);
-  margin-bottom: 20px;
-}
-
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.portfolio-item {
-  background: #f8fafc;
-  padding: 16px;
-  border-radius: 12px;
-  border: 0.2rem solid var(--purple-light);
-}
-
-.portfolio-item span {
-  margin-right: 0.5rem;
-}
-
-.portfolio-header {
-  margin-bottom: 12px;
-}
-
-.portfolio-stats {
-  display: grid;
-  gap: 8px;
-  color: var(--purple-dark);
-}
-
 .profit {
   color: var(--green);
 }
@@ -221,20 +215,88 @@ onMounted(async () => {
 .loss {
   color: var(--red);
 }
-table {
-  text-align: center;
+
+
+.desktop-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 16px;
+  border: 1px solid var(--purple-light);
+  border-radius: 16px;
+  overflow: hidden;
+  font-size: 2rem;
 }
-table th {
+
+.desktop-table thead {
+  background: var(--purple-light);
   color: var(--purple);
 }
 
+.desktop-table th,
+.desktop-table td {
+  padding: 12px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.desktop-table tbody td {
+  color: var(--purple-dark);
+}
+
+
+.responsive-table {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .desktop-table {
+    display: none;
+  }
+  .responsive-table {
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 16px;
+    border: 1px solid var(--purple-light);
+    border-radius: 16px;
+    overflow: hidden;
+    font-size: 2rem;
+  }
+  .responsive-table th,
+  .responsive-table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 2rem;
+  }
+  
+  .responsive-table tbody tr:nth-child(1),
+  .responsive-table tbody tr:nth-child(3) {
+    background: var(--purple-light);
+    color: var(--purple);
+  }
+  
+  .responsive-table tbody tr:nth-child(2),
+  .responsive-table tbody tr:nth-child(4) {
+    color: var(--purple-dark);
+  }
+}
+
 @media (max-width: 768px) {
+  .responsive-table th,
+  .responsive-table td {
+    padding: 8px;
+  }
   .stats-grid {
     grid-template-columns: 1fr;
   }
+}
 
-  .portfolio-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 480px) {
+  .responsive-table th,
+  .responsive-table td {
+    padding: 6px;
   }
 }
 </style>
