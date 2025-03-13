@@ -3,8 +3,8 @@
     <div class="profile-data">
       <p>Hello {{ user.name }}!</p>
       <ul>
-        <li>Email: {{ user.email }}</li>
-        <li>ID: {{ user.id }}</li>
+        <li>{{ user.email }}</li>
+        <li>User ID: {{ user.id }}</li>
       </ul>
       <router-link to="/investments" class="investments-link">
       My investments
@@ -100,9 +100,9 @@ const togglePasswordVisibility = () => {
 
 <style scoped>
 .profile-view {
-  max-width: 600px;
-  margin: 0 auto; /* Centrado automático */
-  padding: 20px;
+  max-width: 35vw;
+  margin: 5rem auto;
+
 }
 
 .profile-data {
@@ -115,6 +115,7 @@ const togglePasswordVisibility = () => {
   left: 0;
   height: 33rem;
   width: 23rem;
+  box-shadow: -7px 8px 19px -3px var(--purple-gray);
 }
 
 .profile-data::before {
@@ -145,7 +146,7 @@ const togglePasswordVisibility = () => {
 }
 
 .profile-data ul {
-  margin: 3rem 0;
+  margin: 2rem 0;
 }
 
 .profile-data ul li {

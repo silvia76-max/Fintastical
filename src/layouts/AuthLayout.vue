@@ -20,6 +20,7 @@ export default {
   width: 100%;
   min-width: 30rem;
   max-width: 50rem;
+  position: absolute;
 }
 .header {
 display: flex;
