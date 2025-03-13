@@ -198,13 +198,16 @@ onMounted(() => {
 
 
 <style scoped>
+
 .contact-container {
-  width: 50%;
+  width: 100%;
   max-width: 600px;
   background-color: #f7f7f7;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 40px;
+  margin-left: 30rem;
+  margin-top: 2rem;
 }
 
 h1 {
@@ -230,7 +233,7 @@ label {
 
 input,
 textarea {
-  width: 590px;
+  width: 550px;
   padding: 10px;
   border: 1px solid #070707;
   border-radius: 4px;
@@ -274,57 +277,28 @@ button.submit-btn:hover {
 
 .map-wrapper {
   display: flex;
-  justify-content: space-between; 
-  align-items: flex-end; 
+  flex-direction: row; 
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.map-container {
-  width: 50%; 
+.container { 
   max-width: 600px;
-  height:400px; 
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  margin-left: 70rem;
+  height:500px; 
+  margin-left: 100rem;
+  width: 70%; 
+  border-radius: 12px; 
+  background-color: #f0f0f0;
+  padding: 15px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
   position: relative;
-  top: -50px; 
-
+  top: -600px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
-/* Responsive Design for Smaller Screens */
-@media (max-width: 768px) {
-  .contact-container {
-    max-width: 90%;
-    padding: 15px;
-  }
-
-  .map-container {
-    height: 300px; 
-    width: 5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-container {
-    max-width: 90%; 
-    padding: 10px;
-  }
-
-  .map-container {
-    height: 250px;
-    width: 10%
-  }
-
-  input,
-textarea {
-  width: 24rem;
-  padding: 7px;
-  font-size: 14px;
-}
-  button.submit-btn {
-    padding: 10px; 
-  }
-}
 
 /* Estilos para el pop-up */
 .popup-overlay {
@@ -414,6 +388,11 @@ textarea {
   margin: 5px 0;
 }
 
+.our-offices {
+  margin-top: -400px; /* Adjust this value */
+}
+
+
 @media (max-width: 1024px) {
   .office-list {
     flex-direction: row;
@@ -440,5 +419,52 @@ textarea {
     width: 95%;
   }
 }
+
+/* 📌 RESPONSIVE: Stack on Smaller Screens */
+@media (max-width: 900px) {
+  .map-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .contact-container {
+    width: 90%;
+    margin: 0 auto; 
+  }
+
+  .map-container {
+    width: 90%;
+    height: 400px;
+    margin: 0 auto; 
+  }
+
+  .our-offices {
+    width: 90%;
+    margin: 20px auto;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .map-container { 
+    width: 270px; 
+    padding: 2rem;
+  }
+}
+
+
+/* 📌 EVEN SMALLER SCREENS */
+@media (max-width: 600px) {
+  .map-container {
+    height: 300px;
+  }
+
+  .contact-container,
+  .map-container,
+  .our-offices {
+    width: 95%;
+  }
+}
+
+
 
 </style>
