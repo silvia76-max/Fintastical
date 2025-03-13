@@ -69,6 +69,54 @@
       "shares": 2,
       "purchase_price": 333,
       "purchase_date": "2025-03-12"
+    },
+    {
+      "id": "b5d5",
+      "user_id": "y1OVxtgM",
+      "code": "META",
+      "shares": 3,
+      "purchase_price": 200,
+      "purchase_date": "2025-03-13"
+    },
+    {
+      "id": "d446",
+      "user_id": "y1OVxtgM",
+      "code": "TSLA",
+      "shares": 3,
+      "purchase_price": 333,
+      "purchase_date": "2025-03-13"
+    },
+    {
+      "id": "5bea",
+      "user_id": "y1OVxtgM",
+      "code": "GOOGL",
+      "shares": 3,
+      "purchase_price": 200,
+      "purchase_date": "2025-03-13"
+    },
+    {
+      "id": "d220",
+      "user_id": "y1OVxtgM",
+      "code": "AMD",
+      "shares": 1,
+      "purchase_price": 20,
+      "purchase_date": "2025-03-13"
+    },
+    {
+      "id": "48c9",
+      "user_id": "y1OVxtgM",
+      "code": "INTC",
+      "shares": 3,
+      "purchase_price": 222,
+      "purchase_date": "2025-03-13"
+    },
+    {
+      "id": "5ad4",
+      "user_id": "y1OVxtgM",
+      "code": "NVDA",
+      "shares": 3,
+      "purchase_price": 300,
+      "purchase_date": "2025-03-13"
     }
   ],
   "alerts": [
@@ -271,20 +319,6 @@
       "email": "gaizka@gmail.com",
       "subject": "el footer no funciona",
       "message": "Le falta la pantalla de que se ha enviado el mensaje."
-    },
-    {
-      "id": "001a",
-      "name": "",
-      "email": "sinozzuke@gmail.com",
-      "subject": "el footer no funciona",
-      "message": ""
-    },
-    {
-      "id": "7738",
-      "name": "Moises",
-      "email": "mosses@gmail.com",
-      "subject": "hola",
-      "message": "petardo"
     }
   ],
   "newsletter": [

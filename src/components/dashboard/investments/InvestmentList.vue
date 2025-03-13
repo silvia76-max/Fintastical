@@ -8,7 +8,7 @@
       <h2>Your assets</h2>
       <!-- when this button is clicked, it sets showassetform to true -->
       <button @click="showAssetForm = true" class="btn-icon">
-        ➕ Add New Asset
+        Add New Asset
       </button>
     </div>
 
@@ -55,8 +55,8 @@
 
         <!-- asset actions (alert and delete buttons) -->
         <div class="asset-actions">
-          <button @click="openAlertModal(asset.code)" class="btn-alert">➕ Alert</button>
-          <button @click="handleDeleteAsset(asset.id)" class="btn-delete">🗑️ Delete</button>
+          <button @click="openAlertModal(asset.code)" class="btn-alert">Set Alert</button>
+          <button @click="handleDeleteAsset(asset.id)" class="btn-delete">Delete</button>
         </div>
       </div>
     </div>
@@ -98,8 +98,8 @@
           >
           <!-- modal actions: cancel or save -->
           <div class="modal-actions">
-            <button type="button" @click="showAssetForm = false" class="btn-cancel">Cancel</button>
-            <button type="submit" class="btn-confirm">Save</button>
+            <button type="button" @click="showAssetForm = false" class="btn-delete">Cancel</button>
+            <button type="submit" class="btn-alert">Save</button>
           </div>
         </form>
       </div>
@@ -120,7 +120,7 @@
         <p class="target-price">🎯 Target: ${{ alert.target_price }}</p>
         <div class="alert-footer">
           <span class="date">{{ formatDate(alert.created_at) }} </span>
-          <button @click="deleteAlert(alert.id)" class="btn-delete">Delete</button>
+          <button @click="deleteAlert(alert.id)" class="btn-setalert">Delete</button>
         </div>
       </div>
     </div>
@@ -130,18 +130,18 @@
     <!-- alert modal for creating a new alert -->
     <div v-if="showAlertModal" class="modal-backdrop">
       <div class="modal">
-        <h3>Nueva Alerta para {{ selectedAsset }}</h3>
+        <h3>Set Alert for {{ selectedAsset }}</h3>
         <!-- on submit, handleaddalert is called -->
         <form @submit.prevent="handleAddAlert">
           <div class="form-group">
-            <label>Tipo de alerta:</label>
+            <label>Alert type</label>
             <select v-model="newAlert.type" class="select-input">
-              <option value="up">Alerta de Subida</option>
-              <option value="down">Alerta de Bajada</option>
+              <option value="up">Price going up</option>
+              <option value="down">Price going down</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Precio objetivo:</label>
+            <label>Price limit</label>
             <input
               v-model.number="newAlert.target"
               type="number"
@@ -152,8 +152,8 @@
           </div>
           <!-- modal actions: cancel or set alert -->
           <div class="modal-actions">
-            <button type="button" @click="showAlertModal = false" class="btn-cancel">Cancel</button>
-            <button type="submit" class="btn-confirm">Set alert</button>
+            <button type="button" @click="showAlertModal = false" class="btn-delete">Cancel</button>
+            <button type="submit" class="btn-alert">Set alert</button>
           </div>
         </form>
       </div>
@@ -298,7 +298,7 @@ onMounted(async () => {
   margin: 30px 0 20px;
 }
 .asset-form {
-  background: #d9f2ff;
+  background: var(--purple-light);
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 30px;
@@ -333,6 +333,7 @@ onMounted(async () => {
 }
 .target-price {
   color: var(--purple-dark);
+  margin-top: 1rem;
 }
 .asset-card:hover {
   transform: translateY(-3px);
@@ -389,7 +390,7 @@ onMounted(async () => {
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
@@ -417,22 +418,41 @@ onMounted(async () => {
   border: none;
   cursor: pointer;
   flex: 1;
+  font-size: 1.5rem;
 }
 .btn-alert:hover {
   background: var(--purple-hover);
-  color: rgb(16, 11, 59);
+  color:white;
 }
 .btn-delete {
   background: #e74c3c15;
-  color: #e74c3c;
+  color: var(--red);
   border: 1px solid #e74c3c30;
   padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
   flex: 1;
   transition: all 0.2s;
+  font-size: 1.5rem;
 }
 .btn-delete:hover {
+  background: #e74c3c;
+  color: white;
+}
+.btn-setalert {
+  background: #e74c3c15;
+  color: var(--red);
+  border: 1px solid #e74c3c30;
+  padding: 10px 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.2s;
+  font-size: 1.5rem;
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+.btn-setalert:hover {
   background: #e74c3c;
   color: white;
 }
@@ -481,7 +501,7 @@ onMounted(async () => {
 .modal h3 {
   color: #2c3e50;
   margin-bottom: 25px;
-  font-size: 1.4rem;
+  font-size: 2rem;
   border-bottom: 2px solid #f8f9fa;
   padding-bottom: 15px;
 }
@@ -493,14 +513,21 @@ onMounted(async () => {
   margin-bottom: 8px;
   color: #4a5568;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 2rem;
+}
+.form-group input {
+  
+  margin-bottom: 8px;
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 2rem;
 }
 .select-input {
   width: 100%;
   padding: 12px 16px;
   border: 2px solid #e2e8f0;
   border-radius: 10px;
-  font-size: 1rem;
+  font-size: 2rem;
   transition: all 0.2s;
   background: #f8fafc;
 }
@@ -510,7 +537,8 @@ onMounted(async () => {
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 .input-field {
-  width: calc(100% - 35px);
+  /* width: calc(100% - 35px); */
+  width: 100%;
   padding: 12px 16px;
   border: 2px solid #e2e8f0;
   border-radius: 10px;
