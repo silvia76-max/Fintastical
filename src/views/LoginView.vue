@@ -1,7 +1,7 @@
 <template>
-  <div class="login-view">
+
     <LoginForm />
-  </div>
+
 </template>
 
 <script>
@@ -13,9 +13,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.login-view {
-  padding: 20px;
-  text-align: center;
-}
-</style>
+
