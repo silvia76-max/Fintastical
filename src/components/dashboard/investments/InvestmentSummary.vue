@@ -102,7 +102,7 @@ import { useInvestmentStore } from '@/stores/investments'
 const auth = useAuthStore()
 const investmentStore = useInvestmentStore()
 
-const userName = computed(() => auth.user?.name || 'Usuario')
+const userName = computed(() => auth.user?.name || 'User')
 
 const latestInvestment = computed(() => investmentStore.latestInvestment)
 
