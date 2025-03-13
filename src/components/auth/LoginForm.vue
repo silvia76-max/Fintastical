@@ -159,4 +159,38 @@ h1 {
   font-size: 2rem;
   font-weight: bolder;
 }
+
+@media (max-width: 1024px) {
+  .login-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  padding: 0;
+  margin: 0;
+}
+
+.login-card {
+  flex: 1;
+  min-width: 300px;
+  background-color: var(--background);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.img-login {
+  display: none;
+}
+
+.logo-auth {
+  width: 100%;
+  min-width: 30rem;
+  max-width: 50rem;
+  transform: translateY(-25%);
+}
+
+}
 </style>
