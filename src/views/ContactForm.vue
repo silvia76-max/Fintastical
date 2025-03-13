@@ -282,13 +282,13 @@ button.submit-btn:hover {
   gap: 20px;
 }
 
-.container { 
+.map-container { 
   max-width: 600px;
   height:500px; 
   margin-left: 100rem;
   width: 70%; 
   border-radius: 12px; 
-  background-color: #f0f0f0;
+  background-color: #f7f7f7;
   padding: 15px; 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
   position: relative;
@@ -297,7 +297,6 @@ button.submit-btn:hover {
   justify-content: center;
   align-items: center;
 }
-
 
 
 /* Estilos para el pop-up */
@@ -443,14 +442,6 @@ button.submit-btn:hover {
     margin: 20px auto;
   }
 }
-
-@media screen and (max-width: 1080px) {
-  .map-container { 
-    width: 270px; 
-    padding: 2rem;
-  }
-}
-
 
 /* 📌 EVEN SMALLER SCREENS */
 @media (max-width: 600px) {
