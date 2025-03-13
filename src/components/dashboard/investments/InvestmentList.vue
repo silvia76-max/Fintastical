@@ -18,14 +18,31 @@
           <span class="date">{{ formatDate(asset.purchase_date) }}</span>
         </div>
 
-        <div class="asset-details">
-          <p>💼 Shares: {{ asset.shares }}</p>
-          <p>💲 Price/share: ${{ asset.purchase_price }}</p>
-          <p>📊 Investment: ${{ asset.shares * asset.purchase_price }}</p>
-          <p>💰 Current value: ${{ investmentStore.stockValues[asset.code] }}</p>
-          <p>📈 {{ getAssetProfit(asset) >= 0 ? 'Profit' : 'Loss'}} ${{ getAssetProfit(asset) }}</p>
-         
-        </div>
+        <!-- asset details converted into a table -->
+        <table class="asset-details-table">
+          <tbody>
+            <tr>
+              <td class="detail-label">💼 Shares</td>
+              <td class="detail-value">{{ asset.shares }}</td>
+            </tr>
+            <tr>
+              <td class="detail-label">💲 Price/share</td>
+              <td class="detail-value">${{ asset.purchase_price }}</td>
+            </tr>
+            <tr>
+              <td class="detail-label">📊 Investment</td>
+              <td class="detail-value">${{ (asset.shares * asset.purchase_price).toFixed(2) }}</td>
+            </tr>
+            <tr>
+              <td class="detail-label">💰 Current value</td>
+              <td class="detail-value">${{ investmentStore.stockValues[asset.code] }}</td>
+            </tr>
+            <tr>
+              <td class="detail-label">📈 {{ getAssetProfit(asset) >= 0 ? 'Profit' : 'Loss' }}</td>
+              <td class="detail-value">${{ getAssetProfit(asset) }}</td>
+            </tr>
+          </tbody>
+        </table>
 
         <div class="asset-actions">
           <button @click="openAlertModal(asset.code)" class="btn-alert">➕ Alert</button>
@@ -46,13 +63,11 @@
             list="companyList"
             required
           >
-
           <datalist id="companyList">
             <option v-for="company in investmentStore.companies" :key="company.code" :value="company.code">
               {{ company.name }} ({{ company.code }})
             </option>
           </datalist>
-
           <input
             v-model.number="newAsset.shares"
             type="number"
@@ -60,7 +75,6 @@
             min="1"
             required
           >
-
           <input
             v-model.number="newAsset.pricePerShare"
             type="number"
@@ -69,7 +83,6 @@
             min="0.01"
             required
           >
-
           <div class="modal-actions">
             <button type="button" @click="showAssetForm = false" class="btn-cancel">Cancel</button>
             <button type="submit" class="btn-confirm">Save</button>
@@ -88,9 +101,7 @@
             {{ alert.type === 'up' ? '▲ Up' : '▼ Down' }}
           </span>
         </div>
-
         <p class="target-price">🎯 Target: ${{ alert.target_price }}</p>
-
         <div class="alert-footer">
           <span class="date">{{ formatDate(alert.created_at) }} </span>
           <button @click="deleteAlert(alert.id)" class="btn-delete">Delete</button>
@@ -99,7 +110,7 @@
     </div>
     <p v-else class="empty-state">There are no active alerts</p>
 
-   <!-- alert modal -->
+    <!-- alert modal -->
     <div v-if="showAlertModal" class="modal-backdrop">
       <div class="modal">
         <h3>Nueva Alerta para {{ selectedAsset }}</h3>
@@ -111,7 +122,6 @@
               <option value="down">Alerta de Bajada</option>
             </select>
           </div>
-
           <div class="form-group">
             <label>Precio objetivo:</label>
             <input
@@ -122,7 +132,6 @@
               required
             >
           </div>
-
           <div class="modal-actions">
             <button type="button" @click="showAlertModal = false" class="btn-cancel">Cancel</button>
             <button type="submit" class="btn-confirm">Set alert</button>
@@ -143,13 +152,11 @@ const auth = useAuthStore();
 const investmentStore = useInvestmentStore();
 const api = useApi();
 
-// Local state
 const alerts = ref([]);
 const showAssetForm = ref(false);
 const showAlertModal = ref(false);
 const selectedAsset = ref('');
 
-// Form state
 const newAsset = ref({
   code: '',
   shares: null,
@@ -160,7 +167,6 @@ const newAlert = ref({
   type: 'up',
   target: null
 });
-
 
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('es-ES');
@@ -180,7 +186,6 @@ const handleAddAsset = async () => {
       purchase_price: newAsset.value.pricePerShare,
       purchase_date: new Date().toISOString().split('T')[0]
     };
-
     await investmentStore.addAsset(payload);
     showAssetForm.value = false;
     newAsset.value = { code: '', shares: null, pricePerShare: null };
@@ -211,7 +216,6 @@ const handleAddAlert = async () => {
       target_price: newAlert.value.target,
       created_at: new Date().toISOString().split('T')[0]
     };
-
     await api.postData('http://localhost:3000/alerts', payload);
     await fetchAlerts();
     showAlertModal.value = false;
@@ -240,7 +244,6 @@ const fetchAlerts = async () => {
   }
 };
 
-
 onMounted(async () => {
   await investmentStore.fetchAssets();
   await investmentStore.fetchCompanies();
@@ -250,15 +253,11 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-
-/* Main styles */
-
 .investments-view {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
-
 .section-header {
   display: flex;
   justify-content: flex-start;
@@ -266,8 +265,6 @@ onMounted(async () => {
   align-items: center;
   margin: 30px 0 20px;
 }
-
-
 .asset-form {
   background: #d9f2ff;
   padding: 20px;
@@ -275,7 +272,6 @@ onMounted(async () => {
   margin-bottom: 30px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-
 .asset-form input {
   width: calc(100% - 26px);
   padding: 12px;
@@ -284,65 +280,76 @@ onMounted(async () => {
   border-radius: 8px;
   font-size: 16px;
 }
-
 .calculated-investment {
   font-weight: 500;
   color: #2ecc71;
   margin: 15px 0;
 }
-
 .assets-grid, .alerts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 25px;
   margin: 25px 0;
 }
-
 .asset-card, .alert-card {
   background: white;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: transform 0.2s;
-  color: var(--purple)
+  color: var(--purple);
 }
-
 .target-price {
-  color: var(--purple-dark)
+  color: var(--purple-dark);
 }
-
 .asset-card:hover {
   transform: translateY(-3px);
 }
-
 .asset-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
 }
-
 .ticker {
   font-weight: 700;
   font-size: 1.2em;
   color: #2c3e50;
 }
-
 .date {
   color: #7f8c8d;
   font-size: 0.9em;
 }
-
-.asset-details p {
-  margin: 12px 0;
-  color: #34495e;
+/* asset details table styles */
+.asset-details-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 16px;
+  border: 1px solid var(--purple-light);
+  border-radius: 16px;
+  overflow: hidden;
+  font-size: 1.5rem;
+  background-color: var(--purple-light);
 }
-
-.total-investment {
+.asset-details-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--purple-light);
+  color: var(--purple-dark);
+  background-color: var(--purple-light);
+}
+.asset-details-table tr:last-child td {
+  border-bottom: none;
+}
+.detail-label {
   font-weight: 600;
-  color: #27ae60;
-  margin-top: 18px;
+  width: 60%;
 }
-
+.detail-value {
+  width: 40%;
+  text-align: right;
+  background-color: #ffffff;
+}
 .btn-icon {
   background: var(--purple);
   color: white;
@@ -357,12 +364,10 @@ onMounted(async () => {
   align-items: center;
   gap: 8px;
 }
-
 .btn-icon:hover {
   background: var(--purple-hover);
   transform: translateY(-1px);
 }
-
 .btn-icon:active {
   transform: translateY(0);
 }
@@ -371,7 +376,6 @@ onMounted(async () => {
   gap: 12px;
   margin-top: 20px;
 }
-
 .btn-alert {
   background: var(--purple);
   color: white;
@@ -381,12 +385,10 @@ onMounted(async () => {
   cursor: pointer;
   flex: 1;
 }
-
 .btn-alert:hover {
   background: var(--purple-hover);
   color: rgb(16, 11, 59);
 }
-
 .btn-delete {
   background: #e74c3c15;
   color: #e74c3c;
@@ -397,24 +399,19 @@ onMounted(async () => {
   flex: 1;
   transition: all 0.2s;
 }
-
 .btn-delete:hover {
   background: #e74c3c;
   color: white;
 }
-
 .btn-primary:disabled {
   background: #bdc3c7;
   cursor: not-allowed;
 }
-
 .error-message {
   color: #e74c3c;
   margin-top: 10px;
   font-weight: 500;
 }
-
-
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -428,7 +425,6 @@ onMounted(async () => {
   z-index: 1000;
   backdrop-filter: blur(2px);
 }
-
 .modal {
   background: white;
   border-radius: 16px;
@@ -439,7 +435,6 @@ onMounted(async () => {
   border: 1px solid #eee;
   animation: modalEnter 0.3s ease-out;
 }
-
 @keyframes modalEnter {
   from {
     transform: translateY(-20px);
@@ -450,7 +445,6 @@ onMounted(async () => {
     opacity: 1;
   }
 }
-
 .modal h3 {
   color: #2c3e50;
   margin-bottom: 25px;
@@ -458,11 +452,9 @@ onMounted(async () => {
   border-bottom: 2px solid #f8f9fa;
   padding-bottom: 15px;
 }
-
 .form-group {
   margin-bottom: 1.5rem;
 }
-
 .form-group label {
   display: block;
   margin-bottom: 8px;
@@ -470,7 +462,6 @@ onMounted(async () => {
   font-weight: 500;
   font-size: 0.95rem;
 }
-
 .select-input {
   width: 100%;
   padding: 12px 16px;
@@ -480,13 +471,11 @@ onMounted(async () => {
   transition: all 0.2s;
   background: #f8fafc;
 }
-
 .select-input:focus {
   outline: none;
   border-color: #3498db;
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
-
 .input-field {
   width: calc(100% - 35px);
   padding: 12px 16px;
@@ -496,58 +485,14 @@ onMounted(async () => {
   background: #f8fafc;
   transition: all 0.2s;
 }
-
 .input-field:focus {
   outline: none;
   border-color: #3498db;
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
-
 .modal-actions {
   display: flex;
   gap: 12px;
   margin-top: 30px;
-}
-
-.btn-cancel {
-  background: #f8f9fa;
-  color: #4a5568;
-  border: 2px solid #e2e8f0;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 500;
-  flex: 1;
-  transition: all 0.2s;
-}
-
-.btn-cancel:hover {
-  background: var(--purple-hover);
-  border-color: #cbd5e0;
-  color: white;
-}
-
-.btn-confirm {
-  background: var(--purple);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 500;
-  flex: 1;
-  transition: all 0.2s;
-}
-
-.btn-confirm:hover {
-  background: var(--purple-hover);
-}
-
-
-.empty-state {
-  text-align: center;
-  padding: 40px;
-  color: #95a5a6;
-  border: 2px dashed #bdc3c7;
-  border-radius: 15px;
-  margin: 30px 0;
 }
 </style>

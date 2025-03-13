@@ -1,14 +1,13 @@
 <template>
-  <!-- Preloader -->
+  <!-- preloader -->
   <div v-if="loading">
     <Loader />
   </div>
   <div>
     <h1>Latest Stock Market News</h1>
     <div class="news-container">
-      <!-- 👇 Now using "paginatedNews" -->
+      <!-- now using "paginatedNews" -->
       <div class="news-card" v-for="article in paginatedNews" :key="article.url">
-
         <div class="news-image">
           <img :src="article.urlToImage || backupImage" alt="News Image" @error="handleImageError" />
         </div>
@@ -22,17 +21,16 @@
           <a :href="article.url" target="_blank">
             <button v-if="article.content">Read Full Article</button>
           </a>
-
         </div>
       </div>
     </div>
 
-    <!-- Pagination Controls -->
+    <!-- pagination controls -->
     <div class="pagination">
-    <button @click="previousPage" :disabled="currentPage === 1">Previous</button>
-    <p>Page <span>{{ currentPage }}</span> of <span>{{ totalPages }}</span></p>
-    <button @click="nextPage" :disabled="currentPage >= totalPages">Next</button>
-</div>
+      <button @click="previousPage" :disabled="currentPage === 1">Previous</button>
+      <p>Page <span>{{ currentPage }}</span> of <span>{{ totalPages }}</span></p>
+      <button @click="nextPage" :disabled="currentPage >= totalPages">Next</button>
+    </div>
 
     <p v-if="error" class="error">{{ error }}</p>
   </div>
@@ -46,44 +44,38 @@ import backupImage from '@/assets/img/imagen-news.png';
 
 const apikey = '9107e2f197fc42308182c5bc92f503d1';
 const searchQuery = 'stock%market%nasdaq';
-const newsPerPage = 9; // ✅ Now 9 news articles per page
+const newsPerPage = 9;
 
 const { data, loading, error, fetchData } = useApi();
 const news = ref([]);
 const currentPage = ref(1);
 
-// Function to format the date
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString();
 };
 
-// Fetch data on component mount
 onMounted(async () => {
   await fetchData(`https://newsapi.org/v2/everything?q=${searchQuery}&apiKey=${apikey}`);
   news.value = data.value?.articles || [];
 });
 
-// Computed property to get paginated news ✅
 const paginatedNews = computed(() => {
   const start = (currentPage.value - 1) * newsPerPage;
   const end = start + newsPerPage;
   return news.value.slice(start, end);
 });
 
-// Computed property to calculate total pages ✅
 const totalPages = computed(() => {
   return news.value.length > 0 ? Math.ceil(news.value.length / newsPerPage) : 1;
 });
 
-// Function to go to the previous page ✅
 const previousPage = () => {
   if (currentPage.value > 1) {
     currentPage.value--;
   }
 };
 
-// Function to go to the next page ✅
 const nextPage = () => {
   if (currentPage.value < totalPages.value) {
     currentPage.value++;
@@ -96,8 +88,7 @@ const handleImageError = (event) => {
 </script>
 
 <style scoped>
-/* Style for news cards in a masonry grid */
-h1{
+h1 {
   text-align: center;
   margin: 3rem;
 }
@@ -160,7 +151,7 @@ h1{
 
 .news-content .author {
   font-size: 12px;
-  color: #76708E;
+  color: #76708e;
 }
 
 .news-content .author span {
@@ -169,7 +160,7 @@ h1{
 
 .news-content .date {
   font-size: 14px;
-  color: #A8CC9B;
+  color: #a8cc9b;
   text-align: right;
 }
 
@@ -201,19 +192,18 @@ button:hover {
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin: 2rem auto;
-    width: fit-content;
-    max-width: 90%;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem auto;
+  width: fit-content;
+  max-width: 90%;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
-
 
 .pagination button {
   padding: 1.1rem 3.4rem;
@@ -228,23 +218,22 @@ button:hover {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-
 .pagination button:hover:not(:disabled) {
-    background-color: var(--purple-light);
-    border-color: var(--purple);
-    transform: translateY(-2px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  background-color: var(--purple-light);
+  border-color: var(--purple);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .pagination button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    box-shadow: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .pagination button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
 .pagination p {
@@ -256,8 +245,30 @@ button:hover {
 }
 
 .pagination p span {
-    color: #475569;
-    font-weight: 600;
-    font-family: monospace;
+  color: #475569;
+  font-weight: 600;
+  font-family: monospace;
+}
+
+/* responsive styles for news container */
+@media (max-width: 1024px) {
+  .news-container {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .news-container {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .news-container {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
 }
 </style>
