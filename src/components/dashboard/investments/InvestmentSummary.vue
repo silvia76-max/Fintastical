@@ -2,27 +2,53 @@
   <div class="investment-summary">
     <h1>Hi, {{ userName }}</h1>
 
-    <!-- assets section header -->
-    <div class="summary-card user-info">
+     <!-- assets section header converted to a responsive table -->
+     <div class="summary-card user-info">
       <h2>Overview</h2>
-      <div class="stats-grid">
-        <div class="stat-item">
-          <span class="stat-label">Total Investment</span>
-          <span class="stat-value">${{ investmentStore.totalInvestment.toFixed(2) }}</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Current Value</span>
-          <span class="stat-value">${{ investmentStore.currentTotalValue.toFixed(2) }}</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
-            {{ investmentStore.totalProfit >= 0 ? 'Total Profit' : 'Total Loss' }}
-          </span>
-          <span class="stat-value" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
-            ${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}
-          </span>
-        </div>
-      </div>
+      <!-- desktop version of stats table -->
+      <table class="desktop-stats-table">
+        <thead>
+          <tr>
+            <th>Total Investment</th>
+            <th>Current Value</th>
+            <th>
+              {{ investmentStore.totalProfit >= 0 ? 'Total Profit' : 'Total Loss' }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>${{ investmentStore.totalInvestment.toFixed(2) }}</td>
+            <td>${{ investmentStore.currentTotalValue.toFixed(2) }}</td>
+            <td :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+              ${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- responsive version of stats table -->
+      <table class="responsive-stats-table">
+        <tbody>
+          <tr class="responsive-header">
+            <th>Total Investment</th>
+          </tr>
+          <tr class="responsive-data">
+            <td>${{ investmentStore.totalInvestment.toFixed(2) }}</td>
+          </tr>
+          <tr class="responsive-header">
+            <th>Current Value</th>
+          </tr>
+          <tr class="responsive-data">
+            <td>${{ investmentStore.currentTotalValue.toFixed(2) }}</td>
+          </tr>
+          <tr class="responsive-header" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+            <th>{{ investmentStore.totalProfit >= 0 ? 'Total Profit' : 'Total Loss' }}</th>
+          </tr>
+          <tr class="responsive-data" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+            <td>${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- last investment section -->
@@ -33,6 +59,7 @@
           <span class="company-code">{{ latestInvestment.code }}</span>
           <span class="company-name">{{ getCompanyName(latestInvestment.code) }}</span>
         </div>
+        <!-- desktop table version -->
         <table class="desktop-table">
           <thead>
             <tr>
@@ -49,6 +76,37 @@
               <td>{{ latestInvestment.shares }}</td>
               <td>${{ latestInvestment.purchase_price }}</td>
               <td>${{ (latestInvestment.shares * latestInvestment.purchase_price).toFixed(2) }}</td>
+              <td>{{ formatDate(latestInvestment.purchase_date) }}</td>
+              <td>${{ investmentStore.stockValues[latestInvestment.code] || 'Loading...' }}</td>
+              <td :class="getLatestProfitClass">
+                {{ getLatestProfitIndicator }} ${{ Math.abs(latestProfit).toFixed(2) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- responsive table version -->
+        <table class="responsive-table">
+          <tbody>
+            <!-- row 1: first 3 headers -->
+            <tr class="responsive-header">
+              <th>Shares</th>
+              <th>Price per Share</th>
+              <th>Total Investment</th>
+            </tr>
+            <!-- row 2: corresponding data -->
+            <tr class="responsive-data">
+              <td>{{ latestInvestment.shares }}</td>
+              <td>${{ latestInvestment.purchase_price }}</td>
+              <td>${{ (latestInvestment.shares * latestInvestment.purchase_price).toFixed(2) }}</td>
+            </tr>
+            <!-- row 3: last 3 headers -->
+            <tr class="responsive-header">
+              <th>Date</th>
+              <th>Current Value</th>
+              <th>Status</th>
+            </tr>
+            <!-- row 4: corresponding data -->
+            <tr class="responsive-data">
               <td>{{ formatDate(latestInvestment.purchase_date) }}</td>
               <td>${{ investmentStore.stockValues[latestInvestment.code] || 'Loading...' }}</td>
               <td :class="getLatestProfitClass">
@@ -88,7 +146,7 @@ const latestProfit = computed(() => {
 })
 
 // computed property to determine the css class based on profit or loss
-// if profit, returns 'profit' (which will apply var(--green)); if loss, returns 'loss' (applies var(--red))
+// if profit, returns 'profit' (which applies var(--green)); if loss, returns 'loss' (applies var(--red))
 const getLatestProfitClass = computed(() => {
   return latestProfit.value >= 0 ? 'profit' : 'loss'
 })
@@ -196,6 +254,7 @@ h2 {
   color: var(--red);
 }
 
+/* desktop table styles */
 .desktop-table {
   width: 100%;
   border-collapse: separate;
@@ -222,4 +281,174 @@ h2 {
 .desktop-table tbody td {
   color: var(--purple-dark);
 }
+.desktop-table tbody td.profit {
+  color: var(--green) !important;
+}
+
+.desktop-table tbody td.loss {
+  color: var(--red) !important;
+}
+
+/* responsive table styles */
+.responsive-table {
+  display: none;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 16px;
+  border: 1px solid var(--purple-light);
+  border-radius: 16px;
+  overflow: hidden;
+  font-size: 2rem;
+}
+
+.responsive-table .responsive-header {
+  background: var(--purple-light);
+  color: var(--purple);
+}
+
+.responsive-table .responsive-header th {
+  padding: 12px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.responsive-table .responsive-data {
+  background: #ffffff;
+  color: var(--purple-dark);
+}
+
+.responsive-table .responsive-data td {
+  padding: 12px;
+  text-align: center;
+  font-size: 2rem;
+  border-bottom: 1px solid var(--purple-light);
+}
+
+.responsive-table .responsive-data tr:last-child td {
+  border-bottom: none;
+}
+
+/* media queries to switch tables */
+@media (max-width: 1024px) {
+  .desktop-table {
+    display: none;
+  }
+  .responsive-table {
+    display: table;
+  }
+}
+
+@media (max-width: 768px) {
+  .responsive-table th,
+  .responsive-table td {
+    padding: 8px;
+    font-size: 2rem;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-table th,
+  .responsive-table td {
+    padding: 6px;
+    font-size: 2rem;
+  }
+}
+/* desktop version of stats table */
+.desktop-stats-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 16px;
+  border: 1px solid var(--purple-light);
+  border-radius: 16px;
+  overflow: hidden;
+  font-size: 2rem;
+}
+
+.desktop-stats-table thead {
+  background: var(--purple-light);
+  color: var(--purple);
+}
+
+.desktop-stats-table th,
+.desktop-stats-table td {
+  padding: 12px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.desktop-stats-table tbody td {
+  color: var(--purple-dark);
+}
+
+/* responsive version of stats table */
+.responsive-stats-table {
+  display: none;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 16px;
+  border: 1px solid var(--purple-light);
+  border-radius: 16px;
+  overflow: hidden;
+  font-size: 2rem;
+}
+
+/* responsive version of stats table vertical spacing adjustments */
+.responsive-stats-table .responsive-header {
+  background: var(--purple-light);
+  color: var(--purple);
+  padding: 20px; /* increased vertical padding */
+  text-align: center;
+  font-size: 2rem;
+}
+
+.responsive-stats-table .responsive-data {
+  background: #ffffff;
+  color: var(--purple-dark);
+  padding: 20px; /* increased vertical padding */
+  text-align: center;
+  font-size: 2rem;
+  border-bottom: 1px solid var(--purple-light);
+}
+
+.responsive-stats-table .responsive-data tr:last-child td {
+  border-bottom: none;
+}
+.responsive-stats-table th,
+.responsive-stats-table td {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+
+@media (max-width: 1024px) {
+  .desktop-stats-table {
+    display: none;
+  }
+  .responsive-stats-table {
+    display: table;
+  }
+}
+
+@media (max-width: 768px) {
+  .responsive-stats-table .responsive-header,
+  .responsive-stats-table .responsive-data {
+    padding: 8px;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-stats-table .responsive-header,
+  .responsive-stats-table .responsive-data {
+    padding: 6px;
+    font-size: 2rem;
+  }
+}
+
 </style>

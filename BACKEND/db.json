@@ -139,6 +139,14 @@
       "shares": 1,
       "purchase_price": 20,
       "purchase_date": "2025-03-13"
+    },
+    {
+      "id": "52d9",
+      "user_id": "JlnDY64F",
+      "code": "GOOGL",
+      "shares": 2,
+      "purchase_price": 200,
+      "purchase_date": "2025-03-13"
     }
   ],
   "alerts": [
