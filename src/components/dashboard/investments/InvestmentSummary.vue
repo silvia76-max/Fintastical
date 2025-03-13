@@ -179,7 +179,7 @@ h2 {
 }
 
 .company-code {
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 600;
   color: var(--purple);
 }

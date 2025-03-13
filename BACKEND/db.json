@@ -139,14 +139,6 @@
       "shares": 1,
       "purchase_price": 20,
       "purchase_date": "2025-03-13"
-    },
-    {
-      "id": "6b78",
-      "user_id": "JlnDY64F",
-      "code": "AAPL",
-      "shares": 5,
-      "purchase_price": 100,
-      "purchase_date": "2025-03-13"
     }
   ],
   "alerts": [

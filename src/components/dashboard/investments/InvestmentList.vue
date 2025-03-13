@@ -18,7 +18,7 @@
       <div v-for="asset in investmentStore.assets" :key="asset.id" class="asset-card">
         <!-- asset header showing ticker and purchase date -->
         <div class="asset-header">
-          <span class="ticker">{{ asset.code }}</span>
+          <span class="ticker">{{ asset.code }}</span><span class="company-title">{{ getCompanyName(asset.code) }}</span>
           <span class="date">{{ formatDate(asset.purchase_date) }}</span>
         </div>
 
@@ -196,6 +196,12 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('es-ES')
 }
 
+// function to retrieve company name from the companies array in the store
+const getCompanyName = (code) => {
+  const company = investmentStore.companies.find(c => c.code === code)
+  return company ? company.name : code
+}
+
 // function to calculate profit or loss for an asset
 const getAssetProfit = (asset) => {
   const currentPrice = investmentStore.stockValues[asset.code] || 0
@@ -347,6 +353,10 @@ onMounted(async () => {
   font-weight: 700;
   font-size: 1.2em;
   color: #2c3e50;
+}
+.company-title{
+  margin: 0;
+  padding: 0;
 }
 .date {
   color: #7f8c8d;
