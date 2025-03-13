@@ -69,14 +69,6 @@
       "purchase_date": "2025-03-10"
     },
     {
-      "id": "1d2b",
-      "user_id": "JlnDY64F",
-      "code": "AAPL",
-      "shares": 2,
-      "purchase_price": 333,
-      "purchase_date": "2025-03-12"
-    },
-    {
       "id": "b5d5",
       "user_id": "y1OVxtgM",
       "code": "META",
@@ -139,6 +131,14 @@
       "shares": 3,
       "purchase_price": 222,
       "purchase_date": "2025-03-13"
+    },
+    {
+      "id": "0c48",
+      "user_id": "JlnDY64F",
+      "code": "META",
+      "shares": 1,
+      "purchase_price": 20,
+      "purchase_date": "2025-03-13"
     }
   ],
   "alerts": [
@@ -181,6 +181,14 @@
       "type": "down",
       "target_price": 215,
       "created_at": "2025-03-06"
+    },
+    {
+      "id": "1414",
+      "user_id": "JlnDY64F",
+      "asset_code": "META",
+      "type": "down",
+      "target_price": 50,
+      "created_at": "2025-03-13"
     }
   ],
   "companies": [
