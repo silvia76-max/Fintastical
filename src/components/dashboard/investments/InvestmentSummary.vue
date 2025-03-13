@@ -1,9 +1,10 @@
 <template>
   <div class="investment-summary">
-    <h1>Overview</h1>
-    <!-- User info -->
+    <h1>Hi, {{ userName }}</h1>
+
+    <!-- assets section header -->
     <div class="summary-card user-info">
-      <h2>Hi, {{ userName }}</h2>
+      <h2>Overview</h2>
       <div class="stats-grid">
         <div class="stat-item">
           <span class="stat-label">Total Investment</span>
@@ -14,17 +15,17 @@
           <span class="stat-value">${{ investmentStore.currentTotalValue.toFixed(2) }}</span>
         </div>
         <div class="stat-item">
-          <span class="stat-label" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+          <span class="stat-label" :class="investmentStore.totalProfit >= 0 ? 'Profit' : 'Loss'">
             {{ investmentStore.totalProfit >= 0 ? 'Total Profit' : 'Total Loss' }}
           </span>
-          <span class="stat-value" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+          <span class="stat-value" :class="investmentStore.totalProfit >= 0 ? 'Profit' : 'Loss'">
             ${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}
           </span>
         </div>
       </div>
     </div>
 
-    <!-- Last investment section -->
+    <!-- last investment section -->
     <div v-if="latestInvestment" class="summary-card latest-investment">
       <h3>Last Investment</h3>
       <div class="latest-investment-details">
@@ -32,7 +33,6 @@
           <span class="company-code">{{ latestInvestment.code }}</span>
           <span class="company-name">{{ getCompanyName(latestInvestment.code) }}</span>
         </div>
-        <!-- Desktop Table -->
         <table class="desktop-table">
           <thead>
             <tr>
@@ -57,43 +57,11 @@
             </tr>
           </tbody>
         </table>
-
-        <!-- Responsive Table -->
-        <table class="responsive-table">
-          <tbody>
-            <!-- Fila 1: primeros 3 encabezados -->
-            <tr>
-              <th>Shares</th>
-              <th>Price per Share</th>
-              <th>Total Investment</th>
-            </tr>
-            <!-- Fila 2: datos correspondientes -->
-            <tr>
-              <td>{{ latestInvestment.shares }}</td>
-              <td>${{ latestInvestment.purchase_price }}</td>
-              <td>${{ (latestInvestment.shares * latestInvestment.purchase_price).toFixed(2) }}</td>
-            </tr>
-            <!-- Fila 3: siguientes 3 encabezados -->
-            <tr>
-              <th>Date</th>
-              <th>Current Value</th>
-              <th>Status</th>
-            </tr>
-            <!-- Fila 4: datos correspondientes -->
-            <tr>
-              <td>{{ formatDate(latestInvestment.purchase_date) }}</td>
-              <td>${{ investmentStore.stockValues[latestInvestment.code] || 'Loading...' }}</td>
-              <td :class="getLatestProfitClass">
-                {{ getLatestProfitIndicator }} ${{ Math.abs(latestProfit).toFixed(2) }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>
 </template>
-  
+
 <script setup>
 import { computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
@@ -102,33 +70,45 @@ import { useInvestmentStore } from '@/stores/investments'
 const auth = useAuthStore()
 const investmentStore = useInvestmentStore()
 
-const userName = computed(() => auth.user?.name || 'User')
+// computed property for username, defaulting to 'usuario' if undefined
+const userName = computed(() => auth.user?.name || 'usuario')
 
-const latestInvestment = computed(() => investmentStore.latestInvestment)
+// computed property for the latest investment, taking the last element of the assets array
+const latestInvestment = computed(() => {
+  return investmentStore.assets.length > 0
+    ? investmentStore.assets[investmentStore.assets.length - 1]
+    : null
+})
 
+// computed property for calculating the profit or loss of the latest investment
 const latestProfit = computed(() => {
   if (!latestInvestment.value) return 0
   const currentPrice = investmentStore.stockValues[latestInvestment.value.code] || 0
   return (currentPrice - latestInvestment.value.purchase_price) * latestInvestment.value.shares
 })
 
+// computed property to determine the css class based on profit or loss
 const getLatestProfitClass = computed(() => {
-  return latestProfit.value >= 0 ? 'profit' : 'loss'
+  return latestProfit.value >= 0 ? 'Profit' : 'Loss'
 })
 
+// computed property for the profit indicator text
 const getLatestProfitIndicator = computed(() => {
   return latestProfit.value >= 0 ? '✅ Profit:' : '🔻 Loss:'
 })
 
+// function to format date using spanish locale
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('es-ES')
 }
 
+// function to retrieve company name from the companies array in the store
 const getCompanyName = (code) => {
-  const company = investmentStore.companies.find((c) => c.code === code)
+  const company = investmentStore.companies.find(c => c.code === code)
   return company ? company.name : code
 }
 
+// on mounted, fetch assets, companies and update stock values to refresh the latest data
 onMounted(async () => {
   await investmentStore.fetchAssets()
   await investmentStore.fetchCompanies()

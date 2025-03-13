@@ -224,16 +224,19 @@ onMounted(async () => {
   border: 0.125rem solid var(--purple-light);
   border-radius: 0.625rem;
   padding: 1.25rem;
+  padding-top: 3.5rem;
   text-align: center;
   max-width: 40rem;
-  height: 20rem;
-  color: var(--purple-light);
+  height: 25rem;
+  color: white;
+  margin-top: 2rem;
 }
 
 .about__card-title {
   margin-bottom: 0.625rem;
   font-size: 2rem;
   font-family: 'Ginto-Bold';
+  color:white;
 }
 
 .about__card-text {
