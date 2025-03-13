@@ -1,10 +1,10 @@
 <template>
   <div class="investment-summary">
-    <h1>Investments</h1>
+    <h1>Hi, {{ userName }}</h1>
 
     <!-- assets section header -->
     <div class="summary-card user-info">
-      <h2>Hi, {{ userName }}</h2>
+      <h2>Overview</h2>
       <div class="stats-grid">
         <div class="stat-item">
           <span class="stat-label">Total Investment</span>
