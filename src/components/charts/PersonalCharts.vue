@@ -1,6 +1,6 @@
 <template>
   <div class="charts-container">
-    <h1>Gráficos</h1>
+    <h1>Charts</h1>
     <template v-if="uniqueAssetCodes.length > 0">
       <div class="charts-container__navigation-buttons">
         <button 
@@ -26,7 +26,7 @@
         <div :id="'tradingview-widget-' + currentAsset" class="charts-container__tradingview-widget"></div>
       </div>
     </template>
-    <p v-else class="charts-container__empty-state">No tienes activos registrados</p>
+    <p v-else class="charts-container__empty-state">You have no registered assets</p>
   </div>
 </template>
 
@@ -40,32 +40,32 @@ const api = useApi();
 const priceHistory = ref({});
 const currentAsset = ref('');
 
-// Computed properties
+// computed properties
 const uniqueAssetCodes = computed(() => {
   return [...new Set(investmentStore.assets.map(asset => asset.code))];
 });
 
-// Watch for changes in uniqueAssetCodes
+// updates in uniqueAssetCodes
 watch(uniqueAssetCodes, (newCodes) => {
   if (newCodes.length === 0) {
-    // Clear current asset when no assets remain
+    // clear current asset when no assets remain
     currentAsset.value = '';
   } else if (!newCodes.includes(currentAsset.value)) {
-    // If current asset was deleted, switch to the first available asset
+    // if current asset was deleted, switch to the first available asset
     setCurrentAsset(newCodes[0]);
   }
 });
 
-// Set current asset
+// set current asset
 const setCurrentAsset = (code) => {
   currentAsset.value = code;
-  // Reinitialize the widget for the new asset
+  // reinitialize the widget for the new asset
   setTimeout(() => {
     initializeTradingViewWidget(code);
   }, 0);
 };
 
-// Fetch price data for a specific asset
+// fetch price data for a specific asset
 const fetchPriceData = async (code) => {
   try {
     await api.fetchData(`http://localhost:8111/${code}`);
@@ -90,7 +90,7 @@ const fetchPriceData = async (code) => {
 
 
 
-// Determine price change class for styling
+// determine price change class for styling
 const getPriceChangeClass = (code) => {
   const history = priceHistory.value[code] || [];
   if (history.length < 2) return '';
@@ -100,15 +100,15 @@ const getPriceChangeClass = (code) => {
   return currentPrice >= previousPrice ? 'charts-container__price-up' : 'charts-container__price-down';
 };
 
-// Initialize TradingView widget for an asset
+// TradingView widget for an asset
 const initializeTradingViewWidget = (code) => {
   const container = document.getElementById(`tradingview-widget-${code}`);
   if (!container) return;
 
-  // Clear any existing content
+
   container.innerHTML = '';
 
-  // Create and load TradingView widget
+  // dinamic modifications in TradingView widget link
   new window.TradingView.widget({
     width: "100%",
     height: "400",
@@ -148,10 +148,10 @@ const loadTradingViewScript = () => {
 let updateInterval;
 
 onMounted(async () => {
-  // Load TradingView script
+  // load TradingView script
   await loadTradingViewScript();
 
-  // Set initial asset and fetch data for all assets
+  // set initial asset and fetch data for all assets
   if (uniqueAssetCodes.value.length > 0) {
     setCurrentAsset(uniqueAssetCodes.value[0]);
     uniqueAssetCodes.value.forEach(code => {

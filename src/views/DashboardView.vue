@@ -27,4 +27,8 @@ import Loader from '@/components/LoaderComp.vue'
 .investments-view {
   padding: 20px;
 }
+h1{
+  color: var(--purple-dark);
+  text-align: center;
+  }
 </style>

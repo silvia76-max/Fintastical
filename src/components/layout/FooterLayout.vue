@@ -236,14 +236,12 @@ onMounted(() => {
   height: 24px;
 }
 
-.newsletter-form,
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.newsletter-form input,
 .contact-form input,
 .contact-form textarea {
   width: 100%;
@@ -254,7 +252,6 @@ onMounted(() => {
   border-radius: 12px;
 }
 
-.newsletter-form button,
 .contact-form button {
   padding: 8px 12px;
   background-color: #6046B0;
@@ -264,7 +261,6 @@ onMounted(() => {
   cursor: pointer;
 }
 
-.newsletter-form button:hover,
 .contact-form button:hover {
   background-color: #8F6AFF;
 }

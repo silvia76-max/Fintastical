@@ -9,21 +9,21 @@ async function getDataFromApi() {
         let apiKey = apikeys[currentKeyIndex];
         let urlAPI = `https://api.twelvedata.com/time_series?symbol=AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD&interval=1h&apikey=${apiKey}`;
         
-        console.log(`Usando API Key: ${apiKey}`);
+        console.log(`Using API Key: ${apiKey}`);
         const response = await fetch(urlAPI);
         const data = await response.json();
 
         // if the api returns error 429 (credit limit) we try the following API key
         if (data.code === 429) {
-            console.warn("Límite de API alcanzado, cambiando a la siguiente API key...");
+            console.warn("API limit reached - switching to the next API key...");
             currentKeyIndex = (currentKeyIndex + 1) % apikeys.length;
             // call again with the next apikey
             return getDataFromApi(); 
         }
         fs.writeFileSync(filePath, JSON.stringify(data, null, 2), { flag: 'w' });
-        console.log(`[${new Date().toISOString()}] Datos guardados en ${filePath}`);
+        console.log(`[${new Date().toISOString()}] Data saved in ${filePath}`);
     } catch (error) {
-        console.error(`Error al obtener datos:`, error);
+        console.error(`Error getting data:`, error);
     }
 }
 

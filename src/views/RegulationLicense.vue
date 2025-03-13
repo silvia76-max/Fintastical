@@ -1,6 +1,5 @@
 <template>
   <div class="license-container">
-    <h1>RegulationLicense.vue</h1>
    <h2>Regulation and License</h2>
   <p>Fintastical is the social investing platform that empowers users to grow their knowledge and wealth as part of a global community of investors. As a multi-asset broker with millions of users around the world, Fintastical is regulated in multiple jurisdictions.</p>
 
