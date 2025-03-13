@@ -4,16 +4,33 @@
   --purple-light: #DFDAEE;
   --purple-hover: #8F6AFF;
   --purple-gray: #76708E;
+  --background: #ffffff;
   --green: #7bc85f;
   --red: #c86380ff;
 
 }
 
-/* Estilos globales */
-body {
+/* RESET */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 0.625em;
+}
+
+body {
+  /* Modificar */
+  margin: 0;
+  font-size: 1.6rem;
   font-family: 'Ginto','Arial', sans-serif;
-  background-color: #eaeaea;
+  background-color: var(--background);
+}
+
+iframe {
+  border: 0;
 }
 
 a {
@@ -21,11 +38,15 @@ a {
   text-decoration: none;
 }
 
+ul {
+  list-style: none;
+}
+
 button {
   cursor: pointer;
 }
 
-/* Puedes incluir más reglas globales aquí */
+/* Font Styles */
 
 @font-face {
   font-family: 'Ginto';
@@ -45,12 +66,36 @@ button {
   font-style: bold;
   font-weight: bold;
 }
-p {
-  font-family: 'Ginto';
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('fonts/Nunito-Regular.woff2') format('woff2'),
+      url('fonts/Nunito-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
+
+@font-face {
+  font-family: 'InstrumentSans';
+  src: url('fonts/InstrumentSans-Regular.woff2') format('woff2'),
+      url('fonts/InstrumentSans-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+p {
+  font-family: 'InstrumentSans';
+}
+
 h1, h2, h3, h4, h5 {
   font-family: 'Ginto-Bold';
 }
+
 h1 {
-  color: var(--purple)
+  color: var(--purple);
+
 }
+

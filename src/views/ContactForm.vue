@@ -55,13 +55,16 @@
 
 
     <!-- Google Map -->
-    <iframe
+
+</div>
+<iframe
   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9921.580742178235!2d-0.10874529083371688!3d51.51766570000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b1f29d917ad%3A0xf3fa0498c14db63c!2s456%20Business%20Ave%2C%20London%2C%20UK%20EC1A%201BB!5e0!3m2!1sen!2sin!4v1678208291173!5m2!1sen!2sin"
   width="600"
   height="450"
   style="border:0;"
   allowfullscreen=""
-  loading="lazy">
+  loading="lazy"
+  class="map-container">
 </iframe>
 </div>
 

@@ -1,4 +1,8 @@
 <template>
+      <!-- Preloader -->
+      <div v-if="loading">
+      <Loader />
+    </div>
   <div class="key-container">
     <h1>Key Information Documents (KIDs)</h1>
     <p>The Key Information Document (KID) provides you with key information about a specific investment product. It is not marketing material. The information is required by law to help you understand the nature, risks, costs, potential gains and losses of this product and to help you compare it with other products.</p>
@@ -49,6 +53,9 @@
 
   </div>
 </template>
+<script setup>
+import Loader from "@/components/LoaderComp.vue"
+</script>
 
 <style scoped>
 .key-container {

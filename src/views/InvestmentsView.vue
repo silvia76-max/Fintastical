@@ -1,10 +1,7 @@
 <template>
   <div class="investments-view">
-    <h1>Gestión de Inversiones</h1>
-    <p>Aquí se listarán las inversiones del usuario.</p>
+    <h1>Inversiones</h1>
     <InvestmentSummary />
-    <PersonalCharts />
-
     <InvestmentList />
 
   </div>
@@ -13,9 +10,6 @@
 <script setup>
 import InvestmentList from '@/components/dashboard/investments/InvestmentList.vue';
 import InvestmentSummary from '@/components/dashboard/investments/InvestmentSummary.vue';
-import PersonalCharts from '@/components/charts/PersonalCharts.vue';
-
-
 
 </script>
 

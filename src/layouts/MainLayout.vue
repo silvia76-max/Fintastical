@@ -1,12 +1,12 @@
 <template>
-  <div>
+
     <HeaderLayout />
-    <SidebarLayout />
-    <router-view />
-    <!-- Aquí se cargarán las vistas hijas de MainLayout -->
+    <div>
+      <router-view />
+    </div>
     <FooterLayout />
-    <!-- El pie de página -->
-  </div>
+
+
 </template>
 
 <script>
@@ -21,3 +21,4 @@ export default {
   },
 }
 </script>
+

@@ -4,7 +4,7 @@
       "id": "Q9OQ0gu6",
       "name": "Juan Pérez",
       "email": "juan@example.com",
-      "password": "000000"
+      "password": "123456"
     },
     {
       "id": "y1OVxtgM",
@@ -47,12 +47,12 @@
       "purchase_date": "2025-03-09"
     },
     {
-      "id": "a2de",
+      "id": "8064",
       "user_id": "Q9OQ0gu6",
       "code": "AAPL",
       "shares": 2,
-      "purchase_price": 300,
-      "purchase_date": "2025-03-11"
+      "purchase_price": 200,
+      "purchase_date": "2025-03-10"
     },
     {
       "id": "bad2",
@@ -63,18 +63,12 @@
       "purchase_date": "2025-03-10"
     },
     {
-      "id": "c667",
-      "code": "AMZN",
-      "shares": 200,
-      "purchase_price": 30,
-      "purchase_date": "2025-03-11"
-    },
-    {
-      "id": "012b",
-      "code": "GOOGL",
-      "shares": 100,
-      "purchase_price": 20,
-      "purchase_date": "2025-03-11"
+      "id": "1d2b",
+      "user_id": "JlnDY64F",
+      "code": "AAPL",
+      "shares": 2,
+      "purchase_price": 333,
+      "purchase_date": "2025-03-12"
     }
   ],
   "alerts": [
@@ -103,19 +97,20 @@
       "created_at": "2025-03-05"
     },
     {
-      "id": "73a2",
+      "id": "4bb2",
+      "user_id": "Q9OQ0gu6",
+      "asset_code": "AAPL",
+      "type": "down",
+      "target_price": 300,
+      "created_at": "2025-03-11"
+    },
+    {
+      "id": "769f",
       "user_id": "Q9OQ0gu6",
       "asset_code": "AAPL",
       "type": "down",
       "target_price": 215,
       "created_at": "2025-03-06"
-    },
-    {
-      "id": "00e4",
-      "asset_code": "GOOGL",
-      "type": "up",
-      "target_price": 100,
-      "created_at": "2025-03-11"
     }
   ],
   "companies": [
@@ -262,6 +257,20 @@
       "email": "sda@jre.com",
       "subject": "jfds",
       "message": "sdsafsda"
+    },
+    {
+      "id": "1798",
+      "name": "fda",
+      "email": "gaizkamg@gmail.com",
+      "subject": "fjsda",
+      "message": ""
+    },
+    {
+      "id": "bcaf",
+      "name": "gaizka",
+      "email": "gaizka@gmail.com",
+      "subject": "el footer no funciona",
+      "message": "Le falta la pantalla de que se ha enviado el mensaje."
     }
   ],
   "newsletter": [

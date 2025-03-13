@@ -1,41 +1,50 @@
 <template>
-  <h1>Perfil del Usuario</h1>
   <div class="profile-view" v-if="isAuthenticated">
     <div class="profile-data">
-      <h1>Hola {{ user.name }}!</h1>
+      <p>Hello {{ user.name }}!</p>
       <ul>
-        <li>Email: {{ user.email }}</li>
-        <li>ID: {{ user.id }}</li>
+        <li>{{ user.email }}</li>
+        <li>User ID: {{ user.id }}</li>
       </ul>
+      <router-link to="/investments" class="investments-link">
+      My investments
+    </router-link>
     </div>
 
-    <h2>Actualizar Perfil</h2>
-    <form @submit.prevent="handleUpdateProfile">
+    <h2>Profile Update</h2>
+    <form class="update-form" @submit.prevent="handleUpdateProfile">
+      <label for="name">Name</label>
       <input
         type="text"
+        id="name"
         v-model="name"
         placeholder="Nombre"
         class="input-field"
       >
+      <label for="email">Email</label>
       <input
         type="email"
+        id="email"
         v-model="email"
         placeholder="Email"
         class="input-field"
       >
-      <input
-        type="password"
-        v-model="password"
-        placeholder="Contraseña"
-        class="input-field"
-      >
-      <button type="submit" class="update-btn">Actualizar</button>
+      <label for="password">Password</label>
+      <div class="password-field">
+        <input
+          :type="showPassword ? 'text' : 'password'"
+          v-model="password"
+          id="password"
+          placeholder="Contraseña"
+          class="input-field"
+        >
+        <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" @click="togglePasswordVisibility"></i>
+      </div>
+      <button type="submit" class="update-btn">Save Changes</button>
       <p v-if="error" class="error">{{ error }}</p>
     </form>
 
-    <router-link to="/investments" class="investments-link">
-      Gestionar mis inversiones →
-    </router-link>
+
   </div>
 
   <div v-else>
@@ -56,12 +65,13 @@ const name = ref('');
 const email = ref('');
 const password = ref('');
 const error = ref(null);
+const showPassword = ref(false);
 
 watch(user, (newUser) => {
   if (newUser) {
     name.value = newUser.name || '';
     email.value = newUser.email || '';
-    password.value = '';
+    password.value = newUser.password || '';
   }
 }, { immediate: true });
 
@@ -82,54 +92,116 @@ const handleUpdateProfile = async () => {
   const success = await auth.updateProfile(updatedUser);
   if (!success) error.value = 'Error al actualizar';
 };
+
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value;
+};
 </script>
 
 <style scoped>
 .profile-view {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 35vw;
+  margin: 5rem auto;
+
 }
 
 .profile-data {
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
+  position: absolute;
+  background: var(--purple-light);
+  padding: 3rem;
+  border-radius: 0px 20px 80px 0;
   margin-bottom: 30px;
+  top: 140px;
+  left: 0;
+  height: 33rem;
+  width: 23rem;
+  box-shadow: -7px 8px 19px -3px var(--purple-gray);
 }
 
-.investments-link {
-  display: block;
-  margin-top: 30px;
-  color: #0d6efd;
-  text-decoration: none;
-  font-weight: 500;
+.profile-data::before {
+  content: '\f007';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 100;
+  transform: translateX(-50%);
+  margin-right: 10px;
+  vertical-align: middle;
+  position: relative;
+  top: 0;
+  left: 50%;
+  font-size: 4rem;
+  color: inherit;
+  display: inline-flex;
+  border-radius: 56%;
+  border: 2px solid var(--purple-dark);
+  width: 8rem;
+  height: 8rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem ;
 }
 
-.investments-link:hover {
-  text-decoration: underline;
+.profile-data p{
+  font-size: 2rem;
 }
 
+.profile-data ul {
+  margin: 2rem 0;
+}
+
+.profile-data ul li {
+  font-family: "InstrumentSans", sans-serif;
+  font-size: 1.3rem;
+}
+
+label{
+  font-family: "Nunito", sans-serif;
+  font-size: 1.2rem;
+}
 .input-field {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ced4da;
-  border-radius: 4px;
+  border-radius: 1.5rem;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field .input-field {
+  padding-right: 40px;
+}
+
+.password-field i {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--purple-dark);
+}
+
+.update-form {
+  margin: 4rem 0;
 }
 
 .update-btn {
-  background: #0d6efd;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
+  background-color: var(--purple-dark);
+  color: var(--purple-light);
+  padding: 1rem 2rem;
+  border-radius: 5rem;
   cursor: pointer;
   transition: background 0.3s;
+  border: none;
+  width: 100%;
+  margin: 3rem 0;
 }
 
 .update-btn:hover {
-  background: #0b5ed7;
+  background-color:var(--purple);
+  color: var(--purple-light);
 }
 
 .error {
@@ -137,10 +209,24 @@ const handleUpdateProfile = async () => {
   margin-top: 10px;
 }
 
-.login-link {
-  color: #0d6efd;
-  text-decoration: underline;
-  cursor: pointer;
+.investments-link {
+  display: block;
+  margin-top: 30px;
+  background-color: var(--purple-light);
+  color: var(--purple);
+  border: 2px solid var(--purple);
+  padding: 1rem 2rem;
+  border-radius: 1rem 1rem 5rem 0;
+  transform: scale(1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.investments-link:hover {
+  background-color: var(--purple);
+  color: var(--purple-light);
+
+  border: 2px solid var(--purple);
+  transform: scale(1.1);
 }
 
 .no-alerts {
@@ -148,4 +234,5 @@ const handleUpdateProfile = async () => {
   text-align: center;
   margin-top: 15px;
 }
+
 </style>
