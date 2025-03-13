@@ -15,10 +15,10 @@
           <span class="stat-value">${{ investmentStore.currentTotalValue.toFixed(2) }}</span>
         </div>
         <div class="stat-item">
-          <span class="stat-label" :class="investmentStore.totalProfit >= 0 ? 'Profit' : 'Loss'">
+          <span class="stat-label" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
             {{ investmentStore.totalProfit >= 0 ? 'Total Profit' : 'Total Loss' }}
           </span>
-          <span class="stat-value" :class="investmentStore.totalProfit >= 0 ? 'Profit' : 'Loss'">
+          <span class="stat-value" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
             ${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}
           </span>
         </div>
@@ -27,7 +27,7 @@
 
     <!-- last investment section -->
     <div v-if="latestInvestment" class="summary-card latest-investment">
-      <h3>Last Investment</h3>
+      <h2>Last Investment</h2>
       <div class="latest-investment-details">
         <div class="company-info">
           <span class="company-code">{{ latestInvestment.code }}</span>
@@ -88,8 +88,9 @@ const latestProfit = computed(() => {
 })
 
 // computed property to determine the css class based on profit or loss
+// if profit, returns 'profit' (which will apply var(--green)); if loss, returns 'loss' (applies var(--red))
 const getLatestProfitClass = computed(() => {
-  return latestProfit.value >= 0 ? 'Profit' : 'Loss'
+  return latestProfit.value >= 0 ? 'profit' : 'loss'
 })
 
 // computed property for the profit indicator text
@@ -115,7 +116,7 @@ onMounted(async () => {
   investmentStore.updateStockValues()
 })
 </script>
-  
+
 <style scoped>
 .investment-summary {
   max-width: 1200px;
@@ -133,7 +134,7 @@ onMounted(async () => {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.user-info h2 {
+h2 {
   color: var(--purple);
   margin-bottom: 20px;
 }
@@ -149,7 +150,6 @@ onMounted(async () => {
   flex-direction: column;
   gap: 8px;
 }
-
 
 .stat-label {
   font-size: 2rem;
@@ -196,7 +196,6 @@ onMounted(async () => {
   color: var(--red);
 }
 
-
 .desktop-table {
   width: 100%;
   border-collapse: separate;
@@ -222,61 +221,5 @@ onMounted(async () => {
 
 .desktop-table tbody td {
   color: var(--purple-dark);
-}
-
-
-.responsive-table {
-  display: none;
-}
-
-@media (max-width: 1024px) {
-  .desktop-table {
-    display: none;
-  }
-  .responsive-table {
-    display: table;
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 16px;
-    border: 1px solid var(--purple-light);
-    border-radius: 16px;
-    overflow: hidden;
-    font-size: 2rem;
-  }
-  .responsive-table th,
-  .responsive-table td {
-    padding: 12px;
-    text-align: center;
-    font-size: 2rem;
-  }
-  
-  .responsive-table tbody tr:nth-child(1),
-  .responsive-table tbody tr:nth-child(3) {
-    background: var(--purple-light);
-    color: var(--purple);
-  }
-  
-  .responsive-table tbody tr:nth-child(2),
-  .responsive-table tbody tr:nth-child(4) {
-    color: var(--purple-dark);
-  }
-}
-
-@media (max-width: 768px) {
-  .responsive-table th,
-  .responsive-table td {
-    padding: 8px;
-  }
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .responsive-table th,
-  .responsive-table td {
-    padding: 6px;
-  }
 }
 </style>

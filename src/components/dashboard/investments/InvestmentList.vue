@@ -32,7 +32,7 @@
             </tr>
             <!-- row for price per share -->
             <tr>
-              <td class="detail-label">💲 Price/share</td>
+              <td class="detail-label">💲 Buy price</td>
               <td class="detail-value">${{ asset.purchase_price }}</td>
             </tr>
             <!-- row for total investment -->
@@ -47,7 +47,7 @@
             </tr>
             <!-- row for profit or loss -->
             <tr>
-              <td class="detail-label">📈 {{ getAssetProfit(asset) >= 0 ? 'Profit' : 'Loss' }}</td>
+              <td class="detail-label"> {{ getAssetProfit(asset) >= 0 ? '✅ Profit' : '🔻 Loss' }}</td>
               <td class="detail-value">${{ getAssetProfit(asset) }}</td>
             </tr>
           </tbody>
@@ -216,7 +216,7 @@ const handleAddAsset = async () => {
     showAssetForm.value = false
     newAsset.value = { code: '', shares: null, pricePerShare: null }
   } catch (err) {
-    console.error('error agregando activo:', err)
+    console.error('error adding asset:', err)
   }
 }
 
@@ -225,7 +225,7 @@ const handleDeleteAsset = async (id) => {
   try {
     await investmentStore.deleteAsset(id)
   } catch (err) {
-    console.error('error eliminando activo:', err)
+    console.error('error erasing asset:', err)
   }
 }
 
@@ -271,7 +271,7 @@ const fetchAlerts = async () => {
     await api.fetchData(`http://localhost:3000/alerts?user_id=${userId}`)
     alerts.value = api.data.value || []
   } catch (err) {
-    console.error('error cargando alertas:', err)
+    console.error('error loading alerts:', err)
   }
 }
 
@@ -351,6 +351,14 @@ onMounted(async () => {
 .date {
   color: #7f8c8d;
   font-size: 0.9em;
+}
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #95a5a6;
+  border: 2px dashed #bdc3c7;
+  border-radius: 15px;
+  margin: 30px 0;
 }
 /* asset details table styles */
 .asset-details-table {

@@ -198,8 +198,8 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  border: 2px solid #e2e8f0;
+  padding: 2rem 2rem;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   background: white;
   color: var(--purple);
@@ -229,6 +229,20 @@ onUnmounted(() => {
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+button {
+  background: var(--purple);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  /* flex: 1; */
+  font-size: 1.5rem;
+}
+button:hover {
+  background: var(--purple-hover);
+  color:white;
 }
 
 .charts-container__chart-header {
@@ -265,7 +279,6 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-/* Active state styles for price indicators */
 .charts-container__nav-button--active .charts-container__price-up {
   color: #86efac;
 }

@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const apikeys = ["51e94bef2fd14f9ea1fc59727093f250","2b69e37d583e41fda6a423e2b07cfdb2","61ec63e127f349babba338d5057eebc2"];
+const apikeys = ["3ed5521e315d4912bd2cd2b15031424e","c80e6da472ae4cfb97a6724283e183ef","61ec63e127f349babba338d5057eebc2"];
 let currentKeyIndex = 0;
 const filePath = 'BACKEND/apiStock.json';
 

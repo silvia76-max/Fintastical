@@ -15,7 +15,8 @@
               Check the updated value of your assets. Our platform keeps you informed of market fluctuations so you can react quickly.
             </p>
             <div class="hero__btn-wrap">
-              <a href="/auth/login" class="hero__btn scroll-link">Get Started</a>
+              <a href="/auth/login" class="hero__btn scroll-link"><router-link to="/auth/login" class="login">Get Started</router-link></a>
+              
             </div>
           </div>
           <div class="hero__image">
@@ -159,16 +160,14 @@ onMounted(async () => {
 
 
 .hero__btn {
-  margin-top: 2rem;
   background: var(--purple);
   color: white;
-  padding: 0.625rem 1.25rem;
+  padding: 10px 20px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  display: inline-block;
-  text-decoration: none;
-  transition: background 0.3s;
+  flex: 1;
+  font-size: 1.5rem;
 }
 
 .hero__btn:hover {
@@ -343,7 +342,7 @@ onMounted(async () => {
     font-size: 4rem;
   }
   .hero__btn {
-    font-size: 0.9rem;
+    font-size: 1.8rem;
     padding: 8px 16px;
   }
   .hero__app-image {
