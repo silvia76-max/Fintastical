@@ -117,6 +117,14 @@
       "shares": 3,
       "purchase_price": 300,
       "purchase_date": "2025-03-13"
+    },
+    {
+      "id": "1e62",
+      "user_id": "y1OVxtgM",
+      "code": "TSLA",
+      "shares": 3,
+      "purchase_price": 333,
+      "purchase_date": "2025-03-13"
     }
   ],
   "alerts": [

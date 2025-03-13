@@ -207,10 +207,10 @@ button:hover {
 
 .pagination button {
   padding: 1.1rem 3.4rem;
-  border: 1px solid #e0e0e0;
+  /* border: 1px solid #e0e0e0; */
   border-radius: 8px;
-  background-color: #ffffff;
-  color: #4a5568;
+  background-color: var(--purple);
+  color: white;
   font-size: 1.5rem;
   font-weight: 500;
   cursor: pointer;
@@ -219,7 +219,7 @@ button:hover {
 }
 
 .pagination button:hover:not(:disabled) {
-  background-color: var(--purple-light);
+  background-color: var(--purple-hover);
   border-color: var(--purple);
   transform: translateY(-2px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
@@ -237,7 +237,7 @@ button:hover {
 }
 
 .pagination p {
-  color: var(--purple-hover);
+  color: var(--purple-dark);
   font-size: 1.55rem;
   margin: 0 1rem;
   min-width: 100px;
@@ -245,7 +245,7 @@ button:hover {
 }
 
 .pagination p span {
-  color: #475569;
+  color: var(--purple);
   font-weight: 600;
   font-family: monospace;
 }
