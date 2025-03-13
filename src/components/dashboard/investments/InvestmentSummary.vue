@@ -15,10 +15,10 @@
           <span class="stat-value">${{ investmentStore.currentTotalValue.toFixed(2) }}</span>
         </div>
         <div class="stat-item">
-          <span class="stat-label" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+          <span class="stat-label" :class="investmentStore.totalProfit >= 0 ? 'Profit' : 'Loss'">
             {{ investmentStore.totalProfit >= 0 ? 'Total Profit' : 'Total Loss' }}
           </span>
-          <span class="stat-value" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+          <span class="stat-value" :class="investmentStore.totalProfit >= 0 ? 'Profit' : 'Loss'">
             ${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}
           </span>
         </div>
@@ -89,12 +89,12 @@ const latestProfit = computed(() => {
 
 // computed property to determine the css class based on profit or loss
 const getLatestProfitClass = computed(() => {
-  return latestProfit.value >= 0 ? 'profit' : 'loss'
+  return latestProfit.value >= 0 ? 'Profit' : 'Loss'
 })
 
 // computed property for the profit indicator text
 const getLatestProfitIndicator = computed(() => {
-  return latestProfit.value >= 0 ? '✅ profit:' : '🔻 loss:'
+  return latestProfit.value >= 0 ? '✅ Profit:' : '🔻 Loss:'
 })
 
 // function to format date using spanish locale
