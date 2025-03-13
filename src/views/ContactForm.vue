@@ -52,21 +52,18 @@
         <button @click="closePopup">Close</button>
       </div>
     </div>
-
-
-    <!-- Google Map -->
-
-</div>
-<iframe
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9921.580742178235!2d-0.10874529083371688!3d51.51766570000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b1f29d917ad%3A0xf3fa0498c14db63c!2s456%20Business%20Ave%2C%20London%2C%20UK%20EC1A%201BB!5e0!3m2!1sen!2sin!4v1678208291173!5m2!1sen!2sin"
-  width="600"
-  height="450"
-  style="border:0;"
-  allowfullscreen=""
-  loading="lazy"
-  class="map-container">
+  </div>
+  
+  <!-- Google Map -->
+  <iframe
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9921.580742178235!2d-0.10874529083371688!3d51.51766570000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b1f29d917ad%3A0xf3fa0498c14db63c!2s456%20Business%20Ave%2C%20London%2C%20UK%20EC1A%201BB!5e0!3m2!1sen!2sin!4v1678208291173!5m2!1sen!2sin"
+width="600"
+height="450"
+class="map-container"
+style="border:0;"
+allowfullscreen=""
+loading="lazy">
 </iframe>
-</div>
 
 <!-- Our Offices Section (Separate from Contact Form) -->
   <div class="our-offices">
@@ -202,14 +199,12 @@ onMounted(() => {
 
 <style scoped>
 .contact-container {
-  width: 90rem;
+  width: 50%;
   max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
   background-color: #f7f7f7;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 1rem;
+  padding: 20px;
 }
 
 h1 {
@@ -277,13 +272,24 @@ button.submit-btn:hover {
   border-radius: 4px;
 }
 
+.map-wrapper {
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-end; 
+}
+
 .map-container {
-  width: 100%;
-  height: 400px;
-  margin-top: 20px;
+  width: 50%; 
+  max-width: 600px;
+  height:400px; 
   border-radius: 8px;
   border: 1px solid #ddd;
+  margin-left: 70rem;
+  position: relative;
+  top: -50px; 
+
 }
+
 
 /* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
