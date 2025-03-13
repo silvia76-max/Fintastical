@@ -6,6 +6,9 @@
   <div class="login-container">
     <div class="img-login"></div>
     <div class="login-card">
+         <div class="logo-auth">
+          <router-link to="/"><img src="@/assets/img/Fintastical-logo-nav-DESKTOP.svg " alt="Fintastical Logo" class="logo-img" /></router-link>
+     </div>
       <h1>Welcome!</h1>
       <p>Login in to your account to continue</p>
       <form class="login-form" @submit.prevent="handleLogin">
@@ -41,6 +44,19 @@ const handleLogin = async () => {
 </script>
 
 <style scoped>
+.logo-auth {
+  width: 100%;
+  min-width: 30rem;
+  max-width: 50rem;
+  transform: translateX(-9%);
+}
+
+.logo-img{
+  width: 100%;
+  min-width: 30rem;
+  max-width: 50rem;
+}
+
 .login-container {
   display: flex;
   min-height: 100vh;

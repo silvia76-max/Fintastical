@@ -35,6 +35,12 @@
       "name": "Érika",
       "email": "erika@gmail.com",
       "password": "123456"
+    },
+    {
+      "id": "4ddf",
+      "name": "Gaizka",
+      "email": "gaizka@gmail.com",
+      "password": "gaizka"
     }
   ],
   "assets": [

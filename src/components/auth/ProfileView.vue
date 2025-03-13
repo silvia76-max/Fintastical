@@ -99,6 +99,9 @@ const togglePasswordVisibility = () => {
 </script>
 
 <style scoped>
+.logo {
+position: static !important;
+}
 
 .profile-view {
   max-width: 35vw;
@@ -236,10 +239,4 @@ label{
   margin-top: 15px;
 }
 
-</style>
-
-<style>
-.logo {
-position: static !important;
-}
 </style>

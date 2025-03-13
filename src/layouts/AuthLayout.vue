@@ -1,9 +1,5 @@
 <template>
-    <div class="header">
-        <div class="logo">
-          <router-link to="/"><img src="@/assets/img/Fintastical-logo-nav-DESKTOP.svg " alt="Fintastical Logo" class="logo" /></router-link>
-        </div>
-      </div>
+
     <div>
       <router-view />
     </div>
@@ -16,13 +12,7 @@ export default {
 }
 </script>
 <style scoped>
-.logo {
-  width: 100%;
-  min-width: 30rem;
-  max-width: 50rem;
-  position: absolute;
-  transform: translateX(-9%);
-}
+
 .header {
 display: flex;
 justify-content: center;
