@@ -250,4 +250,10 @@ label{
   margin-top: 15px;
 }
 
+@media (max-width: 1024px) {
+.profile-data {
+  display: none;
+}
+}
+
 </style>

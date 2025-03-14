@@ -355,6 +355,10 @@ onMounted(async () => {
 }
 
 @media (max-width: 1024px) {
+.profile-data {
+  display: none;
+}
+
   .desktop-table {
     display: none;
   }
@@ -396,6 +400,7 @@ onMounted(async () => {
   .stats-grid {
     grid-template-columns: 1fr;
   }
+
 }
 
 @media (max-width: 480px) {
