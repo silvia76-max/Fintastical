@@ -85,90 +85,114 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue' // Importing necessary Vue functions
 
+// Reactive variables for form data
 const form = ref({
   name: '',
   email: '',
   subject: '',
   message: ''
 })
-const fileContent = ref(null)
-const formSubmitted = ref(false)
-const showPopup = ref(false)
 
+const fileContent = ref(null) // Stores uploaded file content
+const formSubmitted = ref(false) // Tracks if form has been submitted
+const showPopup = ref(false) // Controls visibility of the success popup
+
+// Function to handle form submission
 const handleSubmit = async () => {
-  console.log('form submitted:', form.value)
-  formSubmitted.value = true
-  showPopup.value = true
+  console.log('Form submitted:', form.value) // Log submitted form data
+  formSubmitted.value = true // Mark form as submitted
+  showPopup.value = true // Show success popup
 
+  // Prepare form data
   const data = { ...form.value }
 
   try {
+    // Send form data to the local server
     const response = await fetch("http://localhost:3000/contactos", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      method: "POST", // Use POST method for submission
+      headers: { "Content-Type": "application/json" }, // Set content type to JSON
+      body: JSON.stringify(data) // Convert data to JSON
     })
+
+    // Parse server response
     const result = await response.json()
-    console.log("server response:", result)
+    console.log("Server response:", result) // Log server response
+
     if (response.ok) {
+      // If successful, reset form fields
       form.value = { name: '', email: '', subject: '', message: '' }
     } else {
-      alert("error sending message")
+      alert("Error sending message") // Show error alert if request fails
     }
   } catch (error) {
-    console.error("connection error:", error)
-    alert("connection error with server")
+    // Handle network errors
+    console.error("Connection error:", error)
+    alert("Connection error with server") // Show error alert
   }
 }
 
+// Function to handle file uploads
 const handleFileUpload = (event) => {
-  const file = event.target.files[0]
+  const file = event.target.files[0] // Get the first selected file
+
+  // Check if the file is a plain text file
   if (file && file.type === 'text/plain') {
-    const reader = new FileReader()
+    const reader = new FileReader() // Create a FileReader instance
     reader.onload = () => {
-      fileContent.value = reader.result
+      fileContent.value = reader.result // Store the file content
     }
-    reader.readAsText(file)
+    reader.readAsText(file) // Read file as text
   } else {
-    alert('only text files are allowed.')
+    alert('Only text files are allowed.') // Show alert for invalid file type
   }
 }
 
+// Function to close the success popup
 const closePopup = () => {
-  showPopup.value = false
-  fileContent.value = null
+  showPopup.value = false // Hide popup
+  fileContent.value = null // Clear uploaded file content
 }
 
+// Function to load Google Maps dynamically
 const loadGoogleMaps = () => {
+  // Check if Google Maps API is already loaded
   if (window.google && window.google.maps) {
-    initMap()
+    initMap() // Initialize map if already loaded
     return
   }
+
+  // Create a new script element to load Google Maps API
   const script = document.createElement('script')
   script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap`
-  script.async = true
-  script.defer = true
-  script.onload = () => { initMap() }
-  document.head.appendChild(script)
+  script.async = true // Load script asynchronously
+  script.defer = true // Defer execution
+  script.onload = () => { initMap() } // Initialize map after script loads
+  document.head.appendChild(script) // Append script to document head
 }
 
+// Function to initialize Google Map
 const initMap = () => {
-  const mapElement = document.getElementById('map')
+  const mapElement = document.getElementById('map') // Get the map container element
+
   if (mapElement) {
+    // Create a new Google Map instance
     const map = new window.google.maps.Map(mapElement, {
-      center: { lat: 40.7128, lng: -74.0060 },
-      zoom: 12
+      center: { lat: 40.7128, lng: -74.0060 }, // Set map center (New York City)
+      zoom: 12 // Set zoom level
     })
+
+    // Add a marker to the map
     new window.google.maps.Marker({
-      position: { lat: 40.7128, lng: -74.0060 },
-      map: map,
-      title: 'our location'
+      position: { lat: 40.7128, lng: -74.0060 }, // Marker position
+      map: map, // Attach marker to map
+      title: 'Our location' // Tooltip text
     })
   }
 }
 
+// Run loadGoogleMaps function when the component is mounted
 onMounted(() => {
   loadGoogleMaps()
 })
