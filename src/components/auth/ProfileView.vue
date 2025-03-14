@@ -1,5 +1,8 @@
 <template>
   <div class="profile-view" v-if="isAuthenticated">
+      <div class="logo-auth">
+        <router-link to="/"><img src="@/assets/img/Fintastical-logo-nav-DESKTOP.svg " alt="Fintastical Logo" class="logo-img" /></router-link>
+      </div>
     <div class="profile-data">
       <p>Hello {{ user.name }}!</p>
       <ul>
@@ -99,8 +102,16 @@ const togglePasswordVisibility = () => {
 </script>
 
 <style scoped>
-.logo {
-position: static !important;
+.logo-auth {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.logo-img{
+  width: 50%;
+  min-width: 30rem;
+  max-width: 50rem;
 }
 
 .profile-view {
@@ -119,7 +130,7 @@ position: static !important;
   left: 0;
   height: 33rem;
   width: 23rem;
-  box-shadow: -7px 8px 19px -3px var(--purple-gray);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .profile-data::before {
@@ -238,7 +249,5 @@ label{
   text-align: center;
   margin-top: 15px;
 }
-
-
 
 </style>

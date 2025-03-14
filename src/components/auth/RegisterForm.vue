@@ -124,4 +124,18 @@ const handleRegister = async () => {
   color: red;
   margin-top: 10px;
 }
+
+@media (max-width: 1024px) {
+  .register-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  padding: 0;
+  margin: 0;
+}
+.img-register {
+  display: none;
+}
+
+}
 </style>

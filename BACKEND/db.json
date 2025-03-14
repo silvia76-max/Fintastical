@@ -41,6 +41,12 @@
       "name": "Gaizka",
       "email": "gaizka@gmail.com",
       "password": "gaizka"
+    },
+    {
+      "id": "6a7a",
+      "name": "Agatha",
+      "email": "agatha@witch.com",
+      "password": "666"
     }
   ],
   "assets": [

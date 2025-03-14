@@ -1,65 +1,52 @@
 <template>
   <div class="investment-summary">
-    <h1>Hi, {{ userName }}</h1>
-
-     <!-- assets section header converted to a responsive table -->
-     <div class="summary-card user-info">
-      <h2>Overview</h2>
-      <!-- desktop version of stats table -->
-      <table class="desktop-stats-table">
-        <thead>
-          <tr>
-            <th>Total Investment</th>
-            <th>Current Value</th>
-            <th>
-              {{ investmentStore.totalProfit >= 0 ? 'Total Profit' : 'Total Loss' }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>${{ investmentStore.totalInvestment.toFixed(2) }}</td>
-            <td>${{ investmentStore.currentTotalValue.toFixed(2) }}</td>
-            <td :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
-              ${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- responsive version of stats table -->
-      <table class="responsive-stats-table">
-        <tbody>
-          <tr class="responsive-header">
-            <th>Total Investment</th>
-          </tr>
-          <tr class="responsive-data">
-            <td>${{ investmentStore.totalInvestment.toFixed(2) }}</td>
-          </tr>
-          <tr class="responsive-header">
-            <th>Current Value</th>
-          </tr>
-          <tr class="responsive-data">
-            <td>${{ investmentStore.currentTotalValue.toFixed(2) }}</td>
-          </tr>
-          <tr class="responsive-header" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
-            <th>{{ investmentStore.totalProfit >= 0 ? 'Total Profit' : 'Total Loss' }}</th>
-          </tr>
-          <tr class="responsive-data" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
-            <td>${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <h1>Overview</h1>
+    <div class="profile-data">
+      <p>Hello {{ user.name }}!</p>
+      <ul>
+        <li>{{ user.email }}</li>
+        <li>User ID: {{ user.id }}</li>
+      </ul>
+      <router-link to="/investments" class="investments-link">
+      My investments
+    </router-link>
+    <router-link to="auth/profile" class="investments-link-last">
+      My profile
+    </router-link>
     </div>
 
-    <!-- last investment section -->
+    <!-- User info -->
+    <div class="summary-card user-info">
+      <h2>Hi, {{ userName }}</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Total Investment</span>
+          <span class="stat-value">${{ investmentStore.totalInvestment.toFixed(2) }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Current Value</span>
+          <span class="stat-value">${{ investmentStore.currentTotalValue.toFixed(2) }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+            {{ investmentStore.totalProfit >= 0 ? 'Total Profit' : 'Total Loss' }}
+          </span>
+          <span class="stat-value" :class="investmentStore.totalProfit >= 0 ? 'profit' : 'loss'">
+            ${{ Math.abs(investmentStore.totalProfit).toFixed(2) }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Last investment section -->
     <div v-if="latestInvestment" class="summary-card latest-investment">
-      <h2>Last Investment</h2>
+      <h3>Last Investment</h3>
       <div class="latest-investment-details">
         <div class="company-info">
           <span class="company-code">{{ latestInvestment.code }}</span>
           <span class="company-name">{{ getCompanyName(latestInvestment.code) }}</span>
         </div>
-        <!-- desktop table version -->
+        <!-- Desktop Table -->
         <table class="desktop-table">
           <thead>
             <tr>
@@ -84,29 +71,30 @@
             </tr>
           </tbody>
         </table>
-        <!-- responsive table version -->
+
+        <!-- Responsive Table -->
         <table class="responsive-table">
           <tbody>
-            <!-- row 1: first 3 headers -->
-            <tr class="responsive-header">
+            <!-- Fila 1: primeros 3 encabezados -->
+            <tr>
               <th>Shares</th>
               <th>Price per Share</th>
               <th>Total Investment</th>
             </tr>
-            <!-- row 2: corresponding data -->
-            <tr class="responsive-data">
+            <!-- Fila 2: datos correspondientes -->
+            <tr>
               <td>{{ latestInvestment.shares }}</td>
               <td>${{ latestInvestment.purchase_price }}</td>
               <td>${{ (latestInvestment.shares * latestInvestment.purchase_price).toFixed(2) }}</td>
             </tr>
-            <!-- row 3: last 3 headers -->
-            <tr class="responsive-header">
+            <!-- Fila 3: siguientes 3 encabezados -->
+            <tr>
               <th>Date</th>
               <th>Current Value</th>
               <th>Status</th>
             </tr>
-            <!-- row 4: corresponding data -->
-            <tr class="responsive-data">
+            <!-- Fila 4: datos correspondientes -->
+            <tr>
               <td>{{ formatDate(latestInvestment.purchase_date) }}</td>
               <td>${{ investmentStore.stockValues[latestInvestment.code] || 'Loading...' }}</td>
               <td :class="getLatestProfitClass">
@@ -125,49 +113,37 @@ import { computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useInvestmentStore } from '@/stores/investments'
 
-const auth = useAuthStore()
-const investmentStore = useInvestmentStore()
+const auth = useAuthStore();
+const investmentStore = useInvestmentStore();
+const user = computed(() => auth.user);
 
-// computed property for username, defaulting to 'usuario' if undefined
-const userName = computed(() => auth.user?.name || 'usuario')
+const userName = computed(() => auth.user?.name || 'User')
 
-// computed property for the latest investment, taking the last element of the assets array
-const latestInvestment = computed(() => {
-  return investmentStore.assets.length > 0
-    ? investmentStore.assets[investmentStore.assets.length - 1]
-    : null
-})
+const latestInvestment = computed(() => investmentStore.latestInvestment)
 
-// computed property for calculating the profit or loss of the latest investment
 const latestProfit = computed(() => {
   if (!latestInvestment.value) return 0
   const currentPrice = investmentStore.stockValues[latestInvestment.value.code] || 0
   return (currentPrice - latestInvestment.value.purchase_price) * latestInvestment.value.shares
 })
 
-// computed property to determine the css class based on profit or loss
-// if profit, returns 'profit' (which applies var(--green)); if loss, returns 'loss' (applies var(--red))
 const getLatestProfitClass = computed(() => {
   return latestProfit.value >= 0 ? 'profit' : 'loss'
 })
 
-// computed property for the profit indicator text
 const getLatestProfitIndicator = computed(() => {
   return latestProfit.value >= 0 ? '✅ Profit:' : '🔻 Loss:'
 })
 
-// function to format date using spanish locale
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('es-ES')
 }
 
-// function to retrieve company name from the companies array in the store
 const getCompanyName = (code) => {
-  const company = investmentStore.companies.find(c => c.code === code)
+  const company = investmentStore.companies.find((c) => c.code === code)
   return company ? company.name : code
 }
 
-// on mounted, fetch assets, companies and update stock values to refresh the latest data
 onMounted(async () => {
   await investmentStore.fetchAssets()
   await investmentStore.fetchCompanies()
@@ -176,6 +152,55 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+
+.profile-data {
+  position: absolute;
+  background: var(--purple-light);
+  padding: 3rem;
+  border-radius: 0px 20px 80px 0;
+  margin-bottom: 30px;
+  top: 140px;
+  left: 0;
+  width: 23rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.profile-data::before {
+  content: '\f007';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 100;
+  transform: translateX(-50%);
+  margin-right: 10px;
+  vertical-align: middle;
+  position: relative;
+  top: 0;
+  left: 50%;
+  font-size: 4rem;
+  color: inherit;
+  display: inline-flex;
+  border-radius: 56%;
+  border: 2px solid var(--purple-dark);
+  width: 8rem;
+  height: 8rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem ;
+}
+
+.profile-data p{
+  font-size: 2rem;
+}
+
+.profile-data ul {
+  margin: 2rem 0;
+}
+
+.profile-data ul li {
+  font-family: "InstrumentSans", sans-serif;
+  font-size: 1.3rem;
+}
+
 .investment-summary {
   max-width: 1200px;
   margin: 0 auto;
@@ -185,6 +210,47 @@ onMounted(async () => {
   gap: 24px;
 }
 
+
+.investments-link {
+  display: block;
+  margin-top: 1rem;
+  background-color: var(--purple-light);
+  color: var(--purple);
+  border: 2px solid var(--purple);
+  padding: 1rem 2rem;
+  border-radius: 1rem 1rem 1rem 0;
+  transform: scale(1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.investments-link:hover {
+  background-color: var(--purple);
+  color: var(--purple-light);
+  border-radius: 1rem 1rem 1rem 0;
+  border: 2px solid var(--purple);
+  transform: scale(1.1);
+}
+
+.investments-link-last {
+  display: block;
+  margin-top: 1rem;
+  background-color: var(--purple-light);
+  color: var(--purple);
+  border: 2px solid var(--purple);
+  padding: 1rem 2rem;
+  border-radius: 1rem 1rem 5rem 0;
+  transform: scale(1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.investments-link-last:hover {
+  background-color: var(--purple);
+  color: var(--purple-light);
+  border-radius: 1rem 1rem 5rem 0;
+  border: 2px solid var(--purple);
+  transform: scale(1.1);
+}
+
 .summary-card {
   background: white;
   border-radius: 16px;
@@ -192,7 +258,7 @@ onMounted(async () => {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-h2 {
+.user-info h2 {
   color: var(--purple);
   margin-bottom: 20px;
 }
@@ -208,6 +274,7 @@ h2 {
   flex-direction: column;
   gap: 8px;
 }
+
 
 .stat-label {
   font-size: 2rem;
@@ -237,7 +304,7 @@ h2 {
 }
 
 .company-code {
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--purple);
 }
@@ -254,7 +321,7 @@ h2 {
   color: var(--red);
 }
 
-/* desktop table styles */
+
 .desktop-table {
   width: 100%;
   border-collapse: separate;
@@ -281,61 +348,43 @@ h2 {
 .desktop-table tbody td {
   color: var(--purple-dark);
 }
-.desktop-table tbody td.profit {
-  color: var(--green) !important;
-}
 
-.desktop-table tbody td.loss {
-  color: var(--red) !important;
-}
 
-/* responsive table styles */
 .responsive-table {
   display: none;
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-top: 16px;
-  border: 1px solid var(--purple-light);
-  border-radius: 16px;
-  overflow: hidden;
-  font-size: 2rem;
 }
 
-.responsive-table .responsive-header {
-  background: var(--purple-light);
-  color: var(--purple);
-}
-
-.responsive-table .responsive-header th {
-  padding: 12px;
-  text-align: center;
-  font-size: 2rem;
-}
-
-.responsive-table .responsive-data {
-  background: #ffffff;
-  color: var(--purple-dark);
-}
-
-.responsive-table .responsive-data td {
-  padding: 12px;
-  text-align: center;
-  font-size: 2rem;
-  border-bottom: 1px solid var(--purple-light);
-}
-
-.responsive-table .responsive-data tr:last-child td {
-  border-bottom: none;
-}
-
-/* media queries to switch tables */
 @media (max-width: 1024px) {
   .desktop-table {
     display: none;
   }
   .responsive-table {
     display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 16px;
+    border: 1px solid var(--purple-light);
+    border-radius: 16px;
+    overflow: hidden;
+    font-size: 2rem;
+  }
+  .responsive-table th,
+  .responsive-table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .responsive-table tbody tr:nth-child(1),
+  .responsive-table tbody tr:nth-child(3) {
+    background: var(--purple-light);
+    color: var(--purple);
+  }
+
+  .responsive-table tbody tr:nth-child(2),
+  .responsive-table tbody tr:nth-child(4) {
+    color: var(--purple-dark);
   }
 }
 
@@ -343,7 +392,6 @@ h2 {
   .responsive-table th,
   .responsive-table td {
     padding: 8px;
-    font-size: 2rem;
   }
   .stats-grid {
     grid-template-columns: 1fr;
@@ -354,101 +402,6 @@ h2 {
   .responsive-table th,
   .responsive-table td {
     padding: 6px;
-    font-size: 2rem;
   }
 }
-/* desktop version of stats table */
-.desktop-stats-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-top: 16px;
-  border: 1px solid var(--purple-light);
-  border-radius: 16px;
-  overflow: hidden;
-  font-size: 2rem;
-}
-
-.desktop-stats-table thead {
-  background: var(--purple-light);
-  color: var(--purple);
-}
-
-.desktop-stats-table th,
-.desktop-stats-table td {
-  padding: 12px;
-  text-align: center;
-  font-size: 2rem;
-}
-
-.desktop-stats-table tbody td {
-  color: var(--purple-dark);
-}
-
-/* responsive version of stats table */
-.responsive-stats-table {
-  display: none;
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-top: 16px;
-  border: 1px solid var(--purple-light);
-  border-radius: 16px;
-  overflow: hidden;
-  font-size: 2rem;
-}
-
-/* responsive version of stats table vertical spacing adjustments */
-.responsive-stats-table .responsive-header {
-  background: var(--purple-light);
-  color: var(--purple);
-  padding: 20px; /* increased vertical padding */
-  text-align: center;
-  font-size: 2rem;
-}
-
-.responsive-stats-table .responsive-data {
-  background: #ffffff;
-  color: var(--purple-dark);
-  padding: 20px; /* increased vertical padding */
-  text-align: center;
-  font-size: 2rem;
-  border-bottom: 1px solid var(--purple-light);
-}
-
-.responsive-stats-table .responsive-data tr:last-child td {
-  border-bottom: none;
-}
-.responsive-stats-table th,
-.responsive-stats-table td {
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-}
-
-
-@media (max-width: 1024px) {
-  .desktop-stats-table {
-    display: none;
-  }
-  .responsive-stats-table {
-    display: table;
-  }
-}
-
-@media (max-width: 768px) {
-  .responsive-stats-table .responsive-header,
-  .responsive-stats-table .responsive-data {
-    padding: 8px;
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .responsive-stats-table .responsive-header,
-  .responsive-stats-table .responsive-data {
-    padding: 6px;
-    font-size: 2rem;
-  }
-}
-
 </style>
