@@ -69,8 +69,9 @@ The name "Fintastical" is a creative combination of the words "fin" (referring t
 
 The chosen colors represent those typical of a unicorn, with vibrant colors and a golden tone that symbolizes the color of a coin.
 ![coloresfintastical](https://github.com/user-attachments/assets/f8f29e03-6603-4df6-a02c-ca2e0e2c76a0)
-<img width="649" alt="fin logo-center-normal" src="https://github.com/user-attachments/assets/e86ebf8f-26c8-4250-8759-771cc9c6abe1" />
-<img width="649" alt="fin-logo-center-lilaclaro" src="https://github.com/user-attachments/assets/c70c1ef1-5743-45ff-a289-47dd620cb2fc" />
+![logo-center-normal-fondo-blanco](https://github.com/user-attachments/assets/f81672bc-efb1-4f6a-8b93-f1694d09204f)
+![logo-center-fondo-negro](https://github.com/user-attachments/assets/c7bf81a1-1b0b-411b-8019-e7419d59907e)
+
 
 
 ## 🖥️ The Web Site:
