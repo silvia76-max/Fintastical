@@ -27,7 +27,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import Loader from '@/components/LoaderComp.vue';
-
+import '@/assets/css/main.css'
 const email = ref('')
 const password = ref('')
 const error = ref(false)

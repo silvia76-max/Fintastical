@@ -1,34 +1,45 @@
-import fs from 'fs';
+/* eslint-disable no-undef */
+import fetch from 'node-fetch';
 
-const apikeys = ["3ed5521e315d4912bd2cd2b15031424e","c80e6da472ae4cfb97a6724283e183ef","61ec63e127f349babba338d5057eebc2"];
+const apikeys = ["3ed5521e315d4912bd2cd2b15031424e", "c80e6da472ae4cfb97a6724283e183ef", "61ec63e127f349babba338d5057eebc2"];
 let currentKeyIndex = 0;
-const filePath = 'BACKEND/apiStock.json';
+
+// Usamos memoria en lugar de filesystem (requerido en Vercel)
+let cachedData = {};
 
 async function getDataFromApi() {
     try {
-        let apiKey = apikeys[currentKeyIndex];
-        let urlAPI = `https://api.twelvedata.com/time_series?symbol=AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD&interval=1h&apikey=${apiKey}`;
-        
+        const apiKey = apikeys[currentKeyIndex];
+        const urlAPI = `https://api.twelvedata.com/time_series?symbol=AAPL,META,TSLA,NVDA,AMZN,GOOGL,INTC,AMD&interval=1h&apikey=${apiKey}`;
+
         console.log(`Using API Key: ${apiKey}`);
         const response = await fetch(urlAPI);
         const data = await response.json();
 
-        // if the api returns error 429 (credit limit) we try the following API key
         if (data.code === 429) {
             console.warn("API limit reached - switching to the next API key...");
             currentKeyIndex = (currentKeyIndex + 1) % apikeys.length;
-            // call again with the next apikey
-            return getDataFromApi(); 
+            return getDataFromApi();
         }
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), { flag: 'w' });
-        console.log(`[${new Date().toISOString()}] Data saved in ${filePath}`);
+
+        // Actualizamos la caché en memoria
+        cachedData = data;
+        console.log(`[${new Date().toISOString()}] Data updated in memory`);
+
+        return data;
     } catch (error) {
         console.error(`Error getting data:`, error);
+        return cachedData; // Devuelve datos antiguos si hay error
     }
 }
 
-// run every 1 minute
-setInterval(getDataFromApi, 60000);
+// Exportamos para usar en server.js
+export async function getStockData() {
+    return cachedData;
+}
 
-// run immediately at startup
-getDataFromApi();
+// Ejecución periódica (cada 1 minuto)
+if (process.env.VERCEL !== '1') { // Solo si no estamos en Vercel
+    setInterval(getDataFromApi, 60000);
+    getDataFromApi(); // Ejecución inicial
+}

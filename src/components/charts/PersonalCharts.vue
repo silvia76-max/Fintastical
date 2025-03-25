@@ -3,8 +3,8 @@
     <h1>Charts</h1>
     <template v-if="uniqueAssetCodes.length > 0">
       <div class="charts-container__navigation-buttons">
-        <button 
-          v-for="code in uniqueAssetCodes" 
+        <button
+          v-for="code in uniqueAssetCodes"
           :key="code"
           :class="['charts-container__nav-button', { 'charts-container__nav-button--active': currentAsset === code }]"
           @click="setCurrentAsset(code)"
@@ -15,7 +15,7 @@
           </span>
         </button>
       </div>
-      
+
       <div v-if="currentAsset" class="charts-container__chart-card">
         <div class="charts-container__chart-header">
           <h3>{{ currentAsset }}</h3>
@@ -34,6 +34,7 @@
 import { onMounted, onUnmounted, ref, computed, watch } from 'vue';
 import { useInvestmentStore } from '@/stores/investments';
 import { useApi } from '@/composables/useApi';
+import '@/assets/css/main.css'
 
 const investmentStore = useInvestmentStore();
 const api = useApi();
@@ -70,11 +71,11 @@ const fetchPriceData = async (code) => {
   try {
     await api.fetchData(`http://localhost:8111/${code}`);
     const newPrice = api.data.value.values[0].close;
-    
+
     if (!priceHistory.value[code]) {
       priceHistory.value[code] = [];
     }
-    
+
     priceHistory.value[code].push({
       price: Number(parseFloat(newPrice).toFixed(2)),
       time: new Date()
@@ -94,7 +95,7 @@ const fetchPriceData = async (code) => {
 const getPriceChangeClass = (code) => {
   const history = priceHistory.value[code] || [];
   if (history.length < 2) return '';
-  
+
   const currentPrice = history[history.length - 1].price;
   const previousPrice = history[history.length - 2].price;
   return currentPrice >= previousPrice ? 'charts-container__price-up' : 'charts-container__price-down';

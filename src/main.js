@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -8,10 +8,12 @@ import '@/assets/css/main.css'
 import { SpeedInsights } from '@vercel/speed-insights/vue';
 
 
-if (process.env.NODE_ENV === 'test') {
+// eslint-disable-next-line no-unused-vars
+const scriptUrl = '/Fintastical/assets/index-DbwUrwoj.js'
 
-  window.__VUE_DEVTOOLS_GLOBAL_HOOK__ = undefined;
-}
+import '@/assets/css/main.css'
+
+
 
 const app = createApp(App)
 app.use(createPinia())
