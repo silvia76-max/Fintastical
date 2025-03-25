@@ -1,91 +1,97 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { useApi } from '@/composables/useApi.js'
+import { useApi } from '@/composables/useApi'
 
-// defineStore crea un "almacén" como cajón de datos global
 export const useAuthStore = defineStore('auth', () => {
-
   const user = ref(null)
   const isAuthenticated = ref(false)
+  const error = ref(null)
+  const loading = ref(false)
 
-  // Cargar el estado del usuario desde sessionStorage
-  const storedUser = sessionStorage.getItem('user')
-  if (storedUser) {
-    try {
-      const parsedUser = JSON.parse(storedUser)
-      if (parsedUser && parsedUser.id) {
-        user.value = parsedUser
+  // Cargar usuario desde localStorage al iniciar
+  const loadUser = () => {
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      try {
+        user.value = JSON.parse(storedUser)
         isAuthenticated.value = true
-      } else {
-        console.error('El usuario almacenado no tiene un ID válido:', parsedUser)
+      } catch (e) {
+        console.error('Error parsing user data:', e)
+        logout()
       }
-    } catch (error) {
-      console.error('Error al parsear el usuario almacenado:', error)
     }
   }
 
-  // Función para login
+  // Inicializar cargando el usuario
+  loadUser()
+
+  // Función de login mejorada
   async function login(email, password) {
+    loading.value = true
+    error.value = null
+
     try {
-      const { fetchData } = useApi() // Usamos el composable
+      const { postData } = useApi()
+      const response = await postData('/auth/login', { email, password })
 
-      const response = await fetchData(`http://localhost:3000/users?email=${email}`)
-      const userData = response.data[0]
-
-      if (userData && userData.password === password) {
-        user.value = userData
+      if (response.data && response.data.token) {
+        user.value = response.data.user
         isAuthenticated.value = true
-        sessionStorage.setItem('user', JSON.stringify(userData))
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('token', response.data.token)
         return true
       }
+
+      error.value = 'Credenciales inválidas'
       return false
-    } catch (error) {
-      console.error('Error de login:', error)
+    } catch (err) {
+      error.value = err.response?.data?.message || 'Error en el login'
       return false
+    } finally {
+      loading.value = false
     }
   }
 
-  // Función para registro
-  async function register(name, email, password) {
+  // Función de registro mejorada
+  async function register(userData) {
+    loading.value = true
     try {
-      const { fetchData, postData } = useApi()
-      const response = await fetchData(`http://localhost:3000/users?email=${email}`)
-      if (response.data.length > 0) {
-        throw new Error('El usuario ya existe')
+      const { postData } = useApi()
+      const response = await postData('/auth/register', userData)
+
+      if (response.data && response.data.token) {
+        user.value = response.data.user
+        isAuthenticated.value = true
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('token', response.data.token)
+        return true
       }
 
-      const newUser = { name, email, password }
-      await postData('http://localhost:3000/users', newUser)
-      user.value = newUser
-      isAuthenticated.value = true
-      sessionStorage.setItem('user', JSON.stringify(newUser))
-      return true
-    } catch (error) {
-      console.error('Error de registro:', error)
       return false
+    } catch (err) {
+      error.value = err.response?.data?.message || 'Error en el registro'
+      return false
+    } finally {
+      loading.value = false
     }
   }
 
-  // Función para actualizar perfil
-  async function updateProfile(updatedUser) {
-    try {
-      const { putData } = useApi()
-      const response = await putData(`http://localhost:3000/users/${updatedUser.id}`, updatedUser)
-      user.value = response.data
-      sessionStorage.setItem('user', JSON.stringify(response.data))
-      return true
-    } catch (error) {
-      console.error('Error al actualizar el perfil:', error)
-      return false
-    }
-  }
-
+  // Función de logout
   function logout() {
     user.value = null
     isAuthenticated.value = false
-    sessionStorage.removeItem('user')
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
   }
 
-  // Exponemos lo que queremos que otros usen
-  return { user, isAuthenticated, login, register, updateProfile, logout }
+  return {
+    user,
+    isAuthenticated,
+    error,
+    loading,
+    login,
+    register,
+    logout,
+    loadUser
+  }
 })
