@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "homepage": "https://silvia76-max.github.io/Fintastical",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "cy:open": "cypress open",
     "dev": "vite",
     "build": "vite build",
@@ -20,6 +23,7 @@
     "axios": "^1.8.1",
     "chart.js": "^3.9.1",
     "fontawesome": "^5.6.3",
+    "node-fetch": "^3.3.2",
     "pinia": "^3.0.1",
     "swiper": "^11.2.5",
     "vue": "^3.5.13",
@@ -41,5 +45,17 @@
     "prettier": "^3.5.1",
     "vite": "^6.1.0",
     "vite-plugin-vue-devtools": "^7.7.2"
+  },
+  "description": "Welcome to Fintastical, your personal investment wallet application. This README will guide you through the setup and usage of the project. <br> <img width=\"649\" alt=\"fin logo-center-normal\" src=\"https://github.com/user-attachments/assets/310bdcfe-1075-4a6f-96fa-a79c2559d7a4\" />",
+  "main": "cypress.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silvia76-max/Fintastical.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/silvia76-max/Fintastical/issues"
   }
 }

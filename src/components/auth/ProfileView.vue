@@ -59,6 +59,7 @@
 <script setup>
 import { ref, watch, computed } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import '@/assets/css/main.css'
 
 const auth = useAuthStore();
 const user = computed(() => auth.user);
