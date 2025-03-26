@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://backend-fintastical-silvia-rodriguezs-projects.vercel.app/",
   "scripts": {
-    "build": "vue-tsc && vite build",
+    "build": "vite build",
     "deploy": "vercel",
     "cy:open": "cypress open",
     "dev": "vite",
@@ -44,7 +44,8 @@
     "json-server": "^1.0.0-beta.3",
     "prettier": "^3.5.1",
     "vite": "^6.1.0",
-    "vite-plugin-vue-devtools": "^7.7.2"
+    "vite-plugin-vue-devtools": "^7.7.2",
+    "vue-tsc": "^2.2.8"
   },
   "description": "Welcome to Fintastical, your personal investment wallet application. This README will guide you through the setup and usage of the project. <br> <img width=\"649\" alt=\"fin logo-center-normal\" src=\"https://github.com/user-attachments/assets/310bdcfe-1075-4a6f-96fa-a79c2559d7a4\" />",
   "main": "cypress.config.js",

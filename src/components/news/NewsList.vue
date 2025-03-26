@@ -1,38 +1,42 @@
 <template>
-  <!-- preloader -->
-  <div v-if="loading">
-    <Loader />
-  </div>
   <div>
-    <h1>Latest Stock Market News</h1>
-    <div class="news-container">
-      <!-- now using "paginatedNews" -->
-      <div class="news-card" v-for="article in paginatedNews" :key="article.url">
-        <div class="news-image">
-          <img :src="article.urlToImage || backupImage" alt="News Image" @error="handleImageError" />
-        </div>
-        <div class="news-content">
-          <p class="date">{{ formatDate(article.publishedAt) }}</p>
-          <a :href="article.url" target="_blank">
-            <h2>{{ article.title }}</h2>
-          </a>
-          <p class="author"><strong>Author:</strong> {{ article.author || 'Unknown' }}</p>
-          <p class="article-description">{{ article.description }}</p>
-          <a :href="article.url" target="_blank">
-            <button v-if="article.content">Read Full Article</button>
-          </a>
+    <!-- preloader -->
+    <div v-if="loading">
+      <Loader />
+    </div>
+
+    <!-- main content -->
+    <div>
+      <h1>Latest Stock Market News</h1>
+      <div class="news-container">
+        <!-- now using "paginatedNews" -->
+        <div class="news-card" v-for="article in paginatedNews" :key="article.url">
+          <div class="news-image">
+            <img :src="article.urlToImage || backupImage" alt="News Image" @error="handleImageError" />
+          </div>
+          <div class="news-content">
+            <p class="date">{{ formatDate(article.publishedAt) }}</p>
+            <a :href="article.url" target="_blank">
+              <h2>{{ article.title }}</h2>
+            </a>
+            <p class="author"><strong>Author:</strong> {{ article.author || 'Unknown' }}</p>
+            <p class="article-description">{{ article.description }}</p>
+            <a :href="article.url" target="_blank">
+              <button v-if="article.content">Read Full Article</button>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- pagination controls -->
-    <div class="pagination">
-      <button @click="previousPage" :disabled="currentPage === 1">Previous</button>
-      <p>Page <span>{{ currentPage }}</span> of <span>{{ totalPages }}</span></p>
-      <button @click="nextPage" :disabled="currentPage >= totalPages">Next</button>
-    </div>
+      <!-- pagination controls -->
+      <div class="pagination">
+        <button @click="previousPage" :disabled="currentPage === 1">Previous</button>
+        <p>Page <span>{{ currentPage }}</span> of <span>{{ totalPages }}</span></p>
+        <button @click="nextPage" :disabled="currentPage >= totalPages">Next</button>
+      </div>
 
-    <p v-if="error" class="error">{{ error }}</p>
+      <p v-if="error" class="error">{{ error }}</p>
+    </div>
   </div>
 </template>
 

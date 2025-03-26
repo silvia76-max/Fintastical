@@ -1,15 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "backend/server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "frontend/dist/**/*",
-      "use": "@vercel/static"
-    }
-  ],
   "headers": [
     {
       "source": "/Fintastical/assets/(.*)\\.css",
@@ -47,22 +37,18 @@
       ]
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/stock/(.*)",
-      "dest": "/backend/server.js"
+      "source": "/api/stock/(.*)",
+      "destination": "/backend/server.js"
     },
     {
-      "src": "/api/db",
-      "dest": "/backend/server.js"
+      "source": "/api/db",
+      "destination": "/backend/server.js"
     },
     {
-      "src": "/Fintastical/(.*)",
-      "dest": "/frontend/dist/index.html"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/backend/server.js"
+      "source": "/Fintastical/(.*)",
+      "destination": "/frontend/dist/index.html"
     }
   ]
 }

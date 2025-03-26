@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // server.js
 
 import express from 'express'; // Importa express
@@ -8,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Habilitar CORS para permitir peticiones desde el frontend
-app.use(cors()); 
+app.use(cors());
 
 // Ruta para obtener los datos
 app.get('/api/stocks', async (req, res) => {
