@@ -25,7 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
   // Inicializar cargando el usuario
   loadUser()
 
-  // Función de login mejorada
+  // Función de login
   async function login(email, password) {
     loading.value = true
     error.value = null
@@ -34,42 +34,42 @@ export const useAuthStore = defineStore('auth', () => {
       const { postData } = useApi()
       const response = await postData('/auth/login', { email, password })
 
-      if (response.data && response.data.token) {
-        user.value = response.data.user
+      if (response.token) {
+        user.value = response.user
         isAuthenticated.value = true
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.user))
+        localStorage.setItem('token', response.token)
         return true
       }
 
       error.value = 'Credenciales inválidas'
       return false
     } catch (err) {
-      error.value = err.response?.data?.message || 'Error en el login'
+      error.value = err.message || 'Error en el login'
       return false
     } finally {
       loading.value = false
     }
   }
 
-  // Función de registro mejorada
+  // Función de registro
   async function register(userData) {
     loading.value = true
     try {
       const { postData } = useApi()
       const response = await postData('/auth/register', userData)
 
-      if (response.data && response.data.token) {
-        user.value = response.data.user
+      if (response.token) {
+        user.value = response.user
         isAuthenticated.value = true
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.user))
+        localStorage.setItem('token', response.token)
         return true
       }
 
       return false
     } catch (err) {
-      error.value = err.response?.data?.message || 'Error en el registro'
+      error.value = err.message || 'Error en el registro'
       return false
     } finally {
       loading.value = false

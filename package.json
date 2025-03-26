@@ -3,15 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-<<<<<<< HEAD
-  "homepage": "https://silvia76-max.github.io/fintastical",
+  "homepage": "https://backend-fintastical-silvia-rodriguezs-projects.vercel.app/",
   "scripts": {
     "build": "vue-tsc && vite build",
-=======
-  "homepage": "https://silvia76-max.github.io/Fintastical",
-  "scripts": {
-    "predeploy": "npm run build",
->>>>>>> 33a461a2ee53093caf1dc9a9046d2fca1c2bf2f6
     "deploy": "gh-pages -d dist",
     "cy:open": "cypress open",
     "dev": "vite",
@@ -56,12 +50,12 @@
   "main": "cypress.config.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/silvia76-max/Fintastical.git"
+    "url": "https://backend-fintastical-silvia-rodriguezs-projects.vercel.app/"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/silvia76-max/Fintastical/issues"
+    "url": "https://backend-fintastical-silvia-rodriguezs-projects.vercel.app/"
   }
 }
