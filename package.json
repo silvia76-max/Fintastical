@@ -6,7 +6,7 @@
   "homepage": "https://backend-fintastical-silvia-rodriguezs-projects.vercel.app/",
   "scripts": {
     "build": "vue-tsc && vite build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "vercel",
     "cy:open": "cypress open",
     "dev": "vite",
     "backend": "json-server --watch BACKEND/db.json --port 3000",
