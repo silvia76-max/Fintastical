@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { ref } from 'vue'
 import axios from 'axios'
 
